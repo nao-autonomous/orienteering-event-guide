@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "id": "horaisen-2024",
+      "name": "奥三河ほうらいせん2days2024",
+      "date": "2024-05-18/2024-05-19",
+      "file": "horaisen-2024.json",
+      "startlist": "horaisen-2024-startlist.json"
+    }
+  ]
+}

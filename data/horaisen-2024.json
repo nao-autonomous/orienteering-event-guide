@@ -1,0 +1,250 @@
+{
+  "event": {
+    "name": "奥三河ほうらいせん2days2024",
+    "date": "2024-05-18/2024-05-19",
+    "venue": "Day1: 設楽町立名倉中学校跡 / Day2: 駒ヶ原分校跡",
+    "venue_address": "Day1: 〒441-2432 愛知県北設楽郡設楽町東納庫字若林21 / Day2: 〒441-2431 愛知県北設楽郡設楽町西納庫駒ヶ原",
+    "organizer": "奥三河2days実行委員会",
+    "days": 2
+  },
+  "timeline": [
+    {
+      "time": "10:00",
+      "label": "駐車場開場",
+      "category": "access",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "10:30",
+      "label": "受付開始",
+      "category": "reception",
+      "details": "12:30まで。ゼッケン・駒ヶ原お買い物券・レンタルSIAC/コンパス（対象者）をピックアップ。安全ピンは各自用意",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "11:00",
+      "label": "弁当受取開始",
+      "category": "other",
+      "details": "弁当申込者限定。ペンションみるくの弁当。ゼッケン持参で受付へ",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "11:10",
+      "label": "バス輸送開始（1便）",
+      "category": "start",
+      "details": "1便 11:10発→11:30着（40席、スタート12:00〜12:15対象）。バス降り場→スタート地区は赤テープ誘導で徒歩約10分。乗車中は金属ピン付きシューズ禁止",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "11:30",
+      "label": "バス2便出発",
+      "category": "start",
+      "details": "2便 11:30発→11:50着（40席、スタート12:16〜12:30対象）",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "11:50",
+      "label": "バス3便出発",
+      "category": "start",
+      "details": "3便 11:50発→12:10着（28席、スタート12:31〜12:45対象）",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "12:00",
+      "label": "スタート開始",
+      "category": "start",
+      "details": "〜12:50。3分前にスタート枠入り→2分前にコントロール位置説明表取得→1分前に地図取り出し→合図でSIAC差込＆計時開始。競技時間90分。給水所なし",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "12:10",
+      "label": "バス4便出発",
+      "category": "start",
+      "details": "4便 12:10発→12:30着（40席、スタート12:46〜12:50対象）",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "14:20",
+      "label": "フィニッシュ閉鎖",
+      "category": "finish",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "14:30",
+      "label": "バス輸送終了・U20表彰式",
+      "category": "finish",
+      "details": "フィニッシュ→バス乗り場は赤テープ誘導で徒歩約5分。帰りのバスは13:10〜14:30に5便運行。必ず計算センターでSIAC読み取り＆レンタル返却",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "18:30",
+      "label": "交流会開始・表彰式",
+      "category": "ceremony",
+      "details": "二日間プラン限定。校庭にて。関谷醸造の日本酒・果樹酒、地元名産おつまみ。グループ予約席あり。夕食は各自準備の上参加。21時以降は静かに",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "20:30",
+      "label": "交流会終了",
+      "category": "ceremony",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "21:00",
+      "label": "消灯",
+      "category": "other",
+      "details": "静かにお過ごしください",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "09:00",
+      "label": "駐車場開場",
+      "category": "access",
+      "details": "第1駐車場（遠方の方・子連れ）: 会場まで徒歩1分。第2駐車場（近隣の方）: 会場まで徒歩7分",
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "09:30",
+      "label": "受付開始",
+      "category": "reception",
+      "details": "11:30まで。ゼッケン・駒ヶ原お買い物券・レンタルSIAC/コンパス（対象者）をピックアップ。安全ピンは各自用意",
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "11:00",
+      "label": "スタート開始・弁当受取",
+      "category": "start",
+      "details": "〜12:08。会場→スタート地区は赤テープ誘導で徒歩約40分。スタート地区で給水可。競技時間90分。給水所なし",
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "13:38",
+      "label": "フィニッシュ閉鎖",
+      "category": "finish",
+      "details": "フィニッシュ→会場は赤テープ誘導で徒歩約30分。必ず計算センターでSIAC読み取り＆レンタル返却",
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "14:00",
+      "label": "表彰式",
+      "category": "ceremony",
+      "details": "各クラス上位3名。表彰状＋関谷醸造ほうらいせん日本酒",
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:00",
+      "label": "駐車場閉場",
+      "category": "access",
+      "details": null,
+      "day": 2,
+      "applies_to": "all"
+    }
+  ],
+  "info": {
+    "access": "車でのご来場を推奨。公共交通機関なし。Day1会場: 設楽町立名倉中学校跡（〒441-2432 愛知県北設楽郡設楽町東納庫字若林21）。Day2会場: 駒ヶ原分校跡（〒441-2431 愛知県北設楽郡設楽町西納庫駒ヶ原）。Day2は第1駐車場（遠方・子連れ、会場まで徒歩1分）と第2駐車場（近隣、徒歩7分）あり。同乗者を降ろす際は一方通行にご協力を",
+    "reception": "Day1: 10:30〜12:30。Day2: 9:30〜11:30。ゼッケン・駒ヶ原お買い物券が入った袋をピックアップ。対象者にはレンタルSIAC・レンタルコンパスも入っている。安全ピンは各自用意",
+    "start_procedure": "Day1: バス＋徒歩で約30分（バス4便、バス降り場→スタート徒歩10分）。Day2: 徒歩約40分（赤テープ誘導）。スタート手順: 3分前にスタート枠入り→2分前に前の枠に進みコントロール位置説明表取得→1分前に前の枠に進み地図取り出し→合図でSIACをスタートステーションに差込み計時開始→赤白テープ誘導を辿りスタートフラッグを通過。遅刻出走やSIAC故障は運営スタッフに申し出。ライトソロ・グループはフリースタート方式",
+    "courses": [
+      {
+        "class": "チャレンジソロ",
+        "distance": "2.1km / 2.7km",
+        "climb": "120m / 150m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "チャレンジグループ",
+        "distance": "2.1km / 2.7km",
+        "climb": "120m / 150m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "ライトソロ",
+        "distance": "1.4km / 2.0km",
+        "climb": "60m / 70m",
+        "controls": null,
+        "first_start": "フリースタート"
+      },
+      {
+        "class": "ライトグループ",
+        "distance": "1.4km / 2.0km",
+        "climb": "60m / 70m",
+        "controls": null,
+        "first_start": "フリースタート"
+      },
+      {
+        "class": "M21A",
+        "distance": "3.4km / 4.1km",
+        "climb": "220m / 275m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "M35A",
+        "distance": "3.4km / 3.2km",
+        "climb": "220m / 200m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "M50A",
+        "distance": "2.2km / 2.9km",
+        "climb": "105m / 140m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "W21A",
+        "distance": "2.9km / 3.2km",
+        "climb": "150m / 200m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "W35A",
+        "distance": "2.9km / 2.9km",
+        "climb": "150m / 140m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      },
+      {
+        "class": "W50A",
+        "distance": "2.2km / 2.9km",
+        "climb": "105m / 140m",
+        "controls": null,
+        "first_start": "12:00 / 11:00"
+      }
+    ],
+    "equipment": "安全ピン（各自用意）。金属ピン付きシューズはバス乗車中は使用禁止。Day2テレインではマダニ対策を十分に。SIAC（タッチフリー）使用、マイSIカード使用可。レンタルSIAC・コンパスは対象者に配布あり",
+    "emergency": "問合せ先: 奥三河2days実行委員会（戸上）Email: okumikawa2days@colife.or.jp。保険に加入済み（保険適用範囲内の補償）",
+    "facilities": "Day1: 体育館内にトイレ・女子更衣室（雨天時は体育館開放）。水場は体育館横水道。キャンプは校庭（直火禁止、ゴミ持ち帰り）。Day2: トイレは男女各2基のみ（遊べる花屋さんのトイレ含む）。余裕を持って利用を",
+    "food_and_bath": "弁当: ペンションみるく（弁当申込者限定、11:00頃〜）。入浴: ペンションみるく、稲武温泉どんぐりの湯。駒ヶ原お買い物券で利用可: 遊べる花屋（カフェ、11:00-16:00、Day2会場から徒歩3分）、ばんじゃーる駒ヶ原（段戸牛ステーキ・ハンバーグ・ビーフカレー、11:00-15:00、Day2会場から徒歩6分）"
+  },
+  "start_walk_minutes": {
+    "day1": 30,
+    "day2": 40
+  },
+  "notes": "当日参加申込は不可。調査依頼は不可。地図販売なし。Day1地図: 面ノ木園地(南)、1:10000、5m等高線、ISOM2017-2、A4横。Day2地図: 岩岳、1:10000、5m等高線、ISOM2017-2、A4横。競技時間: 90分（両日共通）。給水所なし（スタート地区で給水可）。ミニ体験Maze-Oは中止。Day2テレインでマダニ確認あり"
+}

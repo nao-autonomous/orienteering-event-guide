@@ -1,0 +1,1379 @@
+{
+  "event_id": "horaisen-2024",
+  "generated_at": "2026-02-24T08:54:32.535423",
+  "participant_count": 170,
+  "classes": [
+    "M21A",
+    "M50A",
+    "M35A",
+    "チャレンジグループ",
+    "W35A",
+    "チャレンジソロ",
+    "W21A",
+    "W50A",
+    "ライトグループ",
+    "ライトソロ"
+  ],
+  "participants": [
+    {
+      "name": "北江 渓吾",
+      "furigana": "きたえ けいご",
+      "class": "M21A",
+      "club": "北江 渓吾",
+      "card_number": "",
+      "start_time": "12:00"
+    },
+    {
+      "name": "村上 巧",
+      "furigana": "むらかみ たくみ",
+      "class": "M21A",
+      "club": "村上 巧",
+      "card_number": "",
+      "start_time": "12:01"
+    },
+    {
+      "name": "前川 一彦",
+      "furigana": "まえがわ かずひこ",
+      "class": "M21A",
+      "club": "前川 一彦",
+      "card_number": "8056258",
+      "start_time": "12:02"
+    },
+    {
+      "name": "新 隆徳",
+      "furigana": "あらた たかのり",
+      "class": "M21A",
+      "club": "新 隆徳",
+      "card_number": "302710",
+      "start_time": "12:03"
+    },
+    {
+      "name": "鈴木 悟",
+      "furigana": "すずき さとる",
+      "class": "M21A",
+      "club": "鈴木 悟",
+      "card_number": "7654311",
+      "start_time": "12:04"
+    },
+    {
+      "name": "森 恒大",
+      "furigana": "もり こうだい",
+      "class": "M21A",
+      "club": "森 恒大",
+      "card_number": "",
+      "start_time": "12:05"
+    },
+    {
+      "name": "田淵 ヒカル",
+      "furigana": "たぶち ひかる",
+      "class": "M21A",
+      "club": "田淵 ヒカル",
+      "card_number": "",
+      "start_time": "12:06"
+    },
+    {
+      "name": "内藤 愉孝",
+      "furigana": "ないとう ゆたか",
+      "class": "M21A",
+      "club": "内藤 愉孝",
+      "card_number": "",
+      "start_time": "12:07"
+    },
+    {
+      "name": "長縄 知晃",
+      "furigana": "ながなわ ともあき",
+      "class": "M21A",
+      "club": "長縄 知晃",
+      "card_number": "2045576",
+      "start_time": "12:08"
+    },
+    {
+      "name": "川邊 太清",
+      "furigana": "かわべ たいせい",
+      "class": "M21A",
+      "club": "川邊 太清",
+      "card_number": "",
+      "start_time": "12:09"
+    },
+    {
+      "name": "松澤 俊行",
+      "furigana": "まつざわ としゆき",
+      "class": "M21A",
+      "club": "松澤 俊行",
+      "card_number": "",
+      "start_time": "12:10"
+    },
+    {
+      "name": "羽柴 公貴",
+      "furigana": "はしば きみたか",
+      "class": "M21A",
+      "club": "羽柴 公貴",
+      "card_number": "",
+      "start_time": "12:11"
+    },
+    {
+      "name": "谷川 友太",
+      "furigana": "たにかわ ゆうた",
+      "class": "M21A",
+      "club": "谷川 友太",
+      "card_number": "8506452",
+      "start_time": "12:12"
+    },
+    {
+      "name": "谷川 友太",
+      "furigana": "たにかわ ゆうた",
+      "class": "M21A",
+      "club": "谷川 友太",
+      "card_number": "8506452",
+      "start_time": "12:13"
+    },
+    {
+      "name": "内潟 風翔",
+      "furigana": "うちかた かざと",
+      "class": "M21A",
+      "club": "内潟 風翔",
+      "card_number": "8110329",
+      "start_time": "12:14"
+    },
+    {
+      "name": "内潟 風翔",
+      "furigana": "うちかた かざと",
+      "class": "M21A",
+      "club": "内潟 風翔",
+      "card_number": "8110329",
+      "start_time": "12:15"
+    },
+    {
+      "name": "富所 康広",
+      "furigana": "とどころ やすひろ",
+      "class": "M21A",
+      "club": "富所 康広",
+      "card_number": "",
+      "start_time": "12:16"
+    },
+    {
+      "name": "徳力 雅哉",
+      "furigana": "とくりき まさや",
+      "class": "M21A",
+      "club": "徳力 雅哉",
+      "card_number": "",
+      "start_time": "12:17"
+    },
+    {
+      "name": "中村 昂陽",
+      "furigana": "なかむら こうよう",
+      "class": "M21A",
+      "club": "中村 昂陽",
+      "card_number": "",
+      "start_time": "12:18"
+    },
+    {
+      "name": "岩崎 壮馬",
+      "furigana": "いわさき そうま",
+      "class": "M21A",
+      "club": "岩崎 壮馬",
+      "card_number": "",
+      "start_time": "12:19"
+    },
+    {
+      "name": "柴田 日向",
+      "furigana": "しばた ひゅうが",
+      "class": "M21A",
+      "club": "柴田 日向",
+      "card_number": "",
+      "start_time": "12:20"
+    },
+    {
+      "name": "舘 直輝",
+      "furigana": "たち なおき",
+      "class": "M21A",
+      "club": "舘 直輝",
+      "card_number": "",
+      "start_time": "12:21"
+    },
+    {
+      "name": "鈴木 寛人",
+      "furigana": "すずき ひろと",
+      "class": "M21A",
+      "club": "鈴木 寛人",
+      "card_number": "",
+      "start_time": "12:22"
+    },
+    {
+      "name": "市川 礼人",
+      "furigana": "いちかわ らいと",
+      "class": "M21A",
+      "club": "市川 礼人",
+      "card_number": "",
+      "start_time": "12:23"
+    },
+    {
+      "name": "小野 旭陽",
+      "furigana": "おの あさひ",
+      "class": "M21A",
+      "club": "小野 旭陽",
+      "card_number": "",
+      "start_time": "12:24"
+    },
+    {
+      "name": "島田 智也",
+      "furigana": "しまだ ともや",
+      "class": "M21A",
+      "club": "島田 智也",
+      "card_number": "",
+      "start_time": "12:25"
+    },
+    {
+      "name": "荒川 恭誠",
+      "furigana": "あらかわ やすなり",
+      "class": "M21A",
+      "club": "荒川 恭誠",
+      "card_number": "",
+      "start_time": "12:26"
+    },
+    {
+      "name": "勝野 智喜",
+      "furigana": "かつの ともき",
+      "class": "M21A",
+      "club": "勝野 智喜",
+      "card_number": "",
+      "start_time": "12:27"
+    },
+    {
+      "name": "井上 太陽",
+      "furigana": "いのうえ たいよう",
+      "class": "M21A",
+      "club": "井上 太陽",
+      "card_number": "",
+      "start_time": "12:28"
+    },
+    {
+      "name": "井崎 竜之介",
+      "furigana": "いざき りゅうのすけ",
+      "class": "M21A",
+      "club": "井崎 竜之介",
+      "card_number": "",
+      "start_time": "12:29"
+    },
+    {
+      "name": "毛利 智紀",
+      "furigana": "もうり ともき",
+      "class": "M21A",
+      "club": "毛利 智紀",
+      "card_number": "",
+      "start_time": "12:30"
+    },
+    {
+      "name": "竹田 涼馬",
+      "furigana": "たけだ りょうま",
+      "class": "M21A",
+      "club": "竹田 涼馬",
+      "card_number": "",
+      "start_time": "12:31"
+    },
+    {
+      "name": "早川 正真",
+      "furigana": "はやかわ しょうま",
+      "class": "M21A",
+      "club": "早川 正真",
+      "card_number": "",
+      "start_time": "12:32"
+    },
+    {
+      "name": "杉中 海斗",
+      "furigana": "すぎなか かいと",
+      "class": "M21A",
+      "club": "杉中 海斗",
+      "card_number": "",
+      "start_time": "12:33"
+    },
+    {
+      "name": "屋敷 龍吾",
+      "furigana": "やしき りゅうご",
+      "class": "M21A",
+      "club": "屋敷 龍吾",
+      "card_number": "",
+      "start_time": "12:34"
+    },
+    {
+      "name": "田中 優",
+      "furigana": "たなか ゆう",
+      "class": "M21A",
+      "club": "田中 優",
+      "card_number": "",
+      "start_time": "12:35"
+    },
+    {
+      "name": "角田 和貴",
+      "furigana": "つのだ かずき",
+      "class": "M21A",
+      "club": "角田 和貴",
+      "card_number": "",
+      "start_time": "12:36"
+    },
+    {
+      "name": "濱口 祐至",
+      "furigana": "はまぐち ゆうじ",
+      "class": "M21A",
+      "club": "濱口 祐至",
+      "card_number": "",
+      "start_time": "12:37"
+    },
+    {
+      "name": "植田 博貴",
+      "furigana": "うえだ ひろき",
+      "class": "M21A",
+      "club": "植田 博貴",
+      "card_number": "",
+      "start_time": "12:38"
+    },
+    {
+      "name": "中嶋 伸哉",
+      "furigana": "なかじま しんや",
+      "class": "M21A",
+      "club": "中嶋 伸哉",
+      "card_number": "",
+      "start_time": "12:39"
+    },
+    {
+      "name": "清住 尚平",
+      "furigana": "きよずみ しょうへい",
+      "class": "M21A",
+      "club": "清住 尚平",
+      "card_number": "",
+      "start_time": "12:40"
+    },
+    {
+      "name": "玉木 林哉",
+      "furigana": "たまき りんや",
+      "class": "M21A",
+      "club": "玉木 林哉",
+      "card_number": "",
+      "start_time": "12:41"
+    },
+    {
+      "name": "中谷 太陽",
+      "furigana": "なかや たいよう",
+      "class": "M21A",
+      "club": "中谷 太陽",
+      "card_number": "",
+      "start_time": "12:42"
+    },
+    {
+      "name": "竹山 悠斗",
+      "furigana": "たけやま はると",
+      "class": "M21A",
+      "club": "竹山 悠斗",
+      "card_number": "",
+      "start_time": "12:43"
+    },
+    {
+      "name": "加用 直也",
+      "furigana": "かよう なおや",
+      "class": "M21A",
+      "club": "加用 直也",
+      "card_number": "",
+      "start_time": "12:44"
+    },
+    {
+      "name": "大道 海斗",
+      "furigana": "だいどう かいと",
+      "class": "M21A",
+      "club": "大道 海斗",
+      "card_number": "",
+      "start_time": "12:45"
+    },
+    {
+      "name": "前田 裕太",
+      "furigana": "まえだ ゆうた",
+      "class": "M21A",
+      "club": "前田 裕太",
+      "card_number": "",
+      "start_time": "12:46"
+    },
+    {
+      "name": "佐藤 遼平",
+      "furigana": "さとう りょうへい",
+      "class": "M21A",
+      "club": "佐藤 遼平",
+      "card_number": "",
+      "start_time": "12:47"
+    },
+    {
+      "name": "川出 晃大",
+      "furigana": "かわで あきひろ",
+      "class": "M21A",
+      "club": "川出 晃大",
+      "card_number": "",
+      "start_time": "12:48"
+    },
+    {
+      "name": "田沼 凜",
+      "furigana": "たぬま りん",
+      "class": "M21A",
+      "club": "田沼 凜",
+      "card_number": "",
+      "start_time": "12:49"
+    },
+    {
+      "name": "和田 佳丈",
+      "furigana": "わだ よしたけ",
+      "class": "M21A",
+      "club": "和田 佳丈",
+      "card_number": "",
+      "start_time": "12:50"
+    },
+    {
+      "name": "楊 泓志",
+      "furigana": "よう こうし",
+      "class": "M21A",
+      "club": "楊 泓志",
+      "card_number": "",
+      "start_time": "12:51"
+    },
+    {
+      "name": "池田 俊彦",
+      "furigana": "いけだ としひこ",
+      "class": "M21A",
+      "club": "池田 俊彦",
+      "card_number": "",
+      "start_time": "12:52"
+    },
+    {
+      "name": "浅川 竣風",
+      "furigana": "あさかわ はやて",
+      "class": "M21A",
+      "club": "浅川 竣風",
+      "card_number": "",
+      "start_time": "12:53"
+    },
+    {
+      "name": "福田 雅秀",
+      "furigana": "ふくだ まさひで",
+      "class": "M21A",
+      "club": "福田 雅秀",
+      "card_number": "7208338",
+      "start_time": "12:54"
+    },
+    {
+      "name": "福田 雅秀",
+      "furigana": "ふくだ まさひで",
+      "class": "M21A",
+      "club": "福田 雅秀",
+      "card_number": "7208338",
+      "start_time": "12:55"
+    },
+    {
+      "name": "対馬 立也",
+      "furigana": "つしま たつや",
+      "class": "M21A",
+      "club": "対馬 立也",
+      "card_number": "",
+      "start_time": "12:56"
+    },
+    {
+      "name": "伊藤 頌太",
+      "furigana": "いとう しょうた",
+      "class": "M21A",
+      "club": "伊藤 頌太",
+      "card_number": "",
+      "start_time": "12:57"
+    },
+    {
+      "name": "藤井 一樹",
+      "furigana": "ふじい かずき",
+      "class": "M21A",
+      "club": "藤井 一樹",
+      "card_number": "",
+      "start_time": "12:58"
+    },
+    {
+      "name": "白石 勝彦",
+      "furigana": "しらいし かつひこ",
+      "class": "M21A",
+      "club": "白石 勝彦",
+      "card_number": "",
+      "start_time": "12:59"
+    },
+    {
+      "name": "菅谷 裕志",
+      "furigana": "すがや ひろし",
+      "class": "M21A",
+      "club": "菅谷 裕志",
+      "card_number": "8506457",
+      "start_time": "13:00"
+    },
+    {
+      "name": "平岩 伊武季",
+      "furigana": "ひらいわ いぶき",
+      "class": "M21A",
+      "club": "平岩 伊武季",
+      "card_number": "8110431",
+      "start_time": "13:01"
+    },
+    {
+      "name": "菅波 崇志",
+      "furigana": "すがなみ たかし",
+      "class": "M21A",
+      "club": "菅波 崇志",
+      "card_number": "8013219",
+      "start_time": "13:02"
+    },
+    {
+      "name": "宮岡 竜也",
+      "furigana": "みやおか たつや",
+      "class": "M21A",
+      "club": "宮岡 竜也",
+      "card_number": "",
+      "start_time": "13:03"
+    },
+    {
+      "name": "小俣 敦宏",
+      "furigana": "こまた あつひろ",
+      "class": "M21A",
+      "club": "小俣 敦宏",
+      "card_number": "",
+      "start_time": "13:04"
+    },
+    {
+      "name": "三浦 光広",
+      "furigana": "みうら みつひろ",
+      "class": "M21A",
+      "club": "三浦 光広",
+      "card_number": "",
+      "start_time": "13:05"
+    },
+    {
+      "name": "森下 晃成",
+      "furigana": "もりした あきなり",
+      "class": "M21A",
+      "club": "森下 晃成",
+      "card_number": "",
+      "start_time": "13:06"
+    },
+    {
+      "name": "神谷 篤大",
+      "furigana": "かみや あつひろ",
+      "class": "M21A",
+      "club": "神谷 篤大",
+      "card_number": "",
+      "start_time": "13:07"
+    },
+    {
+      "name": "五十嵐 則仁",
+      "furigana": "いがらし のりひと",
+      "class": "M50A",
+      "club": "五十嵐 則仁",
+      "card_number": "2033827",
+      "start_time": "13:10"
+    },
+    {
+      "name": "角岡 明",
+      "furigana": "つのおか あきら",
+      "class": "M50A",
+      "club": "角岡 明",
+      "card_number": "",
+      "start_time": "13:11"
+    },
+    {
+      "name": "角岡 明",
+      "furigana": "つのおか あきら",
+      "class": "M50A",
+      "club": "角岡 明",
+      "card_number": "",
+      "start_time": "13:12"
+    },
+    {
+      "name": "鵜飼 須彦",
+      "furigana": "うかい よしひこ",
+      "class": "M50A",
+      "club": "鵜飼 須彦",
+      "card_number": "8400929",
+      "start_time": "13:13"
+    },
+    {
+      "name": "鵜飼 須彦",
+      "furigana": "うかい よしひこ",
+      "class": "M50A",
+      "club": "鵜飼 須彦",
+      "card_number": "8400929",
+      "start_time": "13:14"
+    },
+    {
+      "name": "鹿野 勘次",
+      "furigana": "しかの かんじ",
+      "class": "M50A",
+      "club": "鹿野 勘次",
+      "card_number": "8269181",
+      "start_time": "13:15"
+    },
+    {
+      "name": "佐藤 政明",
+      "furigana": "さとう まさあき",
+      "class": "M50A",
+      "club": "佐藤 政明",
+      "card_number": "1452301",
+      "start_time": "13:16"
+    },
+    {
+      "name": "佐藤 政明",
+      "furigana": "さとう まさあき",
+      "class": "M50A",
+      "club": "佐藤 政明",
+      "card_number": "1452301",
+      "start_time": "13:17"
+    },
+    {
+      "name": "小林 二郎",
+      "furigana": "こばやし じろう",
+      "class": "M50A",
+      "club": "小林 二郎",
+      "card_number": "1003933",
+      "start_time": "13:18"
+    },
+    {
+      "name": "橋本 八州馬",
+      "furigana": "はしもと やすま",
+      "class": "M50A",
+      "club": "橋本 八州馬",
+      "card_number": "8268908",
+      "start_time": "13:19"
+    },
+    {
+      "name": "緒方 賢史",
+      "furigana": "おがた けんし",
+      "class": "M50A",
+      "club": "緒方 賢史",
+      "card_number": "",
+      "start_time": "13:20"
+    },
+    {
+      "name": "稲田 旬哉",
+      "furigana": "いなだ じゅんや",
+      "class": "M50A",
+      "club": "稲田 旬哉",
+      "card_number": "8000913",
+      "start_time": "13:21"
+    },
+    {
+      "name": "滝 正晴",
+      "furigana": "たき まさはる",
+      "class": "M50A",
+      "club": "滝 正晴",
+      "card_number": "1420302",
+      "start_time": "13:22"
+    },
+    {
+      "name": "本間 晃",
+      "furigana": "ほんま あきら",
+      "class": "M50A",
+      "club": "本間 晃",
+      "card_number": "8660205",
+      "start_time": "13:23"
+    },
+    {
+      "name": "末久 哲也",
+      "furigana": "すえひさ てつや",
+      "class": "M50A",
+      "club": "末久 哲也",
+      "card_number": "",
+      "start_time": "13:24"
+    },
+    {
+      "name": "工藤 浩司",
+      "furigana": "くどう こうじ",
+      "class": "M50A",
+      "club": "工藤 浩司",
+      "card_number": "",
+      "start_time": "13:25"
+    },
+    {
+      "name": "小野 盛光",
+      "furigana": "おの もりみつ",
+      "class": "M50A",
+      "club": "小野 盛光",
+      "card_number": "",
+      "start_time": "13:26"
+    },
+    {
+      "name": "加藤 以千弘",
+      "furigana": "かとう いちひろ",
+      "class": "M50A",
+      "club": "加藤 以千弘",
+      "card_number": "",
+      "start_time": "13:27"
+    },
+    {
+      "name": "井口 良範",
+      "furigana": "いのくち よしのり",
+      "class": "M50A",
+      "club": "井口 良範",
+      "card_number": "8185484",
+      "start_time": "13:28"
+    },
+    {
+      "name": "井口 良範",
+      "furigana": "いのくち よしのり",
+      "class": "M50A",
+      "club": "井口 良範",
+      "card_number": "8185484",
+      "start_time": "13:29"
+    },
+    {
+      "name": "宮崎 敦司",
+      "furigana": "みやざき あつし",
+      "class": "M50A",
+      "club": "宮崎 敦司",
+      "card_number": "7205582",
+      "start_time": "13:30"
+    },
+    {
+      "name": "宮崎 敦司",
+      "furigana": "みやざき あつし",
+      "class": "M50A",
+      "club": "宮崎 敦司",
+      "card_number": "7205582",
+      "start_time": "13:31"
+    },
+    {
+      "name": "大場 隆夫",
+      "furigana": "おおば たかお",
+      "class": "M50A",
+      "club": "大場 隆夫",
+      "card_number": "8111649",
+      "start_time": "13:32"
+    },
+    {
+      "name": "半田 太郎",
+      "furigana": "はんだ たろう",
+      "class": "M50A",
+      "club": "半田 太郎",
+      "card_number": "",
+      "start_time": "13:33"
+    },
+    {
+      "name": "吉田 勉",
+      "furigana": "よしだ つとむ",
+      "class": "M50A",
+      "club": "吉田 勉",
+      "card_number": "",
+      "start_time": "13:34"
+    },
+    {
+      "name": "佐賀 寛",
+      "furigana": "さが ひろし",
+      "class": "M50A",
+      "club": "佐賀 寛",
+      "card_number": "",
+      "start_time": "13:35"
+    },
+    {
+      "name": "佐賀 寛",
+      "furigana": "さが ひろし",
+      "class": "M50A",
+      "club": "佐賀 寛",
+      "card_number": "",
+      "start_time": "13:36"
+    },
+    {
+      "name": "町井 稔",
+      "furigana": "まちい みのる",
+      "class": "M50A",
+      "club": "町井 稔",
+      "card_number": "7205580",
+      "start_time": "13:37"
+    },
+    {
+      "name": "町井 稔",
+      "furigana": "まちい みのる",
+      "class": "M50A",
+      "club": "町井 稔",
+      "card_number": "7205580",
+      "start_time": "13:38"
+    },
+    {
+      "name": "松下 竜二",
+      "furigana": "まつした りゅうじ",
+      "class": "M50A",
+      "club": "松下 竜二",
+      "card_number": "",
+      "start_time": "13:39"
+    },
+    {
+      "name": "小林 亜紀夫",
+      "furigana": "こばやし あきお",
+      "class": "M50A",
+      "club": "小林 亜紀夫",
+      "card_number": "",
+      "start_time": "13:40"
+    },
+    {
+      "name": "小林 亜紀夫",
+      "furigana": "こばやし あきお",
+      "class": "M50A",
+      "club": "小林 亜紀夫",
+      "card_number": "",
+      "start_time": "13:41"
+    },
+    {
+      "name": "寺嶋 一樹",
+      "furigana": "てらしま かずき",
+      "class": "M50A",
+      "club": "寺嶋 一樹",
+      "card_number": "8670004",
+      "start_time": "13:42"
+    },
+    {
+      "name": "吉野 信治",
+      "furigana": "よしの しんじ",
+      "class": "M50A",
+      "club": "吉野 信治",
+      "card_number": "8000793",
+      "start_time": "13:43"
+    },
+    {
+      "name": "近藤 正文",
+      "furigana": "こんどう まさふみ",
+      "class": "M50A",
+      "club": "近藤 正文",
+      "card_number": "",
+      "start_time": "13:44"
+    },
+    {
+      "name": "河合 芳尚",
+      "furigana": "かわい よしひさ",
+      "class": "M50A",
+      "club": "河合 芳尚",
+      "card_number": "",
+      "start_time": "13:45"
+    },
+    {
+      "name": "田代 雅之",
+      "furigana": "たしろ まさゆき",
+      "class": "M50A",
+      "club": "田代 雅之",
+      "card_number": "2066901",
+      "start_time": "13:46"
+    },
+    {
+      "name": "本多 太郎",
+      "furigana": "ほんだ たろう",
+      "class": "M50A",
+      "club": "本多 太郎",
+      "card_number": "",
+      "start_time": "13:47"
+    },
+    {
+      "name": "宮林 修",
+      "furigana": "みやばやし おさむ",
+      "class": "M50A",
+      "club": "宮林 修",
+      "card_number": "",
+      "start_time": "13:48"
+    },
+    {
+      "name": "増田 聡子",
+      "furigana": "ますだ さとこ",
+      "class": "M35A",
+      "club": "増田 聡子",
+      "card_number": "",
+      "start_time": "13:51"
+    },
+    {
+      "name": "壁谷 真人",
+      "furigana": "かべたに まさと",
+      "class": "M35A",
+      "club": "壁谷 真人",
+      "card_number": "",
+      "start_time": "13:52"
+    },
+    {
+      "name": "須藤 馨",
+      "furigana": "すどう かおる",
+      "class": "M35A",
+      "club": "須藤 馨",
+      "card_number": "8502636",
+      "start_time": "13:53"
+    },
+    {
+      "name": "田畑 清士",
+      "furigana": "たばた きよし",
+      "class": "M35A",
+      "club": "田畑 清士",
+      "card_number": "",
+      "start_time": "13:54"
+    },
+    {
+      "name": "梅村 貴志",
+      "furigana": "うめむら たかし",
+      "class": "M35A",
+      "club": "梅村 貴志",
+      "card_number": "",
+      "start_time": "13:55"
+    },
+    {
+      "name": "成岡 輝行",
+      "furigana": "なるおか てるゆき",
+      "class": "M35A",
+      "club": "成岡 輝行",
+      "card_number": "",
+      "start_time": "13:56"
+    },
+    {
+      "name": "大林 俊彦",
+      "furigana": "おおばやし としひこ",
+      "class": "M35A",
+      "club": "大林 俊彦",
+      "card_number": "434900",
+      "start_time": "13:57"
+    },
+    {
+      "name": "上島 通浩",
+      "furigana": "かみじま みちひろ",
+      "class": "M35A",
+      "club": "上島 通浩",
+      "card_number": "",
+      "start_time": "13:58"
+    },
+    {
+      "name": "大林 俊彦",
+      "furigana": "おおばやし としひこ",
+      "class": "M35A",
+      "club": "大林 俊彦",
+      "card_number": "434900",
+      "start_time": "13:59"
+    },
+    {
+      "name": "出野 幹夫",
+      "furigana": "いでの みきお",
+      "class": "M35A",
+      "club": "出野 幹夫",
+      "card_number": "",
+      "start_time": "14:00"
+    },
+    {
+      "name": "中島 克行",
+      "furigana": "なかじま かつゆき",
+      "class": "M35A",
+      "club": "中島 克行",
+      "card_number": "",
+      "start_time": "14:01"
+    },
+    {
+      "name": "武川 哉巳",
+      "furigana": "ぶかわ ちかみ",
+      "class": "チャレンジグループ",
+      "club": "breakthrough",
+      "card_number": "",
+      "start_time": "14:04"
+    },
+    {
+      "name": "加藤 志歩",
+      "furigana": "かとう しほ",
+      "class": "チャレンジグループ",
+      "club": "breakthrough",
+      "card_number": "",
+      "start_time": "14:05"
+    },
+    {
+      "name": "鈴木 夕紀子",
+      "furigana": "すずき ゆきこ",
+      "class": "チャレンジグループ",
+      "club": "静岡OLC",
+      "card_number": "",
+      "start_time": "14:06"
+    },
+    {
+      "name": "鈴木 康弘",
+      "furigana": "すずき やすひろ",
+      "class": "チャレンジグループ",
+      "club": "静岡OLC",
+      "card_number": "",
+      "start_time": "14:07"
+    },
+    {
+      "name": "川島 実紗",
+      "furigana": "かわしま みさ",
+      "class": "チャレンジグループ",
+      "club": "恐妻組合",
+      "card_number": "",
+      "start_time": "14:08"
+    },
+    {
+      "name": "鈴木 薫",
+      "furigana": "すずき かおる",
+      "class": "チャレンジグループ",
+      "club": "恐妻組合",
+      "card_number": "",
+      "start_time": "14:09"
+    },
+    {
+      "name": "秋澤 実乃里",
+      "furigana": "あきざわ みのり",
+      "class": "チャレンジグループ",
+      "club": "名椙45期女子",
+      "card_number": "",
+      "start_time": "14:10"
+    },
+    {
+      "name": "山本 ひより",
+      "furigana": "やまもと ひより",
+      "class": "チャレンジグループ",
+      "club": "名椙45期女子",
+      "card_number": "",
+      "start_time": "14:11"
+    },
+    {
+      "name": "水越 樹彦",
+      "furigana": "みずこし もとひこ",
+      "class": "チャレンジグループ",
+      "club": "らくらん",
+      "card_number": "",
+      "start_time": "14:12"
+    },
+    {
+      "name": "松岡 歩美",
+      "furigana": "まつおか あゆみ",
+      "class": "チャレンジグループ",
+      "club": "らくらん",
+      "card_number": "",
+      "start_time": "14:13"
+    },
+    {
+      "name": "澤田 瑛史",
+      "furigana": "さわだ えいし",
+      "class": "チャレンジグループ",
+      "club": "武澤田",
+      "card_number": "",
+      "start_time": "14:14"
+    },
+    {
+      "name": "澤田 千広",
+      "furigana": "さわだ ちひろ",
+      "class": "チャレンジグループ",
+      "club": "武澤田",
+      "card_number": "",
+      "start_time": "14:15"
+    },
+    {
+      "name": "日下部 朝美",
+      "furigana": "くさかべ あさみ",
+      "class": "W35A",
+      "club": "日下部 朝美",
+      "card_number": "",
+      "start_time": "14:18"
+    },
+    {
+      "name": "長瀬 朋子",
+      "furigana": "ながせ ともこ",
+      "class": "W35A",
+      "club": "長瀬 朋子",
+      "card_number": "183733",
+      "start_time": "14:19"
+    },
+    {
+      "name": "長瀬 朋子",
+      "furigana": "ながせ ともこ",
+      "class": "W35A",
+      "club": "長瀬 朋子",
+      "card_number": "183733",
+      "start_time": "14:20"
+    },
+    {
+      "name": "鳥羽 都子",
+      "furigana": "とば みやこ",
+      "class": "W35A",
+      "club": "鳥羽 都子",
+      "card_number": "",
+      "start_time": "14:21"
+    },
+    {
+      "name": "寺嶋 貴美江",
+      "furigana": "てらしま きみえ",
+      "class": "W35A",
+      "club": "寺嶋 貴美江",
+      "card_number": "8670152",
+      "start_time": "14:22"
+    },
+    {
+      "name": "横井 里乃",
+      "furigana": "よこい さとの",
+      "class": "W35A",
+      "club": "横井 里乃",
+      "card_number": "",
+      "start_time": "14:23"
+    },
+    {
+      "name": "世良 清",
+      "furigana": "せら きよし",
+      "class": "チャレンジソロ",
+      "club": "世良 清",
+      "card_number": "438959",
+      "start_time": "14:26"
+    },
+    {
+      "name": "世良 清",
+      "furigana": "せら きよし",
+      "class": "チャレンジソロ",
+      "club": "世良 清",
+      "card_number": "438959",
+      "start_time": "14:27"
+    },
+    {
+      "name": "内潟 敏明",
+      "furigana": "うちかた としあき",
+      "class": "チャレンジソロ",
+      "club": "内潟 敏明",
+      "card_number": "",
+      "start_time": "14:28"
+    },
+    {
+      "name": "内潟 敏明",
+      "furigana": "うちかた としあき",
+      "class": "チャレンジソロ",
+      "club": "内潟 敏明",
+      "card_number": "",
+      "start_time": "14:29"
+    },
+    {
+      "name": "杉浦 功典",
+      "furigana": "すぎうら かつのり",
+      "class": "チャレンジソロ",
+      "club": "杉浦 功典",
+      "card_number": "",
+      "start_time": "14:30"
+    },
+    {
+      "name": "中島 真里",
+      "furigana": "なかじま まり",
+      "class": "チャレンジソロ",
+      "club": "中島 真里",
+      "card_number": "7501163",
+      "start_time": "14:31"
+    },
+    {
+      "name": "木植 早生",
+      "furigana": "きうえ さなえ",
+      "class": "W21A",
+      "club": "木植 早生",
+      "card_number": "",
+      "start_time": "14:34"
+    },
+    {
+      "name": "長縄 美春",
+      "furigana": "ながなわ みはる",
+      "class": "W21A",
+      "club": "長縄 美春",
+      "card_number": "2045579",
+      "start_time": "14:35"
+    },
+    {
+      "name": "谷川 理恵",
+      "furigana": "たにかわ りえ",
+      "class": "W21A",
+      "club": "谷川 理恵",
+      "card_number": "",
+      "start_time": "14:36"
+    },
+    {
+      "name": "谷川 理恵",
+      "furigana": "たにかわ りえ",
+      "class": "W21A",
+      "club": "谷川 理恵",
+      "card_number": "",
+      "start_time": "14:37"
+    },
+    {
+      "name": "寺本 遊林",
+      "furigana": "てらもと ゆりん",
+      "class": "W21A",
+      "club": "寺本 遊林",
+      "card_number": "",
+      "start_time": "14:38"
+    },
+    {
+      "name": "沼田 奈津",
+      "furigana": "ぬまた なつ",
+      "class": "W21A",
+      "club": "沼田 奈津",
+      "card_number": "",
+      "start_time": "14:39"
+    },
+    {
+      "name": "角本 柚香",
+      "furigana": "かどもと ゆか",
+      "class": "W21A",
+      "club": "角本 柚香",
+      "card_number": "",
+      "start_time": "14:40"
+    },
+    {
+      "name": "日高 綾音",
+      "furigana": "ひたか あやね",
+      "class": "W21A",
+      "club": "日高 綾音",
+      "card_number": "",
+      "start_time": "14:41"
+    },
+    {
+      "name": "村井 涼香",
+      "furigana": "むらい すずか",
+      "class": "W21A",
+      "club": "村井 涼香",
+      "card_number": "",
+      "start_time": "14:42"
+    },
+    {
+      "name": "渡邉 朋香",
+      "furigana": "わたなべ ともか",
+      "class": "W21A",
+      "club": "渡邉 朋香",
+      "card_number": "",
+      "start_time": "14:43"
+    },
+    {
+      "name": "半田 博子",
+      "furigana": "はんだ ひろこ",
+      "class": "W21A",
+      "club": "半田 博子",
+      "card_number": "",
+      "start_time": "14:44"
+    },
+    {
+      "name": "近藤 花保",
+      "furigana": "こんどう かほ",
+      "class": "W21A",
+      "club": "近藤 花保",
+      "card_number": "",
+      "start_time": "14:45"
+    },
+    {
+      "name": "宮本 和奏",
+      "furigana": "みやもと わかな",
+      "class": "W21A",
+      "club": "宮本 和奏",
+      "card_number": "8506467",
+      "start_time": "14:46"
+    },
+    {
+      "name": "緒方 美智",
+      "furigana": "おがた みち",
+      "class": "W50A",
+      "club": "緒方 美智",
+      "card_number": "",
+      "start_time": "14:49"
+    },
+    {
+      "name": "滝 志保",
+      "furigana": "たき しほ",
+      "class": "W50A",
+      "club": "滝 志保",
+      "card_number": "1420720",
+      "start_time": "14:50"
+    },
+    {
+      "name": "出野 由夏",
+      "furigana": "いでの ゆか",
+      "class": "W50A",
+      "club": "出野 由夏",
+      "card_number": "",
+      "start_time": "14:51"
+    },
+    {
+      "name": "柘 優美",
+      "furigana": "つげ ゆみ",
+      "class": "W50A",
+      "club": "柘 優美",
+      "card_number": "",
+      "start_time": "14:52"
+    },
+    {
+      "name": "吉田 しのぶ",
+      "furigana": "よしだ しのぶ",
+      "class": "W50A",
+      "club": "吉田 しのぶ",
+      "card_number": "",
+      "start_time": "14:53"
+    },
+    {
+      "name": "上島 乃英",
+      "furigana": "かみじま のえ",
+      "class": "W50A",
+      "club": "上島 乃英",
+      "card_number": "",
+      "start_time": "14:54"
+    },
+    {
+      "name": "山本 徳子",
+      "furigana": "やまもと のりこ",
+      "class": "W50A",
+      "club": "山本 徳子",
+      "card_number": "",
+      "start_time": "14:55"
+    },
+    {
+      "name": "三井 由美",
+      "furigana": "みつい ゆみ",
+      "class": "W50A",
+      "club": "三井 由美",
+      "card_number": "",
+      "start_time": "14:56"
+    },
+    {
+      "name": "三井 由美",
+      "furigana": "みつい ゆみ",
+      "class": "W50A",
+      "club": "三井 由美",
+      "card_number": "",
+      "start_time": "14:57"
+    },
+    {
+      "name": "藤原 京子",
+      "furigana": "ふじわら きょうこ",
+      "class": "W50A",
+      "club": "藤原 京子",
+      "card_number": "",
+      "start_time": "14:58"
+    },
+    {
+      "name": "瀬川 莉那",
+      "furigana": "せがわ りな",
+      "class": "ライトグループ",
+      "club": "エステム調査Ｃ",
+      "card_number": "",
+      "start_time": "15:01"
+    },
+    {
+      "name": "伊佐野 はる香",
+      "furigana": "いさの はるか",
+      "class": "ライトグループ",
+      "club": "エステム調査Ｃ",
+      "card_number": "",
+      "start_time": "15:02"
+    },
+    {
+      "name": "小室 響子",
+      "furigana": "こむろ きょうこ",
+      "class": "ライトグループ",
+      "club": "エステム調査Ｃ",
+      "card_number": "",
+      "start_time": "15:03"
+    },
+    {
+      "name": "勝田 剛弘",
+      "furigana": "かつた たけひろ",
+      "class": "ライトソロ",
+      "club": "勝田 剛弘",
+      "card_number": "",
+      "start_time": "15:06"
+    },
+    {
+      "name": "大塚 羽菜",
+      "furigana": "おお はな",
+      "class": "ライトソロ",
+      "club": "大塚 羽菜",
+      "card_number": "",
+      "start_time": "15:07"
+    }
+  ]
+}

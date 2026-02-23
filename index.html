@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#16a34a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>イベントガイド</title>
+<link rel="manifest" href="manifest.json">
+<style>
+/* ========== Reset & Base ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --green-dark: #15803d;
+  --green-50: #f0fdf4;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --red: #dc2626;
+  --amber: #f59e0b;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --nav-height: 56px;
+  --topbar-height: 44px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+               "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ========== App Shell ========== */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.topbar {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--topbar-height);
+  flex-shrink: 0;
+}
+
+.topbar-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.day-selector {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.day-btn {
+  padding: 2px 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  background: white;
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.day-btn.active {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 16px 16px;
+}
+
+/* ========== Bottom Nav ========== */
+.bottom-nav {
+  display: flex;
+  background: white;
+  border-top: 1px solid var(--gray-200);
+  height: var(--nav-height);
+  flex-shrink: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  font-size: 0.65rem;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.nav-item.active {
+  color: var(--green);
+}
+
+.nav-item .nav-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* ========== Tab Panels ========== */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ========== Hero Card ========== */
+.hero-card {
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  color: white;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.hero-card .hero-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-card .hero-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.3);
+  margin: 8px 0;
+}
+
+.hero-card .hero-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: 0.85rem;
+}
+
+.hero-card .hero-row .label {
+  opacity: 0.85;
+  font-size: 0.8rem;
+}
+
+.hero-card .hero-row .value {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.hero-card .hero-row .value .sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
+.hero-card .hero-footer {
+  font-size: 0.78rem;
+  opacity: 0.85;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* ========== Search ========== */
+.search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  background: white;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.search-box input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.1);
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--gray-400);
+}
+
+.search-results {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  max-height: 180px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.search-results.hidden { display: none; }
+
+.search-result-item {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.1s;
+}
+
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:active { background: var(--green-light); }
+
+.search-result-item .name { font-weight: 600; }
+.search-result-item .detail {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+/* ========== Timeline ========== */
+.timeline {
+  position: relative;
+  padding-left: 72px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 60px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gray-200);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 8px 0 16px;
+}
+
+.timeline-item .time {
+  position: absolute;
+  left: -72px;
+  top: 8px;
+  width: 52px;
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gray-700);
+}
+
+.timeline-item .dot {
+  position: absolute;
+  left: -16px;
+  top: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px var(--gray-200);
+}
+
+.timeline-item .dot.cat-start { background: var(--red); }
+.timeline-item .dot.cat-reception { background: var(--amber); }
+.timeline-item .dot.cat-general { background: var(--green); }
+.timeline-item .dot.cat-facility { background: #8b5cf6; }
+.timeline-item .dot.cat-personal { background: #2563eb; }
+
+.timeline-item .tl-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.timeline-item .tl-label .expand-icon {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  transition: transform 0.2s;
+}
+
+.timeline-item .tl-label .expand-icon.open {
+  transform: rotate(90deg);
+}
+
+.timeline-item .tl-details {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin-top: 4px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.timeline-item .tl-details.open { display: block; }
+
+.now-marker {
+  position: absolute;
+  left: -4px;
+  right: 0;
+  height: 2px;
+  background: var(--red);
+  z-index: 10;
+}
+
+.now-marker::before {
+  content: 'Now';
+  position: absolute;
+  left: -48px;
+  top: -8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--red);
+  background: white;
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+/* ========== Accordion ========== */
+.accordion { margin-bottom: 8px; }
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  width: 100%;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.accordion-header:active { background: var(--gray-50); }
+
+.accordion-header .acc-icon { font-size: 1rem; }
+.accordion-header .acc-arrow {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  transition: transform 0.2s;
+}
+
+.accordion-header.open { border-radius: var(--radius) var(--radius) 0 0; }
+.accordion-header.open .acc-arrow { transform: rotate(180deg); }
+
+.accordion-body {
+  display: none;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.accordion-body.open { display: block; }
+
+/* ========== Course Table ========== */
+.course-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -16px;
+  padding: 0 16px;
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  min-width: 340px;
+}
+
+.course-table th {
+  background: var(--green);
+  color: white;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.course-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+.course-table tr:nth-child(even) { background: var(--gray-50); }
+.course-table tr.highlight { background: var(--green-light); font-weight: 600; }
+
+/* ========== Settings ========== */
+.setting-group {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.setting-group .setting-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.setting-group select,
+.setting-group input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  background: white;
+  outline: none;
+}
+
+.setting-group select:focus,
+.setting-group input[type="text"]:focus {
+  border-color: var(--green);
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.radio-group input[type="radio"] { accent-color: var(--green); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:active { opacity: 0.7; }
+
+.btn-green {
+  background: var(--green);
+  color: white;
+}
+
+.btn-outline {
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+}
+
+.btn-sm { padding: 4px 12px; font-size: 0.8rem; }
+
+.meta-text {
+  font-size: 0.78rem;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.status-dot.online { background: var(--green); }
+.status-dot.offline { background: var(--gray-400); }
+
+.participant-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ========== Loading ========== */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  gap: 12px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ========== Empty State ========== */
+.empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--gray-400);
+  font-size: 0.85rem;
+}
+
+.empty-state .empty-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+/* ========== Utilities ========== */
+.hidden { display: none !important; }
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+@media (min-width: 640px) {
+  .content { padding: 16px 24px 24px; }
+  .hero-card { padding: 20px 24px; }
+  .course-table { font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">イベントを選択してください</div>
+    <div class="day-selector hidden" id="day-selector"></div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content" id="content">
+    <!-- Tab: タイムライン -->
+    <div class="tab-panel active" id="tab-timeline">
+      <div id="timeline-content">
+        <div class="empty-state">
+          <div class="empty-icon">🧭</div>
+          <div>設定タブからイベントを選択してください</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: 情報 -->
+    <div class="tab-panel" id="tab-info">
+      <div id="info-content">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          <div>イベントデータがありません</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: コース -->
+    <div class="tab-panel" id="tab-courses">
+      <div id="courses-content">
+        <div class="empty-state">
+          <div class="empty-icon">🗺️</div>
+          <div>コースデータがありません</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: 設定 -->
+    <div class="tab-panel" id="tab-settings">
+      <div id="settings-content"></div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="timeline">
+      <span class="nav-icon">⏱</span>
+      <span>タイムライン</span>
+    </button>
+    <button class="nav-item" data-tab="info">
+      <span class="nav-icon">ℹ️</span>
+      <span>情報</span>
+    </button>
+    <button class="nav-item" data-tab="courses">
+      <span class="nav-icon">🗺️</span>
+      <span>コース</span>
+    </button>
+    <button class="nav-item" data-tab="settings">
+      <span class="nav-icon">⚙️</span>
+      <span>設定</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+/* ========== Constants ========== */
+const CDN_BASE = './data/';
+const DB_NAME = 'event-guide-db';
+const DB_VERSION = 1;
+const APP_VERSION = '1.0.0';
+
+/* ========== State ========== */
+const state = {
+  events: null,       // index.json contents
+  eventData: null,    // current event data
+  startlist: null,    // current startlist
+  selectedEvent: null,
+  selectedDay: 1,
+  selectedParticipant: null,
+  db: null,
+  isLocal: new URLSearchParams(location.search).has('local'),
+};
+
+/* ========== IndexedDB ========== */
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('events')) db.createObjectStore('events');
+      if (!db.objectStoreNames.contains('startlists')) db.createObjectStore('startlists');
+      if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta');
+    };
+    req.onsuccess = () => { state.db = req.result; resolve(req.result); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGet(store, key) {
+  return new Promise((resolve, reject) => {
+    const tx = state.db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbPut(store, key, value) {
+  return new Promise((resolve, reject) => {
+    const tx = state.db.transaction(store, 'readwrite');
+    const req = tx.objectStore(store).put(value, key);
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+}
+
+/* ========== Data Loading ========== */
+async function fetchJSON(path) {
+  const url = `${CDN_BASE}${path}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${url}`);
+  return res.json();
+}
+
+async function loadIndex() {
+  try {
+    const data = await fetchJSON('index.json');
+    state.events = data;
+    await dbPut('meta', 'index', data);
+    return data;
+  } catch (e) {
+    const cached = await dbGet('meta', 'index');
+    if (cached) { state.events = cached; return cached; }
+    throw e;
+  }
+}
+
+async function loadEventData(eventId) {
+  try {
+    const event = state.events.events.find(e => e.id === eventId);
+    if (!event) throw new Error(`Event not found: ${eventId}`);
+
+    const data = await fetchJSON(event.file);
+    state.eventData = data;
+    await dbPut('events', eventId, data);
+
+    if (event.startlist) {
+      try {
+        const sl = await fetchJSON(event.startlist);
+        state.startlist = sl;
+        await dbPut('startlists', eventId, sl);
+      } catch (e2) {
+        const cachedSl = await dbGet('startlists', eventId);
+        state.startlist = cachedSl || null;
+      }
+    } else {
+      state.startlist = null;
+    }
+
+    await dbPut('meta', 'last_updated', new Date().toISOString());
+    return data;
+  } catch (e) {
+    const cached = await dbGet('events', eventId);
+    if (cached) {
+      state.eventData = cached;
+      const cachedSl = await dbGet('startlists', eventId);
+      state.startlist = cachedSl || null;
+      return cached;
+    }
+    throw e;
+  }
+}
+
+/* ========== Time Utilities ========== */
+function parseTime(str) {
+  if (!str) return null;
+  const m = str.match(/^(\d{1,2}):(\d{2})$/);
+  if (!m) return null;
+  return { h: parseInt(m[1], 10), m: parseInt(m[2], 10) };
+}
+
+function formatTime(h, m) {
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
+
+function timeToMinutes(t) {
+  return t ? t.h * 60 + t.m : null;
+}
+
+function minutesToTime(mins) {
+  return { h: Math.floor(mins / 60), m: mins % 60 };
+}
+
+function calculateDepartureTime(startTimeStr, walkMinutes) {
+  const t = parseTime(startTimeStr);
+  if (!t || !walkMinutes) return null;
+  const total = timeToMinutes(t) - walkMinutes;
+  const dep = minutesToTime(total < 0 ? total + 1440 : total);
+  return formatTime(dep.h, dep.m);
+}
+
+function getCurrentTimePosition(timelineItems) {
+  const now = new Date();
+  const nowMins = now.getHours() * 60 + now.getMinutes();
+  if (!timelineItems.length) return null;
+
+  const times = timelineItems.map(item => timeToMinutes(parseTime(item.time))).filter(t => t !== null);
+  const minT = Math.min(...times);
+  const maxT = Math.max(...times);
+
+  if (nowMins < minT - 30 || nowMins > maxT + 60) return null;
+  return nowMins;
+}
+
+/* ========== Participant Search ========== */
+function searchParticipant(query, startlist) {
+  if (!query || !startlist || !startlist.participants) return [];
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+
+  return startlist.participants.filter(p => {
+    const name = (p.name || '').toLowerCase();
+    const kana = (p.kana || p.furigana || '').toLowerCase();
+    const club = (p.club || p.team || '').toLowerCase();
+    return name.includes(q) || kana.includes(q) || club.includes(q);
+  }).slice(0, 20);
+}
+
+function selectParticipant(participant) {
+  state.selectedParticipant = participant;
+  localStorage.setItem('selected_participant', JSON.stringify(participant));
+  renderCurrentTab();
+}
+
+function clearParticipant() {
+  state.selectedParticipant = null;
+  localStorage.removeItem('selected_participant');
+  renderCurrentTab();
+  renderSettings();
+}
+
+/* ========== Rendering: Timeline Tab ========== */
+function renderTimeline(eventData, day, participant) {
+  const container = document.getElementById('timeline-content');
+  if (!eventData) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🧭</div>
+        <div>設定タブからイベントを選択してください</div>
+      </div>`;
+    return;
+  }
+
+  // Support both nested days[] array and flat timeline with day field
+  const dayData = Array.isArray(eventData.days) ? eventData.days[day - 1] : eventData;
+  if (!dayData) {
+    container.innerHTML = '<div class="empty-state"><div>この日程のデータがありません</div></div>';
+    return;
+  }
+
+  // Resolve start_walk_minutes (could be number or {day1:N, day2:N})
+  const swm = dayData.start_walk_minutes || eventData.start_walk_minutes;
+  const walkMinsForDay = (typeof swm === 'object' && swm !== null)
+    ? (swm[`day${day}`] || swm.day1 || 30)
+    : (swm || 30);
+
+  let html = '';
+
+  // Participant search (if startlist available)
+  if (state.startlist) {
+    html += `
+      <div class="search-box mb-12">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="participant-search" placeholder="名前・ふりがな・所属で検索"
+               value="" autocomplete="off">
+      </div>
+      <div class="search-results hidden" id="search-results"></div>`;
+  }
+
+  // Hero card
+  if (participant) {
+    const startTime = participant.start_time || '';
+    const walkMins = walkMinsForDay;
+    const departTime = calculateDepartureTime(startTime, walkMins);
+    const receptionTime = dayData.reception_time || eventData.reception_time || '';
+
+    html += `
+      <div class="hero-card">
+        <div class="hero-title">🏃 あなたのスタート</div>
+        <div class="hero-divider"></div>
+        <div class="hero-row">
+          <span class="label">スタート</span>
+          <span class="value">${startTime || '—'}</span>
+        </div>
+        ${departTime ? `
+        <div class="hero-row">
+          <span class="label">出発</span>
+          <span class="value">${departTime}<span class="sub">(${walkMins}分前)</span></span>
+        </div>` : ''}
+        ${receptionTime ? `
+        <div class="hero-row">
+          <span class="label">受付</span>
+          <span class="value">${receptionTime}</span>
+        </div>` : ''}
+        <div class="hero-divider"></div>
+        <div class="hero-footer">
+          ${participant.name || ''}${(participant.class_name || participant['class']) ? ' / ' + (participant.class_name || participant['class']) : ''}${participant.club || participant.team ? ' / ' + (participant.club || participant.team) : ''}
+        </div>
+      </div>`;
+  }
+
+  // Timeline items — filter by day if flat structure
+  const rawTimeline = dayData.timeline || [];
+  const timelineItems = Array.isArray(eventData.days) ? rawTimeline : rawTimeline.filter(t => !t.day || t.day === day);
+  if (timelineItems.length) {
+    const nowMins = getCurrentTimePosition(timelineItems);
+
+    html += '<div class="timeline" id="timeline-list">';
+
+    // Sort by time
+    const sorted = [...timelineItems].sort((a, b) => {
+      const ta = timeToMinutes(parseTime(a.time));
+      const tb = timeToMinutes(parseTime(b.time));
+      return (ta || 0) - (tb || 0);
+    });
+
+    let nowInserted = false;
+
+    sorted.forEach((item, i) => {
+      const itemMins = timeToMinutes(parseTime(item.time));
+      const nextItem = sorted[i + 1];
+      const nextMins = nextItem ? timeToMinutes(parseTime(nextItem.time)) : null;
+
+      const cat = item.category || 'general';
+      const hasDetails = item.details && item.details.trim();
+
+      html += `
+        <div class="timeline-item">
+          <span class="time">${item.time || ''}</span>
+          <span class="dot cat-${cat}"></span>
+          <div class="tl-label" ${hasDetails ? 'onclick="toggleDetails(this)"' : ''}>
+            ${item.label || ''}
+            ${hasDetails ? '<span class="expand-icon">▶</span>' : ''}
+          </div>
+          ${hasDetails ? `<div class="tl-details">${escapeHtml(item.details)}</div>` : ''}
+        </div>`;
+
+      // Insert now marker
+      if (nowMins !== null && !nowInserted && itemMins !== null) {
+        if (nowMins >= itemMins && (nextMins === null || nowMins < nextMins)) {
+          html += `<div class="now-marker" style="top: auto; position: relative; margin: -8px 0 8px -4px;"></div>`;
+          nowInserted = true;
+        }
+      }
+    });
+
+    html += '</div>';
+  } else {
+    html += '<div class="empty-state"><div>タイムラインデータがありません</div></div>';
+  }
+
+  container.innerHTML = html;
+
+  // Attach search handler
+  const searchInput = document.getElementById('participant-search');
+  if (searchInput) {
+    if (participant) {
+      searchInput.value = participant.name || '';
+    }
+    searchInput.addEventListener('input', handleSearch);
+  }
+}
+
+function handleSearch(e) {
+  const query = e.target.value;
+  const resultsEl = document.getElementById('search-results');
+  if (!query.trim()) {
+    resultsEl.classList.add('hidden');
+    resultsEl.innerHTML = '';
+    return;
+  }
+
+  const results = searchParticipant(query, state.startlist);
+  if (!results.length) {
+    resultsEl.classList.add('hidden');
+    return;
+  }
+
+  resultsEl.classList.remove('hidden');
+  resultsEl.innerHTML = results.map((p, i) => `
+    <div class="search-result-item" onclick="onSelectResult(${i})">
+      <div class="name">${escapeHtml(p.name || '')}</div>
+      <div class="detail">${escapeHtml(p.class_name || p['class'] || '')} / ${escapeHtml(p.club || p.team || '')} / ${p.start_time || '—'}</div>
+    </div>`).join('');
+
+  // Store results for selection
+  resultsEl._results = results;
+}
+
+function onSelectResult(index) {
+  const resultsEl = document.getElementById('search-results');
+  const p = resultsEl._results && resultsEl._results[index];
+  if (p) {
+    selectParticipant(p);
+    resultsEl.classList.add('hidden');
+  }
+}
+
+function toggleDetails(el) {
+  const details = el.nextElementSibling;
+  const icon = el.querySelector('.expand-icon');
+  if (details) {
+    details.classList.toggle('open');
+    if (icon) icon.classList.toggle('open');
+  }
+}
+
+/* ========== Rendering: Info Tab ========== */
+function renderInfo(eventData) {
+  const container = document.getElementById('info-content');
+  if (!eventData || !eventData.info) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><div>情報データがありません</div></div>';
+    return;
+  }
+
+  const sections = [
+    { key: 'access', icon: '🚗', label: 'アクセス・駐車場' },
+    { key: 'reception', icon: '📋', label: '受付' },
+    { key: 'start_procedure', icon: '🏁', label: 'スタート方式', alt: 'start' },
+    { key: 'equipment', icon: '👕', label: '装備' },
+    { key: 'emergency', icon: '🏥', label: '緊急連絡先' },
+    { key: 'facilities', icon: '🚻', label: '施設' },
+    { key: 'food_and_bath', icon: '🍽️', label: '食事・入浴', alt: 'dining' },
+  ];
+  const skipKeys = new Set(['courses', ...sections.map(s => s.key), ...sections.filter(s => s.alt).map(s => s.alt)]);
+
+  const info = eventData.info;
+  let html = '';
+
+  sections.forEach(s => {
+    const content = info[s.key] || (s.alt ? info[s.alt] : null);
+    if (!content || typeof content !== 'string') return;
+
+    html += `
+      <div class="accordion">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="acc-icon">${s.icon}</span>
+          ${s.label}
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="accordion-body">${escapeHtml(content)}</div>
+      </div>`;
+  });
+
+  // Also render any extra info sections not in the predefined list
+  Object.keys(info).forEach(key => {
+    if (skipKeys.has(key) || typeof info[key] !== 'string') return;
+    html += `
+      <div class="accordion">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          <span class="acc-icon">📌</span>
+          ${escapeHtml(key)}
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="accordion-body">${escapeHtml(info[key])}</div>
+      </div>`;
+  });
+
+  container.innerHTML = html || '<div class="empty-state"><div>情報セクションが空です</div></div>';
+}
+
+function toggleAccordion(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  if (body) body.classList.toggle('open');
+}
+
+/* ========== Rendering: Courses Tab ========== */
+function renderCourses(eventData, selectedClass) {
+  const container = document.getElementById('courses-content');
+  if (!eventData) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🗺️</div><div>コースデータがありません</div></div>';
+    return;
+  }
+
+  const dayData = Array.isArray(eventData.days) ? eventData.days[state.selectedDay - 1] : eventData;
+  const courses = dayData?.courses || eventData?.info?.courses || eventData.courses || [];
+
+  if (!courses.length) {
+    container.innerHTML = '<div class="empty-state"><div>コース情報がありません</div></div>';
+    return;
+  }
+
+  const hasWinTime = courses.some(c => c.winning_time);
+
+  let html = `
+    <div class="course-table-wrap">
+      <table class="course-table">
+        <thead>
+          <tr>
+            <th>クラス</th>
+            <th>距離</th>
+            <th>登距離</th>
+            ${hasWinTime ? '<th>優勝設定</th>' : ''}
+            <th>最初のスタート</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+  courses.forEach(c => {
+    const className = c.class_name || c['class'] || '';
+    const isHighlight = selectedClass && className === selectedClass;
+    html += `
+          <tr${isHighlight ? ' class="highlight"' : ''}>
+            <td>${escapeHtml(className)}</td>
+            <td>${c.distance || '—'}</td>
+            <td>${c.climb || '—'}</td>
+            ${hasWinTime ? `<td>${c.winning_time || '—'}</td>` : ''}
+            <td>${c.first_start || '—'}</td>
+          </tr>`;
+  });
+
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
+}
+
+/* ========== Rendering: Settings Tab ========== */
+function renderSettings() {
+  const container = document.getElementById('settings-content');
+  const events = state.events?.events || [];
+  const selectedId = state.selectedEvent || '';
+  const participant = state.selectedParticipant;
+  const daysField = state.eventData?.days || state.eventData?.event?.days;
+  const dayCount = Array.isArray(daysField) ? daysField.length : (typeof daysField === 'number' ? daysField : 1);
+
+  let html = '';
+
+  // Event selector
+  html += `
+    <div class="setting-group">
+      <div class="setting-label">イベント選択</div>
+      <select id="event-select" onchange="onEventChange(this.value)">
+        <option value="">-- 選択してください --</option>
+        ${events.map(e => `<option value="${e.id}" ${e.id === selectedId ? 'selected' : ''}>${escapeHtml(e.name)}</option>`).join('')}
+      </select>
+    </div>`;
+
+  // Day selector (only for multi-day events)
+  if (dayCount > 1) {
+    html += `
+      <div class="setting-group">
+        <div class="setting-label">日程</div>
+        <div class="radio-group">
+          ${Array.from({ length: dayCount }, (_, i) => `
+            <label>
+              <input type="radio" name="day" value="${i + 1}"
+                     ${state.selectedDay === i + 1 ? 'checked' : ''}
+                     onchange="onDayChange(${i + 1})">
+              Day${i + 1}
+            </label>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  // Participant
+  html += `
+    <div class="setting-group">
+      <div class="setting-label">参加者</div>
+      ${participant
+        ? `<div class="flex-between">
+             <span class="participant-badge">${escapeHtml(participant.name || '未選択')}</span>
+             <button class="btn btn-outline btn-sm" onclick="clearParticipant()">リセット</button>
+           </div>`
+        : '<div class="meta-text">タイムラインタブで検索・選択できます</div>'}
+    </div>`;
+
+  // Data update
+  html += `
+    <div class="setting-group">
+      <div class="setting-label">データ更新</div>
+      <button class="btn btn-green" onclick="refreshData()" id="refresh-btn">
+        データを再取得
+      </button>
+      <div class="meta-text" id="last-updated">最終更新: 未取得</div>
+    </div>`;
+
+  // Offline status
+  const isOnline = navigator.onLine;
+  html += `
+    <div class="setting-group">
+      <div class="setting-label">オフライン状態</div>
+      <div>
+        <span class="status-dot ${isOnline ? 'online' : 'offline'}"></span>
+        ${isOnline ? 'オンライン' : 'オフライン'}
+      </div>
+      <div class="meta-text">データはIndexedDBにキャッシュされます</div>
+    </div>`;
+
+  // Version
+  html += `
+    <div class="setting-group">
+      <div class="setting-label">バージョン情報</div>
+      <div class="meta-text">Event Guide v${APP_VERSION}</div>
+      <div class="meta-text" style="margin-top:2px;">
+        <a href="https://github.com/nao-autonomous/orienteering-event-guide"
+           target="_blank" rel="noopener" style="color:var(--green);">ソースコード</a>
+      </div>
+    </div>`;
+
+  container.innerHTML = html;
+  loadLastUpdated();
+}
+
+async function loadLastUpdated() {
+  try {
+    const ts = await dbGet('meta', 'last_updated');
+    const el = document.getElementById('last-updated');
+    if (el && ts) {
+      const d = new Date(ts);
+      el.textContent = `最終更新: ${d.toLocaleDateString('ja-JP')} ${d.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}`;
+    }
+  } catch (e) { /* ignore */ }
+}
+
+/* ========== Event Handlers ========== */
+async function onEventChange(eventId) {
+  if (!eventId) return;
+  state.selectedEvent = eventId;
+  state.selectedDay = 1;
+  state.selectedParticipant = null;
+  localStorage.setItem('selected_event', eventId);
+  localStorage.removeItem('selected_participant');
+
+  showLoading();
+  try {
+    await loadEventData(eventId);
+    updateTopbar();
+    renderCurrentTab();
+    renderSettings();
+  } catch (e) {
+    alert('データの読み込みに失敗しました: ' + e.message);
+  }
+}
+
+function onDayChange(day) {
+  state.selectedDay = day;
+  localStorage.setItem('selected_day', String(day));
+  updateDaySelector();
+  renderCurrentTab();
+}
+
+async function refreshData() {
+  const btn = document.getElementById('refresh-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '取得中...'; }
+
+  try {
+    await loadIndex();
+    if (state.selectedEvent) {
+      await loadEventData(state.selectedEvent);
+    }
+    renderCurrentTab();
+    renderSettings();
+  } catch (e) {
+    alert('データの更新に失敗しました: ' + e.message);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'データを再取得'; }
+  }
+}
+
+/* ========== Navigation ========== */
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+  const panel = document.getElementById(`tab-${tabName}`);
+  const navBtn = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
+  if (panel) panel.classList.add('active');
+  if (navBtn) navBtn.classList.add('active');
+
+  renderCurrentTab();
+}
+
+function renderCurrentTab() {
+  const activePanel = document.querySelector('.tab-panel.active');
+  if (!activePanel) return;
+
+  const tabId = activePanel.id;
+  const selectedClass = state.selectedParticipant?.class_name || state.selectedParticipant?.['class'] || null;
+
+  switch (tabId) {
+    case 'tab-timeline':
+      renderTimeline(state.eventData, state.selectedDay, state.selectedParticipant);
+      break;
+    case 'tab-info':
+      renderInfo(state.eventData);
+      break;
+    case 'tab-courses':
+      renderCourses(state.eventData, selectedClass);
+      break;
+    case 'tab-settings':
+      renderSettings();
+      break;
+  }
+}
+
+function showLoading() {
+  const active = document.querySelector('.tab-panel.active > div');
+  if (active) {
+    active.innerHTML = '<div class="loading"><div class="spinner"></div><span>読み込み中...</span></div>';
+  }
+}
+
+/* ========== Topbar ========== */
+function updateTopbar() {
+  const titleEl = document.getElementById('topbar-title');
+  const ed = state.eventData;
+  if (ed) {
+    titleEl.textContent = ed.name || ed.event?.name || ed.event_name || 'イベントガイド';
+  } else {
+    titleEl.textContent = 'イベントを選択してください';
+  }
+  updateDaySelector();
+}
+
+function updateDaySelector() {
+  const selectorEl = document.getElementById('day-selector');
+  const daysField = state.eventData?.days || state.eventData?.event?.days;
+  const dayCount = Array.isArray(daysField) ? daysField.length : (typeof daysField === 'number' ? daysField : 1);
+
+  if (dayCount <= 1) {
+    selectorEl.classList.add('hidden');
+    selectorEl.innerHTML = '';
+    return;
+  }
+
+  selectorEl.classList.remove('hidden');
+  selectorEl.innerHTML = Array.from({ length: dayCount }, (_, i) =>
+    `<button class="day-btn ${state.selectedDay === i + 1 ? 'active' : ''}" 
+             onclick="onDayChange(${i + 1})">Day${i + 1}</button>`
+  ).join('');
+}
+
+/* ========== Utilities ========== */
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+/* ========== Initialization ========== */
+async function init() {
+  // Set up tab navigation
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // Open IndexedDB
+  try {
+    await openDB();
+  } catch (e) {
+    console.warn('IndexedDB not available:', e);
+  }
+
+  // Restore state from localStorage
+  state.selectedEvent = localStorage.getItem('selected_event') || null;
+  state.selectedDay = parseInt(localStorage.getItem('selected_day') || '1', 10);
+  try {
+    const savedP = localStorage.getItem('selected_participant');
+    if (savedP) state.selectedParticipant = JSON.parse(savedP);
+  } catch (e) { /* ignore */ }
+
+  // Load index
+  try {
+    await loadIndex();
+  } catch (e) {
+    console.warn('Failed to load index:', e);
+  }
+
+  // Load previously selected event
+  if (state.selectedEvent && state.events) {
+    try {
+      await loadEventData(state.selectedEvent);
+    } catch (e) {
+      console.warn('Failed to load event data:', e);
+    }
+  }
+
+  // Render
+  updateTopbar();
+  renderCurrentTab();
+
+  // Also prepare settings tab
+  renderSettings();
+
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
+  // Listen for online/offline changes
+  window.addEventListener('online', () => renderSettings());
+  window.addEventListener('offline', () => renderSettings());
+
+  // Auto-update now marker every minute
+  setInterval(() => {
+    const active = document.querySelector('.tab-panel.active');
+    if (active && active.id === 'tab-timeline') {
+      renderTimeline(state.eventData, state.selectedDay, state.selectedParticipant);
+    }
+  }, 60000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
