@@ -1,0 +1,83 @@
+{
+  "event": {
+    "name": "第34回オリエンテーリング高崎大会【観音山丘陵】",
+    "date": "2026-03-15",
+    "venue": "観音山公園（旧カッパピア）芝生広場",
+    "venue_address": "群馬県高崎市石原町2740-2",
+    "organizer": "高崎オリエンテーリングクラブ",
+    "days": 1
+  },
+  "timeline": [
+    {
+      "time": "09:00",
+      "label": "受付開始",
+      "category": "reception",
+      "details": "10:20まで。参加確認を行う。公式掲示板にスタートリストを掲載",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "10:00",
+      "label": "競技上の諸注意",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "10:00",
+      "label": "初心者説明",
+      "category": "other",
+      "details": "随時。初めての方はこちらへ",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "10:20",
+      "label": "スタート開始（個人）",
+      "category": "start",
+      "details": "事前指定時間により順次スタート。全クラスでポイントオリエンテーリング（指定順に回る）。各点通過証明にSIカード使用",
+      "day": 1,
+      "applies_to": "個人"
+    },
+    {
+      "time": "10:30",
+      "label": "スタート開始（グループ）",
+      "category": "start",
+      "details": "事前指定時間により順次スタート",
+      "day": 1,
+      "applies_to": "グループ"
+    },
+    {
+      "time": "13:30",
+      "label": "ゴール閉鎖",
+      "category": "finish",
+      "details": "この時刻までにフィニッシュすること",
+      "day": 1,
+      "applies_to": "all"
+    }
+  ],
+  "info": {
+    "access": "自家用車: 高崎市営観音山頂無料駐車場 または 観音山公園第2駐車場（無料）に駐車。観音山公園第1駐車場は駐車厳禁。バス: 高崎駅西口8番バス乗り場から ぐるりん観音山線「系統番号14」観音山公園下車 8:47発→9:05着（10:06発→10:24着）。系統番号13でも遠回りだが来場可能 8:32発→9:03着（9:51発→10:22着）。10:20過ぎ着のバスになる方は申込時に連絡を",
+    "reception": "9:00〜10:20。受付で参加確認を行う。公式掲示板にスタートリストを掲載",
+    "start_procedure": "ポイントオリエンテーリング（指定順に回る）。各点通過証明にSIカード使用。競技は原則「日本オリエンテーリング競技規則」に準ずる。個人: 10:20〜事前指定時間により順次スタート。グループ: 10:30〜同上",
+    "courses": [
+      {"class": "男子A", "distance": null, "climb": null, "controls": null, "first_start": "10:20"},
+      {"class": "女子A", "distance": null, "climb": null, "controls": null, "first_start": "10:20"},
+      {"class": "男子B", "distance": null, "climb": null, "controls": null, "first_start": "10:20"},
+      {"class": "女子B", "distance": null, "climb": null, "controls": null, "first_start": "10:20"},
+      {"class": "シニア男子", "distance": null, "climb": null, "controls": null, "first_start": "10:20"},
+      {"class": "シニア女子", "distance": null, "climb": null, "controls": null, "first_start": "10:20"},
+      {"class": "一般（男子）", "distance": null, "climb": null, "controls": null, "first_start": "10:30"},
+      {"class": "一般（女子）", "distance": null, "climb": null, "controls": null, "first_start": "10:30"},
+      {"class": "混合", "distance": null, "climb": null, "controls": null, "first_start": "10:30"},
+      {"class": "家族", "distance": null, "climb": null, "controls": null, "first_start": "10:30"},
+      {"class": "小学生", "distance": null, "climb": null, "controls": null, "first_start": "10:30"}
+    ],
+    "equipment": "運動のできる服装、時計、雨具、昼食等は各自用意。コンパス（方位磁石）は無償貸し出し（紛失・破損の際は2,500円実費弁償）。SIカードの紛失・破損の際は8,000円の実費弁償",
+    "emergency": "高橋利之（高崎オリエンテーリングクラブ会長）E-MAIL: ttoshiyuki@nifty.com。FAX: 0274-42-5709（電話兼）。日中は不在のためできる限りE-MAILで",
+    "facilities": "ゴミは持ち帰り。小雨決行"
+  },
+  "start_walk_minutes": 0,
+  "notes": "使用地図: 縮尺1/5000、等高線間隔5m、通行可能度4段階表示。事前申し込みのみ、当日参加は不可。参加費は返金不可。表彰式なし（流れ解散）。各クラス上位3位までの賞状を郵送。成績は高崎観光協会HP・群馬県OL協会HP・オリエンテーリングラップセンターに掲載"
+}

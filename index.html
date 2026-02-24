@@ -8,6 +8,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>イベントガイド</title>
 <link rel="manifest" href="manifest.json">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RMMPL6QL06"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RMMPL6QL06');</script>
 <style>
 /* ========== Reset & Base ========== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -337,11 +339,14 @@ html { overscroll-behavior: none; }
 
 .timeline-item .tl-details {
   display: none;
-  font-size: 0.8rem;
-  color: var(--gray-600);
-  margin-top: 4px;
-  line-height: 1.5;
-  white-space: pre-wrap;
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  margin-top: 6px;
+  padding: 8px 10px;
+  line-height: 1.75;
+  background: var(--gray-50);
+  border-radius: 6px;
+  word-break: break-word;
 }
 
 .timeline-item .tl-details.open { display: block; }
@@ -680,7 +685,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = './data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.2.0';
+const APP_VERSION = '1.3.0';
 
 /* ========== State ========== */
 const state = {
@@ -969,7 +974,7 @@ function renderTimeline(eventData, day, participant) {
             ${item.label || ''}
             ${hasDetails ? '<span class="expand-icon">▶</span>' : ''}
           </div>
-          ${hasDetails ? `<div class="tl-details">${escapeHtml(item.details)}</div>` : ''}
+          ${hasDetails ? `<div class="tl-details">${formatInfoText(escapeHtml(item.details))}</div>` : ''}
         </div>`;
 
       // Insert now marker
@@ -1043,8 +1048,8 @@ function toggleDetails(el) {
 }
 
 /* ========== Rendering: Info Tab ========== */
-function formatInfoText(text) {
-  return text
+function formatInfoText(text, day) {
+  let processed = text
     .replace(/。/g, '。\n')
     .replace(/\n{2,}/g, '\n')
     .trim()
@@ -1052,14 +1057,28 @@ function formatInfoText(text) {
     .map(line => `<p style="margin:0 0 6px">${line}</p>`)
     .join('')
     .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all">$1</a>');
+
+  // Highlight current day references
+  if (day) {
+    const dayLabel = `Day${day}`;
+    processed = processed.replace(
+      new RegExp(`(${dayLabel}[^<]*)`, 'gi'),
+      '<strong style="color:var(--green-dark)">$1</strong>'
+    );
+  }
+  return processed;
 }
 
-function renderInfo(eventData) {
+function renderInfo(eventData, day) {
   const container = document.getElementById('info-content');
   if (!eventData || !eventData.info) {
     container.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><div>情報データがありません</div></div>';
     return;
   }
+
+  const daysField = eventData.days || eventData.event?.days;
+  const dayCount = Array.isArray(daysField) ? daysField.length : (typeof daysField === 'number' ? daysField : 1);
+  const highlightDay = dayCount > 1 ? (day || state.selectedDay) : null;
 
   const sections = [
     { key: 'access', icon: '🚗', label: 'アクセス・駐車場' },
@@ -1086,7 +1105,7 @@ function renderInfo(eventData) {
           ${s.label}
           <span class="acc-arrow">▼</span>
         </button>
-        <div class="accordion-body">${formatInfoText(escapeHtml(content))}</div>
+        <div class="accordion-body">${formatInfoText(escapeHtml(content), highlightDay)}</div>
       </div>`;
   });
 
@@ -1100,7 +1119,7 @@ function renderInfo(eventData) {
           ${escapeHtml(key)}
           <span class="acc-arrow">▼</span>
         </button>
-        <div class="accordion-body">${formatInfoText(escapeHtml(info[key]))}</div>
+        <div class="accordion-body">${formatInfoText(escapeHtml(info[key]), highlightDay)}</div>
       </div>`;
   });
 
@@ -1272,6 +1291,20 @@ function renderSettings() {
       </div>
     </div>`;
 
+  // Feedback
+  html += `
+    <div class="setting-group">
+      <div class="setting-label">フィードバック</div>
+      <div class="meta-text" style="line-height:1.7">
+        ご意見・ご要望・不具合の報告はこちら
+      </div>
+      <a href="https://github.com/nao-autonomous/orienteering-event-guide/issues/new"
+         target="_blank" rel="noopener"
+         class="btn btn-outline" style="margin-top:8px;text-decoration:none;display:inline-flex">
+        フィードバックを送る
+      </a>
+    </div>`;
+
   container.innerHTML = html;
   loadLastUpdated();
 
@@ -1366,7 +1399,7 @@ function renderCurrentTab() {
       renderTimeline(state.eventData, state.selectedDay, state.selectedParticipant);
       break;
     case 'tab-info':
-      renderInfo(state.eventData);
+      renderInfo(state.eventData, state.selectedDay);
       break;
     case 'tab-courses':
       renderCourses(state.eventData, selectedClass);
