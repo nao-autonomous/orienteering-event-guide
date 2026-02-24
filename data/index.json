@@ -8,6 +8,13 @@
       "startlist": "parko-osaka-2025-startlist.json"
     },
     {
+      "id": "club-relay-2026",
+      "name": "第28回クラブ対抗リレーオリエンテーリング大会",
+      "date": "2026-03-01",
+      "file": "club-relay-2026.json",
+      "startlist": "club-relay-2026-startlist.json"
+    },
+    {
       "id": "takasaki-2026",
       "name": "第34回オリエンテーリング高崎大会【観音山丘陵】",
       "date": "2026-03-15",

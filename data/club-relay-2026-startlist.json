@@ -1,0 +1,272 @@
+{
+  "event_id": "club-relay-2026",
+  "generated_at": "2026-02-24T08:11:42.295453+00:00",
+  "participant_count": 32,
+  "classes": [
+    "L",
+    "M",
+    "S",
+    "ワンマンL",
+    "ワンマンS",
+    "個人L",
+    "個人S"
+  ],
+  "participants": [
+    {
+      "name": "ES関東C さくら",
+      "class": "L",
+      "club": "ES関東C",
+      "members": "中村涼太, 伊地知淳, 井村真岳",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "ES関東C さるびあ",
+      "class": "L",
+      "club": "ES関東C",
+      "members": "高見澤翔一, 八重樫篤矢, 中村涼太",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "みちの会",
+      "class": "L",
+      "club": "みちの会",
+      "members": "太田貴大, 楠健志, 新井悠功",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "ソニーOLC",
+      "class": "L",
+      "club": "ソニーOLC",
+      "members": "櫻木嵩斗, 笠原健司, 庄司晃太",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "上尾ＯＬＣハヤブサ",
+      "class": "L",
+      "club": "上尾OLC",
+      "members": "中林優樹, 西下遼介, 桃井陽佑",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "上尾ＯＬＣオオタカ",
+      "class": "L",
+      "club": "上尾オリエンテーリングクラブ",
+      "members": "茂原瑞基, 藤原真吾, 富田吉郎",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "防災技術部",
+      "class": "L",
+      "club": "京葉OLクラブ",
+      "members": "宮本樹, 冨安蓮, 島田駿",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "入間市OLC 煎茶",
+      "class": "L",
+      "club": "入間市OLC",
+      "members": "須藤友絵, 水嶋直子, 須藤馨",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "入間市OLC 玉露",
+      "class": "L",
+      "club": "入間市OLC",
+      "members": "白石達也, 高野由紀, 水嶋孝久",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "東京ＯＬクラブのぞみ",
+      "class": "L",
+      "club": "東京OLクラブ",
+      "members": "盛田彰宏, 小泉辰喜, 阿部昌隆",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "桐朋窓際部",
+      "class": "L",
+      "club": "桐朋IK",
+      "members": "西野航平, 青木佑成, 右田連音",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "爆走☆コンパス団",
+      "class": "L",
+      "club": "桐朋IK",
+      "members": "日吉亮開, 水本悠太, 犬飼紘陽",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "練馬OLC",
+      "class": "L",
+      "club": "練馬OLC",
+      "members": "平田海星, 浅井琉太朗, 石橋虎大",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "長岡OLC",
+      "class": "L",
+      "club": "長岡OLC",
+      "members": "佐藤悠太, 古田島貴之, ビューラヨールグ",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "ES関東C やまゆり",
+      "class": "M",
+      "club": "ES関東C",
+      "members": "小林岳人, 桜井剛, 柳澤貴",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "ワンダラーズV",
+      "class": "M",
+      "club": "ワンダラーズ",
+      "members": "吉田しのぶ, 鈴木英一, 高橋猛",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "入間市OLC 抹茶",
+      "class": "M",
+      "club": "入間市OLC",
+      "members": "奥山景得, 海老沢正, 小林二郎",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "入間市OLC 紅茶",
+      "class": "M",
+      "club": "入間市OLC",
+      "members": "植松彩, 泉田みどり, 村岡民子",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "東京ＯＬクラブひかり",
+      "class": "M",
+      "club": "東京OLクラブ",
+      "members": "上田俊雄, 西沢敦, 天明英之",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "ES関東C つばき",
+      "class": "S",
+      "club": "ES関東クラブ",
+      "members": "広江淳良, 渡辺円香, 小暮喜代志",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "上尾ＯＬＣカワセミ",
+      "class": "S",
+      "club": "上尾オリエンテーリングクラブ",
+      "members": "井上千帆里, 中村莉子, 今井信也",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "入間市OLC 新茶",
+      "class": "S",
+      "club": "入間市OLC",
+      "members": "成田美奈子, 水嶋竜也, 白石太郎",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "前川 一彦",
+      "class": "ワンマンL",
+      "club": "大阪OLC",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "村上 巧",
+      "class": "ワンマンL",
+      "club": "横浜OLクラブ/つばめ会",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "三科 伸之",
+      "class": "ワンマンS",
+      "club": "春日部OLC",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "井上 仁",
+      "class": "個人L",
+      "club": "OLCレオ",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "弓削田 槙一",
+      "class": "個人L",
+      "club": "入間市OLC",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "渋谷 泰樹",
+      "class": "個人L",
+      "club": "入間市OLC",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "大林 俊彦",
+      "class": "個人L",
+      "club": "大阪OLC",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "五十嵐 則仁",
+      "class": "個人L",
+      "club": "横浜OLクラブ",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "鈴木 健夫",
+      "class": "個人S",
+      "club": "京葉OLクラブ",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "佐々木 鐵雄",
+      "class": "個人S",
+      "club": "入間市OLC",
+      "members": null,
+      "card_number": null,
+      "start_time": null
+    }
+  ]
+}
