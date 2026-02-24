@@ -755,7 +755,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.6.0';
+const APP_VERSION = '1.6.1';
 
 /* ========== State ========== */
 const state = {
@@ -974,6 +974,17 @@ function renderHeroStartArea(eventData, day) {
   return html;
 }
 
+function formatMembersWithLeg(membersStr, highlightIdx) {
+  const members = membersStr.split(',').map(m => m.trim());
+  return members.map((m, i) => {
+    const leg = `${i + 1}走`;
+    const isHl = highlightIdx === i;
+    return isHl
+      ? `<b style="opacity:1">${leg} ${escapeHtml(m)}</b>`
+      : `<span style="opacity:0.55">${leg} ${escapeHtml(m)}</span>`;
+  }).join(' → ');
+}
+
 /* ========== Rendering: Timeline Tab ========== */
 function renderTimeline(eventData, day, participant) {
   const container = document.getElementById('timeline-content');
@@ -1063,14 +1074,29 @@ function renderTimeline(eventData, day, participant) {
     const departLabel = departPoint ? `${departPoint}出発` : '出発';
     const departSub = walkMins ? `徒歩${walkMins}分` : '';
 
+    // Relay/team detection and member running order
+    const isTeam = !!participant.members;
+    const heroTitle = isTeam ? '🏃 チームスタート' : '🏃 あなたのスタート';
+    const startLabel = isTeam ? '1走スタート' : 'スタート';
+    let memberHighlightIdx = -1;
+    if (isTeam && state.searchQuery) {
+      const members = participant.members.split(',').map(m => m.trim());
+      memberHighlightIdx = members.findIndex(m => m.toLowerCase().includes(state.searchQuery));
+    }
+
     html += `
       <div class="hero-card">
-        <div class="hero-title">🏃 あなたのスタート</div>
+        <div class="hero-title">${heroTitle}</div>
         <div class="hero-divider"></div>
         <div class="hero-row">
-          <span class="label">スタート</span>
+          <span class="label">${startLabel}</span>
           <span class="value">${startTime || '—'}${isMassStart ? '<span class="sub">(一斉)</span>' : ''}</span>
         </div>
+        ${isTeam && memberHighlightIdx > 0 ? `
+        <div class="hero-row">
+          <span class="label">あなた（${memberHighlightIdx + 1}走）</span>
+          <span class="value">中継スタート<span class="sub">（前走の帰着後）</span></span>
+        </div>` : ''}
         ${departTime ? `
         <div class="hero-row">
           <span class="label">${departLabel}</span>
@@ -1086,7 +1112,7 @@ function renderTimeline(eventData, day, participant) {
         <div class="hero-footer">
           ${participant.name || ''}${(participant.class_name || participant['class']) ? ' / ' + (participant.class_name || participant['class']) : ''}${participant.club || participant.team ? ' / ' + (participant.club || participant.team) : ''}
         </div>
-        ${participant.members ? `<div class="hero-footer" style="font-size:0.75rem;opacity:0.7;margin-top:4px">メンバー: ${escapeHtml(participant.members)}</div>` : ''}
+        ${isTeam ? `<div class="hero-footer" style="font-size:0.75rem;margin-top:4px">${formatMembersWithLeg(participant.members, memberHighlightIdx)}</div>` : ''}
       </div>`;
   }
 
@@ -1183,6 +1209,9 @@ function onSelectResult(index) {
   const resultsEl = document.getElementById('search-results');
   const p = resultsEl._results && resultsEl._results[index];
   if (p) {
+    // Save search context for relay member highlighting
+    const searchInput = document.getElementById('participant-search');
+    state.searchQuery = searchInput ? searchInput.value.trim().toLowerCase() : '';
     selectParticipant(p);
     resultsEl.classList.add('hidden');
   }
@@ -1354,7 +1383,7 @@ function renderCourses(eventData, selectedClass) {
 
   courses.forEach(c => {
     const className = c.class_name || c['class'] || '';
-    const isHighlight = selectedClass && className === selectedClass;
+    const isHighlight = selectedClass && (className === selectedClass || className.startsWith(selectedClass + '（') || className.startsWith(selectedClass + '('));
     const dist = dayCount > 1 ? pickDay(c.distance, day) : (c.distance || '—');
     const climb = dayCount > 1 ? pickDay(c.climb, day) : (c.climb || '—');
     const firstStart = dayCount > 1 ? pickDay(c.first_start, day) : (c.first_start || '—');
