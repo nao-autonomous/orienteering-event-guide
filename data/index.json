@@ -6,20 +6,6 @@
       "date": "2026-02-28",
       "file": "parko-osaka-2025.json",
       "startlist": "parko-osaka-2025-startlist.json"
-    },
-    {
-      "id": "takasaki-2026",
-      "name": "第34回オリエンテーリング高崎大会",
-      "date": "2026-03-15",
-      "file": "takasaki-2026.json",
-      "startlist": null
-    },
-    {
-      "id": "horaisen-2024",
-      "name": "奥三河ほうらいせん2days2024",
-      "date": "2024-05-18/2024-05-19",
-      "file": "horaisen-2024.json",
-      "startlist": "horaisen-2024-startlist.json"
     }
   ]
 }

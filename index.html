@@ -206,6 +206,76 @@ html { overscroll-behavior: none; }
   text-align: center;
 }
 
+/* ========== Hero Card: Start Area ========== */
+.hero-section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hero-description {
+  font-size: 0.78rem;
+  opacity: 0.85;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.hero-steps {
+  font-size: 0.78rem;
+  opacity: 0.9;
+  line-height: 1.5;
+  padding-left: 4px;
+}
+.hero-steps .step {
+  padding: 2px 0;
+}
+
+/* ========== Event Selection Cards ========== */
+.event-select-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 12px;
+  text-align: center;
+}
+.event-card {
+  background: white;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.event-card:active {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+.event-card:active .event-card-date { color: rgba(255,255,255,0.85); }
+.event-card-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+.event-card-date {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+.event-card-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  background: var(--green);
+  color: white;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
 /* ========== Search ========== */
 .search-box {
   position: relative;
@@ -682,7 +752,7 @@ html { overscroll-behavior: none; }
 
 <script>
 /* ========== Constants ========== */
-const CDN_BASE = './data/';
+const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
 const APP_VERSION = '1.4.0';
@@ -804,6 +874,18 @@ async function loadEventData(eventId) {
 }
 
 /* ========== Time Utilities ========== */
+function formatEventDate(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.split('/');
+  const fmt = d => {
+    const dt = new Date(d + 'T00:00:00');
+    const days = ['日','月','火','水','木','金','土'];
+    return `${dt.getFullYear()}年${dt.getMonth()+1}月${dt.getDate()}日(${days[dt.getDay()]})`;
+  };
+  if (parts.length === 2) return `${fmt(parts[0])} 〜 ${fmt(parts[1])}`;
+  return fmt(parts[0]);
+}
+
 function parseTime(str) {
   if (!str) return null;
   const m = str.match(/^(\d{1,2}):(\d{2})$/);
@@ -871,15 +953,54 @@ function clearParticipant() {
   renderSettings();
 }
 
+function renderHeroStartArea(eventData, day) {
+  const sa = eventData.start_area;
+  if (!sa) return '';
+  // Support per-day start_area (e.g., {day1: {...}, day2: {...}}) or flat
+  const areaData = sa[`day${day}`] || sa;
+  if (!areaData.description && !areaData.steps) return '';
+
+  let html = '<div class="hero-divider"></div>';
+  if (areaData.description) {
+    html += `<div class="hero-section-title">📍 スタートまで</div>`;
+    html += `<div class="hero-description">${escapeHtml(areaData.description)}</div>`;
+  }
+  if (areaData.steps && areaData.steps.length) {
+    html += `<div class="hero-section-title">🏁 スタート手順</div>`;
+    html += '<div class="hero-steps">';
+    areaData.steps.forEach(s => {
+      html += `<div class="step">${escapeHtml(s)}</div>`;
+    });
+    html += '</div>';
+  }
+  return html;
+}
+
 /* ========== Rendering: Timeline Tab ========== */
 function renderTimeline(eventData, day, participant) {
   const container = document.getElementById('timeline-content');
   if (!eventData) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🧭</div>
-        <div>設定タブからイベントを選択してください</div>
-      </div>`;
+    // Show event selection cards instead of just a message
+    const events = state.events?.events || [];
+    if (events.length > 0) {
+      let cardsHtml = '<div class="event-select-title">🧭 イベントを選択</div>';
+      events.forEach(e => {
+        const dateStr = formatEventDate(e.date);
+        const hasSL = e.startlist ? '<span class="event-card-badge">スタートリスト</span>' : '';
+        cardsHtml += `
+          <div class="event-card" onclick="onEventChange('${e.id}')">
+            <div class="event-card-name">${escapeHtml(e.name)}${hasSL}</div>
+            <div class="event-card-date">${dateStr}</div>
+          </div>`;
+      });
+      container.innerHTML = cardsHtml;
+    } else {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🧭</div>
+          <div>設定タブからイベントを選択してください</div>
+        </div>`;
+    }
     return;
   }
 
@@ -934,6 +1055,7 @@ function renderTimeline(eventData, day, participant) {
           <span class="label">受付</span>
           <span class="value">${receptionTime}</span>
         </div>` : ''}
+        ${renderHeroStartArea(eventData, day)}
         <div class="hero-divider"></div>
         <div class="hero-footer">
           ${participant.name || ''}${(participant.class_name || participant['class']) ? ' / ' + (participant.class_name || participant['class']) : ''}${participant.club || participant.team ? ' / ' + (participant.club || participant.team) : ''}
@@ -1092,7 +1214,8 @@ function renderInfo(eventData, day) {
   const sections = [
     { key: 'access', icon: '🚗', label: 'アクセス・駐車場' },
     { key: 'reception', icon: '📋', label: '受付' },
-    { key: 'start_procedure', icon: '🏁', label: 'スタート方式', alt: 'start' },
+    { key: 'start_procedure', icon: '🏁', label: 'スタート', alt: 'start' },
+    { key: 'competition', icon: '⏱️', label: '競技規則' },
     { key: 'equipment', icon: '👕', label: '装備' },
     { key: 'emergency', icon: '🏥', label: '緊急連絡先' },
     { key: 'facilities', icon: '🚻', label: '施設' },
