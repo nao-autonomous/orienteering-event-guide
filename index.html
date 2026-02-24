@@ -685,7 +685,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = './data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.3.0';
+const APP_VERSION = '1.4.0';
 
 /* ========== State ========== */
 const state = {
@@ -1058,9 +1058,18 @@ function formatInfoText(text, day) {
     .join('')
     .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all">$1</a>');
 
-  // Highlight current day references
+  // Highlight current day, dim other days
   if (day) {
     const dayLabel = `Day${day}`;
+    const otherDays = [1,2,3].filter(d => d !== day).map(d => `Day${d}`);
+    // Dim paragraphs mentioning other days
+    otherDays.forEach(od => {
+      processed = processed.replace(
+        new RegExp(`(<p[^>]*>)((?:(?!<\/p>).)*${od}(?:(?!<\/p>).)*)(<\/p>)`, 'gi'),
+        '$1<span style="opacity:0.35">$2</span>$3'
+      );
+    });
+    // Highlight current day
     processed = processed.replace(
       new RegExp(`(${dayLabel}[^<]*)`, 'gi'),
       '<strong style="color:var(--green-dark)">$1</strong>'
