@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#16a34a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>イベントガイド</title>
+<title>Oガイド</title>
 <link rel="manifest" href="manifest.json">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RMMPL6QL06"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RMMPL6QL06');</script>
@@ -1421,7 +1421,7 @@ function renderSettings() {
   html += `
     <div class="setting-group">
       <div class="setting-label">バージョン情報</div>
-      <div class="meta-text">Event Guide v${APP_VERSION}</div>
+      <div class="meta-text">Oガイド v${APP_VERSION}</div>
       <div class="meta-text" style="margin-top:2px;">
         <a href="https://github.com/nao-autonomous/orienteering-event-guide" 
            target="_blank" rel="noopener" style="color:var(--green);">ソースコード</a>
@@ -1585,7 +1585,7 @@ function updateTopbar() {
   const titleEl = document.getElementById('topbar-title');
   const ed = state.eventData;
   if (ed) {
-    titleEl.textContent = ed.name || ed.event?.name || ed.event_name || 'イベントガイド';
+    titleEl.textContent = ed.name || ed.event?.name || ed.event_name || 'Oガイド';
   } else {
     titleEl.textContent = 'イベントを選択してください';
   }

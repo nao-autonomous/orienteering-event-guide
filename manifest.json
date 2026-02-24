@@ -1,7 +1,7 @@
 {
-  "name": "イベントガイド",
-  "short_name": "ガイド",
-  "description": "オリエンテーリング大会のオフラインイベントガイド",
+  "name": "Oガイド",
+  "short_name": "Oガイド",
+  "description": "オリエンテーリング大会のオフラインガイド",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f0fdf4",

@@ -1,5 +1,5 @@
 // Event Guide PWA — Service Worker
-const CACHE_NAME = 'event-guide-v10';
+const CACHE_NAME = 'event-guide-v11';
 const STATIC_ASSETS = [
   './',
   './index.html',
