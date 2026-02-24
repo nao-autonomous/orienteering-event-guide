@@ -755,7 +755,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.5.2';
+const APP_VERSION = '1.6.0';
 
 /* ========== State ========== */
 const state = {
@@ -989,11 +989,14 @@ function renderTimeline(eventData, day, participant) {
         </div>`;
       events.forEach(e => {
         const dateStr = formatEventDate(e.date);
-        const hasSL = e.startlist ? '<span class="event-card-badge">スタートリスト</span>' : '';
+        const badges = [];
+        if (e.file) badges.push('<span class="event-card-badge" style="background:var(--gray-500)">プログラム</span>');
+        if (e.startlist) badges.push('<span class="event-card-badge">スタートリスト</span>');
+        const badgeHtml = badges.length ? ' ' + badges.join(' ') : '';
         cardsHtml += `
           <div class="event-card" onclick="onEventChange('${e.id}')">
-            <div class="event-card-name">${escapeHtml(e.name)}${hasSL}</div>
-            <div class="event-card-date">${dateStr}</div>
+            <div class="event-card-name">${escapeHtml(e.name)}</div>
+            <div class="event-card-date">${dateStr}${badgeHtml}</div>
           </div>`;
       });
       container.innerHTML = cardsHtml;
@@ -1027,7 +1030,7 @@ function renderTimeline(eventData, day, participant) {
     html += `
       <div class="search-box mb-12">
         <span class="search-icon">🔍</span>
-        <input type="text" id="participant-search" placeholder="名前・ふりがな・所属で検索"
+        <input type="text" id="participant-search" placeholder="名前・ふりがな・所属・メンバーで検索"
                value="" autocomplete="off">
       </div>
       <div class="search-results hidden" id="search-results"></div>`;
@@ -1035,7 +1038,21 @@ function renderTimeline(eventData, day, participant) {
 
   // Hero card
   if (participant) {
-    const startTime = participant.start_time || '';
+    let startTime = participant.start_time || '';
+    let isMassStart = false;
+    if (!startTime) {
+      // Try to find start time from courses (for mass start events)
+      const pClass = participant.class_name || participant['class'] || '';
+      const courses = dayData?.courses || dayData?.info?.courses || eventData?.info?.courses || [];
+      const matchedCourse = courses.find(c => {
+        const cClass = c.class_name || c['class'] || '';
+        return cClass === pClass || cClass.startsWith(pClass + '（') || cClass.startsWith(pClass + '(');
+      });
+      if (matchedCourse?.first_start) {
+        startTime = matchedCourse.first_start;
+        isMassStart = true;
+      }
+    }
     const walkMins = walkMinsForDay;
     const departTime = calculateDepartureTime(startTime, walkMins);
     const receptionTime = dayData.reception_time || eventData.reception_time || '';
@@ -1052,7 +1069,7 @@ function renderTimeline(eventData, day, participant) {
         <div class="hero-divider"></div>
         <div class="hero-row">
           <span class="label">スタート</span>
-          <span class="value">${startTime || '—'}</span>
+          <span class="value">${startTime || '—'}${isMassStart ? '<span class="sub">(一斉)</span>' : ''}</span>
         </div>
         ${departTime ? `
         <div class="hero-row">
@@ -1190,8 +1207,15 @@ function formatInfoText(text, day) {
     .map(line => {
       const trimmed = line.trim();
       if (!trimmed) return '';
-      // Detect sub-header pattern: "Label: content" (2-10 chars before colon)
-      const m = trimmed.match(/^([^:：]{2,10})[：:]\s*/);
+      // Detect 【Label】 sub-header pattern
+      const bracket = trimmed.match(/^【([^】]+)】\s*/);
+      if (bracket) {
+        const label = bracket[1];
+        const rest = trimmed.slice(bracket[0].length);
+        return `<div style="font-weight:600;color:#374151;margin-top:10px;margin-bottom:2px;font-size:0.82rem">${label}</div>${rest ? `<p style="margin:0 0 6px">${rest}</p>` : ''}`;
+      }
+      // Detect sub-header pattern: "Label: content" (exclude time patterns like 8:30)
+      const m = trimmed.match(/^([^:：]{1,9}[^:：\d])[：:]\s*/);
       if (m && !/^\d+$/.test(m[1])) {
         const label = m[1];
         const rest = trimmed.slice(m[0].length);
