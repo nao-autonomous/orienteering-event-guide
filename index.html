@@ -958,13 +958,17 @@ function renderHeroStartArea(eventData, day) {
   if (!sa) return '';
   // Support per-day start_area (e.g., {day1: {...}, day2: {...}}) or flat
   const areaData = sa[`day${day}`] || sa;
-  if (!areaData.summary && !areaData.description) return '';
+  if (!areaData.description && !areaData.procedure_summary) return '';
 
   let html = '<div class="hero-divider"></div>';
-  // Compact procedure flow only (location info merged into departure row)
+  // Navigation info (how to get to start)
+  if (areaData.navigation) {
+    html += `<div style="font-size:0.75rem;opacity:0.85;line-height:1.4;padding:2px 0">📍 ${escapeHtml(areaData.navigation)}</div>`;
+  }
+  // Compact procedure flow
   const procInfo = areaData.procedure_summary;
   if (procInfo) {
-    html += `<div style="font-size:0.73rem;opacity:0.8;margin-top:2px;padding-left:2px">🏁 ${escapeHtml(procInfo)}</div>`;
+    html += `<div style="font-size:0.73rem;opacity:0.8;margin-top:2px">🏁 ${escapeHtml(procInfo)}</div>`;
   }
   return html;
 }
