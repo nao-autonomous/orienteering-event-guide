@@ -755,7 +755,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.6.1';
+const APP_VERSION = '1.6.2';
 
 /* ========== State ========== */
 const state = {
@@ -985,6 +985,10 @@ function formatMembersWithLeg(membersStr, highlightIdx) {
   }).join(' → ');
 }
 
+function normalizeClassName(name) {
+  return name.replace(/（.*?）/g, '').replace(/\(.*?\)/g, '').replace(/リレー/g, '').trim();
+}
+
 /* ========== Rendering: Timeline Tab ========== */
 function renderTimeline(eventData, day, participant) {
   const container = document.getElementById('timeline-content');
@@ -1001,7 +1005,11 @@ function renderTimeline(eventData, day, participant) {
       events.forEach(e => {
         const dateStr = formatEventDate(e.date);
         const badges = [];
-        if (e.file) badges.push('<span class="event-card-badge" style="background:var(--gray-500)">プログラム</span>');
+        if (e.file) {
+          const src = e.source || 'プログラム';
+          const srcColor = src === '要項' ? 'var(--amber)' : 'var(--gray-500)';
+          badges.push(`<span class="event-card-badge" style="background:${srcColor}">${escapeHtml(src)}</span>`);
+        }
         if (e.startlist) badges.push('<span class="event-card-badge">スタートリスト</span>');
         const badgeHtml = badges.length ? ' ' + badges.join(' ') : '';
         cardsHtml += `
@@ -1055,9 +1063,10 @@ function renderTimeline(eventData, day, participant) {
       // Try to find start time from courses (for mass start events)
       const pClass = participant.class_name || participant['class'] || '';
       const courses = dayData?.courses || dayData?.info?.courses || eventData?.info?.courses || [];
+      const normalizedP = normalizeClassName(pClass);
       const matchedCourse = courses.find(c => {
         const cClass = c.class_name || c['class'] || '';
-        return cClass === pClass || cClass.startsWith(pClass + '（') || cClass.startsWith(pClass + '(');
+        return cClass === pClass || normalizeClassName(cClass) === normalizedP;
       });
       if (matchedCourse?.first_start) {
         startTime = matchedCourse.first_start;
@@ -1095,7 +1104,7 @@ function renderTimeline(eventData, day, participant) {
         ${isTeam && memberHighlightIdx > 0 ? `
         <div class="hero-row">
           <span class="label">あなた（${memberHighlightIdx + 1}走）</span>
-          <span class="value">中継スタート<span class="sub">（前走の帰着後）</span></span>
+          <span class="value">中継スタート<span class="sub">（会場で前走者と交代）</span></span>
         </div>` : ''}
         ${departTime ? `
         <div class="hero-row">
@@ -1383,7 +1392,7 @@ function renderCourses(eventData, selectedClass) {
 
   courses.forEach(c => {
     const className = c.class_name || c['class'] || '';
-    const isHighlight = selectedClass && (className === selectedClass || className.startsWith(selectedClass + '（') || className.startsWith(selectedClass + '('));
+    const isHighlight = selectedClass && (className === selectedClass || normalizeClassName(className) === normalizeClassName(selectedClass));
     const dist = dayCount > 1 ? pickDay(c.distance, day) : (c.distance || '—');
     const climb = dayCount > 1 ? pickDay(c.climb, day) : (c.climb || '—');
     const firstStart = dayCount > 1 ? pickDay(c.first_start, day) : (c.first_start || '—');
