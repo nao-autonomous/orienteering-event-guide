@@ -755,7 +755,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.5.0';
+const APP_VERSION = '1.5.1';
 
 /* ========== State ========== */
 const state = {
@@ -958,20 +958,21 @@ function renderHeroStartArea(eventData, day) {
   if (!sa) return '';
   // Support per-day start_area (e.g., {day1: {...}, day2: {...}}) or flat
   const areaData = sa[`day${day}`] || sa;
-  if (!areaData.description && !areaData.steps) return '';
+  if (!areaData.summary && !areaData.description) return '';
 
   let html = '<div class="hero-divider"></div>';
-  if (areaData.description) {
-    html += `<div class="hero-section-title">📍 スタートまで</div>`;
-    html += `<div class="hero-description">${escapeHtml(areaData.description)}</div>`;
+  // Compact summary line
+  const walkInfo = areaData.summary || areaData.description;
+  if (walkInfo) {
+    html += `<div class="hero-row">
+      <span class="label">📍 スタートまで</span>
+      <span class="value" style="font-size:0.82rem;font-weight:500">${escapeHtml(walkInfo)}</span>
+    </div>`;
   }
-  if (areaData.steps && areaData.steps.length) {
-    html += `<div class="hero-section-title">🏁 スタート手順</div>`;
-    html += '<div class="hero-steps">';
-    areaData.steps.forEach(s => {
-      html += `<div class="step">${escapeHtml(s)}</div>`;
-    });
-    html += '</div>';
+  // Compact procedure flow
+  const procInfo = areaData.procedure_summary;
+  if (procInfo) {
+    html += `<div style="font-size:0.73rem;opacity:0.8;margin-top:2px;padding-left:2px">🏁 ${escapeHtml(procInfo)}</div>`;
   }
   return html;
 }
@@ -1181,7 +1182,18 @@ function formatInfoText(text, day) {
     .replace(/\n{2,}/g, '\n')
     .trim()
     .split('\n')
-    .map(line => `<p style="margin:0 0 6px">${line}</p>`)
+    .map(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return '';
+      // Detect sub-header pattern: "Label: content" (2-10 chars before colon)
+      const m = trimmed.match(/^([^:：]{2,10})[：:]\s*/);
+      if (m) {
+        const label = m[1];
+        const rest = trimmed.slice(m[0].length);
+        return `<div style="font-weight:600;color:#374151;margin-top:10px;margin-bottom:2px;font-size:0.82rem">${label}</div>${rest ? `<p style="margin:0 0 6px">${rest}</p>` : ''}`;
+      }
+      return `<p style="margin:0 0 6px">${line}</p>`;
+    })
     .join('')
     .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all">$1</a>');
 
@@ -1220,7 +1232,7 @@ function renderInfo(eventData, day) {
     { key: 'access', icon: '🚗', label: 'アクセス・駐車場' },
     { key: 'reception', icon: '📋', label: '受付' },
     { key: 'start_procedure', icon: '🏁', label: 'スタート', alt: 'start' },
-    { key: 'competition', icon: '⏱️', label: '競技規則' },
+    { key: 'competition', icon: '⏱️', label: 'パンチ・計時' },
     { key: 'equipment', icon: '👕', label: '装備' },
     { key: 'emergency', icon: '🏥', label: '緊急連絡先' },
     { key: 'facilities', icon: '🚻', label: '施設' },
@@ -1470,7 +1482,19 @@ async function loadLastUpdated() {
 
 /* ========== Event Handlers ========== */
 async function onEventChange(eventId) {
-  if (!eventId) return;
+  if (!eventId) {
+    state.selectedEvent = null;
+    state.eventData = null;
+    state.startlist = null;
+    state.selectedParticipant = null;
+    localStorage.removeItem('selected_event');
+    localStorage.removeItem('selected_participant');
+    updateTopbar();
+    updateDaySelector();
+    renderCurrentTab();
+    renderSettings();
+    return;
+  }
   state.selectedEvent = eventId;
   state.selectedDay = 1;
   state.selectedParticipant = null;
