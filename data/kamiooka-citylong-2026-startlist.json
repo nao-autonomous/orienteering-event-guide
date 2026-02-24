@@ -1,0 +1,151 @@
+{
+  "event_id": "kamiooka-citylong-2026",
+  "generated_at": "2026-02-24T08:15:08.618030+00:00",
+  "participant_count": 20,
+  "classes": [
+    "A (15.0km)",
+    "B (10.0km)"
+  ],
+  "participants": [
+    {
+      "name": "宮島 悟史",
+      "class": "A (15.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "櫻井 二千翔",
+      "class": "A (15.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "神戸 錬一郎",
+      "class": "A (15.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "博田 亮",
+      "class": "A (15.0km)",
+      "club": "Blue Night",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "定塚 和久",
+      "class": "A (15.0km)",
+      "club": "Blue Night",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "汐月 健太郎",
+      "class": "A (15.0km)",
+      "club": "Blue Night",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "山下 大樹",
+      "class": "A (15.0km)",
+      "club": "上尾OLC",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "床尾 瑛",
+      "class": "A (15.0km)",
+      "club": "入間市OLC",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "竹中 庸",
+      "class": "A (15.0km)",
+      "club": "早大OC寿会",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "佐々木 順",
+      "class": "A (15.0km)",
+      "club": "渋谷で走る会/サン・スーシ",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "城田 直之",
+      "class": "B (10.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "増田 孝子",
+      "class": "B (10.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "増田 陸雄",
+      "class": "B (10.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "西野 誠",
+      "class": "B (10.0km)",
+      "club": "",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "高津 寿三鈴",
+      "class": "B (10.0km)",
+      "club": "Club阿闍梨",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "奥村 理也",
+      "class": "B (10.0km)",
+      "club": "TREKNAO",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "黒羽 和之",
+      "class": "B (10.0km)",
+      "club": "ときわ走林会/うさぎ会",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "佐藤 信彦",
+      "class": "B (10.0km)",
+      "club": "サン・スーシ",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "池ヶ谷 悦朗",
+      "class": "B (10.0km)",
+      "club": "サン・スーシ",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "志賀 孝道",
+      "class": "B (10.0km)",
+      "club": "月まで走ろう会",
+      "card_number": null,
+      "start_time": null
+    }
+  ]
+}

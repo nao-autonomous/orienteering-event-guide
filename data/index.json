@@ -8,6 +8,13 @@
       "startlist": "parko-osaka-2025-startlist.json"
     },
     {
+      "id": "kamiooka-citylong-2026",
+      "name": "上大岡シティロングオリエンテーリング",
+      "date": "2026-02-28",
+      "file": "kamiooka-citylong-2026.json",
+      "startlist": "kamiooka-citylong-2026-startlist.json"
+    },
+    {
       "id": "club-relay-2026",
       "name": "第28回クラブ対抗リレーオリエンテーリング大会",
       "date": "2026-03-01",
