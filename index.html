@@ -411,8 +411,7 @@ html { overscroll-behavior: none; }
   font-size: 0.88rem;
   color: var(--gray-700);
   line-height: 1.85;
-  white-space: pre-wrap;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .accordion-body.open { display: block; }
@@ -678,10 +677,10 @@ html { overscroll-behavior: none; }
 
 <script>
 /* ========== Constants ========== */
-const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
+const CDN_BASE = './data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.1.0';
+const APP_VERSION = '1.2.0';
 
 /* ========== State ========== */
 const state = {
@@ -738,7 +737,12 @@ async function fetchJSON(path) {
 
 async function checkConnectivity() {
   try {
-    const res = await fetch(CDN_BASE + 'index.json', { method: 'HEAD', cache: 'no-store' });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const res = await fetch(CDN_BASE + 'index.json', {
+      method: 'HEAD', cache: 'no-store', signal: controller.signal
+    });
+    clearTimeout(timeout);
     return res.ok;
   } catch {
     return false;
@@ -1040,10 +1044,13 @@ function toggleDetails(el) {
 
 /* ========== Rendering: Info Tab ========== */
 function formatInfoText(text) {
-  // Add visual breaks between logical sections
   return text
-    .replace(/\n{2,}/g, '</p><p style="margin-top:10px">')
-    .replace(/^/, '<p>').replace(/$/, '</p>')
+    .replace(/。/g, '。\n')
+    .replace(/\n{2,}/g, '\n')
+    .trim()
+    .split('\n')
+    .map(line => `<p style="margin:0 0 6px">${line}</p>`)
+    .join('')
     .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all">$1</a>');
 }
 
@@ -1107,6 +1114,13 @@ function toggleAccordion(header) {
 }
 
 /* ========== Rendering: Courses Tab ========== */
+function pickDay(value, day) {
+  if (!value || typeof value !== 'string') return value || '—';
+  const parts = value.split('/').map(s => s.trim());
+  if (parts.length >= 2) return parts[day - 1] || parts[0];
+  return value;
+}
+
 function renderCourses(eventData, selectedClass) {
   const container = document.getElementById('courses-content');
   if (!eventData) {
@@ -1116,6 +1130,9 @@ function renderCourses(eventData, selectedClass) {
 
   const dayData = Array.isArray(eventData.days) ? eventData.days[state.selectedDay - 1] : eventData;
   const courses = dayData?.courses || eventData?.info?.courses || eventData.courses || [];
+  const daysField = eventData.days || eventData.event?.days;
+  const dayCount = Array.isArray(daysField) ? daysField.length : (typeof daysField === 'number' ? daysField : 1);
+  const day = state.selectedDay;
 
   if (!courses.length) {
     container.innerHTML = '<div class="empty-state"><div>コース情報がありません</div></div>';
@@ -1141,13 +1158,17 @@ function renderCourses(eventData, selectedClass) {
   courses.forEach(c => {
     const className = c.class_name || c['class'] || '';
     const isHighlight = selectedClass && className === selectedClass;
+    const dist = dayCount > 1 ? pickDay(c.distance, day) : (c.distance || '—');
+    const climb = dayCount > 1 ? pickDay(c.climb, day) : (c.climb || '—');
+    const firstStart = dayCount > 1 ? pickDay(c.first_start, day) : (c.first_start || '—');
+    const winTime = dayCount > 1 ? pickDay(c.winning_time, day) : (c.winning_time || '—');
     html += `
           <tr${isHighlight ? ' class="highlight"' : ''}>
             <td>${escapeHtml(className)}</td>
-            <td>${c.distance || '—'}</td>
-            <td>${c.climb || '—'}</td>
-            ${hasWinTime ? `<td>${c.winning_time || '—'}</td>` : ''}
-            <td>${c.first_start || '—'}</td>
+            <td>${dist}</td>
+            <td>${climb}</td>
+            ${hasWinTime ? `<td>${winTime}</td>` : ''}
+            <td>${firstStart}</td>
           </tr>`;
   });
 
@@ -1241,9 +1262,13 @@ function renderSettings() {
   html += `
     <div class="setting-group">
       <div class="setting-label">アプリとして追加</div>
-      <div class="meta-text" style="line-height:1.7">
-        <strong>iOS Safari:</strong> 下部の共有ボタン（□↑）→「ホーム画面に追加」<br>
-        <strong>Android Chrome:</strong> メニュー（⋮）→「ホーム画面に追加」
+      <div class="meta-text" style="line-height:1.9">
+        <strong>iOS Safari:</strong><br>
+        1. 下部の共有ボタン（□↑）をタップ<br>
+        2. メニューを<strong>上にスクロール</strong><br>
+        3.「ホーム画面に追加」をタップ<br><br>
+        <strong>Android Chrome:</strong><br>
+        右上メニュー（⋮）→「ホーム画面に追加」
       </div>
     </div>`;
 
