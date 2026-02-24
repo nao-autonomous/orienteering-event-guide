@@ -755,7 +755,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.4.0';
+const APP_VERSION = '1.5.0';
 
 /* ========== State ========== */
 const state = {
@@ -983,7 +983,12 @@ function renderTimeline(eventData, day, participant) {
     // Show event selection cards instead of just a message
     const events = state.events?.events || [];
     if (events.length > 0) {
-      let cardsHtml = '<div class="event-select-title">🧭 イベントを選択</div>';
+      let cardsHtml = `
+        <div class="empty-state" style="margin-bottom:16px">
+          <div class="empty-icon">🧭</div>
+          <div style="font-weight:600;margin-bottom:4px">参加するイベントを選択</div>
+          <div style="font-size:0.8rem;color:var(--gray-500)">選択後にタイムラインやスタートリスト検索が使えます</div>
+        </div>`;
       events.forEach(e => {
         const dateStr = formatEventDate(e.date);
         const hasSL = e.startlist ? '<span class="event-card-badge">スタートリスト</span>' : '';
@@ -1428,13 +1433,16 @@ function renderSettings() {
     <div class="setting-group">
       <div class="setting-label">フィードバック</div>
       <div class="meta-text" style="line-height:1.7">
-        ご意見・ご要望・不具合の報告はこちら
+        使いにくい点・バグ・改善のご要望はこちら
       </div>
-      <a href="https://github.com/nao-autonomous/orienteering-event-guide/issues/new"
+      <a href="https://github.com/nao-autonomous/orienteering-event-guide/issues/new?labels=feedback&title=フィードバック:&body=【内容】%0A%0A【環境】スマホ/PC、ブラウザ名"
          target="_blank" rel="noopener"
          class="btn btn-outline" style="margin-top:8px;text-decoration:none;display:inline-flex">
-        フィードバックを送る
+        フィードバックを送る（GitHub）
       </a>
+      <div class="meta-text" style="margin-top:8px;font-size:0.75rem;color:var(--gray-500)">
+        GitHubアカウントが不要なフォームは準備中です
+      </div>
     </div>`;
 
   container.innerHTML = html;
