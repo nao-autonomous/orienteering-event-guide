@@ -1,0 +1,45 @@
+{
+  "event_id": "yokohama-olc-practice-2026",
+  "generated_at": "2026-02-24T18:50:00.000000+00:00",
+  "participant_count": 5,
+  "classes": [
+    "HARD"
+  ],
+  "participants": [
+    {
+      "name": "本間 晃",
+      "class": "HARD",
+      "club": "静岡OLC",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "大林 俊彦",
+      "class": "HARD",
+      "club": "大阪OLC",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "小泉 辰喜",
+      "class": "HARD",
+      "club": "東京OLクラブ",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "井村 真岳",
+      "class": "HARD",
+      "club": "東大OLK/ES関東C",
+      "card_number": null,
+      "start_time": null
+    },
+    {
+      "name": "早野 哲朗",
+      "class": "HARD",
+      "club": "京葉オリエンテーリングクラブ",
+      "card_number": null,
+      "start_time": null
+    }
+  ]
+}

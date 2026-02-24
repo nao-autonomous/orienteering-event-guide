@@ -17,6 +17,14 @@
       "source": "要項"
     },
     {
+      "id": "yokohama-olc-practice-2026",
+      "name": "横浜OLクラブ 26年2月練習会",
+      "date": "2026-02-28",
+      "file": "yokohama-olc-practice-2026.json",
+      "startlist": "yokohama-olc-practice-2026-startlist.json",
+      "source": "プログラム"
+    },
+    {
       "id": "club-relay-2026",
       "name": "第28回クラブ対抗リレーオリエンテーリング大会",
       "date": "2026-03-01",

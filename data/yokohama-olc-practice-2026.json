@@ -1,0 +1,65 @@
+{
+  "event": {
+    "name": "横浜OLクラブ 26年2月練習会",
+    "date": "2026-02-28",
+    "venue": "釜台公園（横浜市保土ヶ谷区釜台町）",
+    "venue_address": "〒240-0066 神奈川県横浜市保土ケ谷区釜台町11",
+    "organizer": "横浜OLクラブ",
+    "days": 1
+  },
+  "timeline": [
+    {
+      "time": "09:00",
+      "label": "受付開始",
+      "category": "reception",
+      "details": "釜台公園（階段を登った先の北側の広場の東屋）にて受付。地図を受け取り、各自で練習開始。参加費は受付で支払い",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "11:15",
+      "label": "会場撤収",
+      "category": "other",
+      "details": "11:15に会場を撤収。それまでに練習を終了してください",
+      "day": 1,
+      "applies_to": "all"
+    }
+  ],
+  "info": {
+    "access": "相鉄線 上星川駅より徒歩9分。会場は釜台公園（階段を登った先の北側の広場の東屋）。〒240-0066 神奈川県横浜市保土ケ谷区釜台町11。会場内にトイレなし（駅などで済ませること）。駐車場なし（付近の有料駐車場を利用）",
+    "reception": "9:00〜10:00。参加費（地図代）: 一般 500円/1コース、800円/2コース、1,100円/3コース。大学生・大学院生 300円/600円/900円。高校生以下 300円/500円/700円",
+    "competition": "練習会形式。受付後、各自のペースで練習（フラッグの設置なし、通過証明なし）。計時を行いたい場合は各自で対応。地図保護用のビニール袋が必要な方は各自準備。コース: HARD（3.0km程度）ロングレッグ、階段、登り坂あり。EXTRA（2.0km程度）HARDよりも控えめ。MILD（2.0km程度）アップ控えめの予定。複数コースの走行も可",
+    "courses": [
+      {
+        "class": "HARD",
+        "distance": "3.0km程度",
+        "climb": null,
+        "controls": null,
+        "first_start": null,
+        "winning_time": null
+      },
+      {
+        "class": "EXTRA",
+        "distance": "2.0km程度",
+        "climb": null,
+        "controls": null,
+        "first_start": null,
+        "winning_time": null
+      },
+      {
+        "class": "MILD",
+        "distance": "2.0km程度",
+        "climb": null,
+        "controls": null,
+        "first_start": null,
+        "winning_time": null
+      }
+    ],
+    "emergency": "問い合わせ: yolc-daihyou@googlegroups.com（件名に「横浜OLクラブ2月練習会について」と記載）。雨天中止（前日までにJOYへ掲載＋担当者からメール。前日までに判断できない場合は当日朝6:00までにメール）",
+    "equipment": "地図保護用のビニール袋は各自準備。コンパスは各自持参",
+    "facilities": "会場にトイレなし。駅などで済ませること。駐車場なし"
+  },
+  "start_area": null,
+  "start_walk_minutes": null,
+  "notes": "テレイン「トキワシティ」。縮尺1:4000、等高線間隔2m。上星川駅北側の市街地エリア（公園の中以外は舗装路）。車との衝突に注意（交通量の多い道路への飛び出し・横断時）。地域住民への配慮（スピードを落とす・距離を取る、特に子供に注意）。保険未加入（個人がボランティアベースで開催のため、参加者自身の保険のみ）"
+}
