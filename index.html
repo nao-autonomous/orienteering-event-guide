@@ -755,7 +755,7 @@ html { overscroll-behavior: none; }
 const CDN_BASE = 'https://nao-autonomous.github.io/orienteering-event-guide/data/';
 const DB_NAME = 'event-guide-db';
 const DB_VERSION = 1;
-const APP_VERSION = '1.5.1';
+const APP_VERSION = '1.5.2';
 
 /* ========== State ========== */
 const state = {
@@ -961,15 +961,7 @@ function renderHeroStartArea(eventData, day) {
   if (!areaData.summary && !areaData.description) return '';
 
   let html = '<div class="hero-divider"></div>';
-  // Compact summary line
-  const walkInfo = areaData.summary || areaData.description;
-  if (walkInfo) {
-    html += `<div class="hero-row">
-      <span class="label">📍 スタートまで</span>
-      <span class="value" style="font-size:0.82rem;font-weight:500">${escapeHtml(walkInfo)}</span>
-    </div>`;
-  }
-  // Compact procedure flow
+  // Compact procedure flow only (location info merged into departure row)
   const procInfo = areaData.procedure_summary;
   if (procInfo) {
     html += `<div style="font-size:0.73rem;opacity:0.8;margin-top:2px;padding-left:2px">🏁 ${escapeHtml(procInfo)}</div>`;
@@ -1042,6 +1034,12 @@ function renderTimeline(eventData, day, participant) {
     const walkMins = walkMinsForDay;
     const departTime = calculateDepartureTime(startTime, walkMins);
     const receptionTime = dayData.reception_time || eventData.reception_time || '';
+    // Departure point from start_area
+    const sa = eventData.start_area;
+    const saDay = sa && (sa[`day${day}`] || sa);
+    const departPoint = saDay?.departure_point || '';
+    const departLabel = departPoint ? `${departPoint}出発` : '出発';
+    const departSub = walkMins ? `徒歩${walkMins}分` : '';
 
     html += `
       <div class="hero-card">
@@ -1053,8 +1051,8 @@ function renderTimeline(eventData, day, participant) {
         </div>
         ${departTime ? `
         <div class="hero-row">
-          <span class="label">出発</span>
-          <span class="value">${departTime}<span class="sub">(${walkMins}分前)</span></span>
+          <span class="label">${departLabel}</span>
+          <span class="value">${departTime}<span class="sub">(${departSub})</span></span>
         </div>` : ''}
         ${receptionTime ? `
         <div class="hero-row">
@@ -1187,7 +1185,7 @@ function formatInfoText(text, day) {
       if (!trimmed) return '';
       // Detect sub-header pattern: "Label: content" (2-10 chars before colon)
       const m = trimmed.match(/^([^:：]{2,10})[：:]\s*/);
-      if (m) {
+      if (m && !/^\d+$/.test(m[1])) {
         const label = m[1];
         const rest = trimmed.slice(m[0].length);
         return `<div style="font-weight:600;color:#374151;margin-top:10px;margin-bottom:2px;font-size:0.82rem">${label}</div>${rest ? `<p style="margin:0 0 6px">${rest}</p>` : ''}`;
@@ -1232,7 +1230,7 @@ function renderInfo(eventData, day) {
     { key: 'access', icon: '🚗', label: 'アクセス・駐車場' },
     { key: 'reception', icon: '📋', label: '受付' },
     { key: 'start_procedure', icon: '🏁', label: 'スタート', alt: 'start' },
-    { key: 'competition', icon: '⏱️', label: 'パンチ・計時' },
+    { key: 'competition', icon: '⏱️', label: '競技について' },
     { key: 'equipment', icon: '👕', label: '装備' },
     { key: 'emergency', icon: '🏥', label: '緊急連絡先' },
     { key: 'facilities', icon: '🚻', label: '施設' },
