@@ -805,9 +805,17 @@ function dbPut(store, key, value) {
 /* ========== Data Loading ========== */
 async function fetchJSON(path) {
   const url = state.isLocal ? `./${path}` : `${CDN_BASE}${path}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${url}`);
-  return res.json();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${url}`);
+    return res.json();
+  } catch (e) {
+    clearTimeout(timeout);
+    throw e;
+  }
 }
 
 async function checkConnectivity() {

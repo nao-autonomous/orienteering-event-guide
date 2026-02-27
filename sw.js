@@ -1,5 +1,5 @@
 // Event Guide PWA — Service Worker
-const CACHE_NAME = 'event-guide-v16';
+const CACHE_NAME = 'event-guide-v17';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -36,7 +36,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
   if (url.pathname.includes(DATA_PATH) || url.pathname.endsWith('.json')) {
-    // CDN data: network-first
+    // CDN data: network-first with cache fallback
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -46,7 +46,16 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() => caches.match(event.request))
+        .catch(() =>
+          caches.match(event.request).then((cached) => {
+            if (cached) return cached;
+            // Return a proper error response instead of undefined
+            return new Response(JSON.stringify({ error: 'offline', cached: false }), {
+              status: 503,
+              headers: { 'Content-Type': 'application/json' },
+            });
+          })
+        )
     );
   } else {
     // Static assets: cache-first
