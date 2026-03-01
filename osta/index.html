@@ -1,0 +1,4001 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oスタ — スタートリスト生成ツール</title>
+<style>
+/* ========== Reset & Base ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #2563eb;
+  --blue-light: #dbeafe;
+  --blue-dark: #1d4ed8;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --red: #dc2626;
+  --green: #16a34a;
+  --amber-bg: #fff7ed;
+  --amber-text: #c2410c;
+  --amber-border: #fed7aa;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+  --radius: 8px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+               "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ========== Layout ========== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+@media (min-width: 640px) {
+  .container { padding: 32px 24px; }
+}
+
+/* ========== Header ========== */
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .header h1 { font-size: 1.75rem; }
+}
+
+.header p {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+
+/* ========== Card ========== */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title .icon {
+  font-size: 1.1rem;
+}
+
+/* ========== Drop Zone ========== */
+.dropzone {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius);
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+
+.dropzone-icon {
+  font-size: 2.5rem;
+  color: var(--gray-400);
+  margin-bottom: 12px;
+}
+
+.dropzone-text {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+}
+
+.dropzone-text strong {
+  color: var(--blue);
+}
+
+.dropzone-hint {
+  color: var(--gray-400);
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.file-info .file-name {
+  font-weight: 600;
+  color: var(--gray-800);
+  flex: 1;
+  word-break: break-all;
+}
+
+.file-info .file-meta {
+  color: var(--gray-500);
+  white-space: nowrap;
+}
+
+.file-remove {
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px;
+  line-height: 1;
+}
+
+.file-remove:hover { color: var(--red); }
+
+/* ========== Parse Result ========== */
+.parse-result {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+}
+
+.parse-result.success {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.parse-result.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.class-summary {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.class-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  background: #dcfce7;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: #166534;
+}
+
+.class-badge .count {
+  font-weight: 600;
+}
+
+/* ========== Settings ========== */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .settings-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+.form-group input, .form-group textarea, .form-group select {
+  padding: 8px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--gray-800);
+  background: white;
+  transition: border-color 0.15s;
+}
+
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group .hint {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.column-toggles { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.column-toggles label { display: flex; align-items: center; gap: 4px; font-size: 0.85rem; cursor: pointer; color: var(--gray-700); }
+.column-toggles input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); }
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ========== Class Order ========== */
+.class-order-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.class-order-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: grab;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.class-order-item:active { cursor: grabbing; }
+.class-order-item:hover { background: var(--blue-light); }
+.class-order-item.dragging {
+  opacity: 0.5;
+  background: var(--blue-light);
+}
+.class-order-item.drag-over {
+  border-color: var(--blue);
+  border-style: dashed;
+}
+
+.class-order-item .drag-handle {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+}
+
+.class-order-item .class-label {
+  flex: 1;
+}
+
+.class-order-item .class-count {
+  color: var(--gray-400);
+  font-size: 0.8rem;
+}
+
+.class-order-item .lane-select {
+  padding: 2px 6px;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--gray-700);
+  background: white;
+  cursor: pointer;
+}
+
+.class-order-item .split-btn {
+  background: none;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  color: var(--gray-600);
+  margin-left: 4px;
+}
+.class-order-item .split-btn:hover {
+  background: var(--gray-100);
+  color: var(--gray-800);
+}
+.class-order-item .split-badge {
+  font-size: 0.7rem;
+  color: var(--blue);
+  margin-left: 4px;
+}
+.split-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.split-modal-content {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  min-width: 280px;
+}
+.split-modal-content h3 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+.split-modal-content .split-options {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.split-modal-content .split-option {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+.split-modal-content .split-option:hover {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+.split-modal-content .split-cancel {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 6px;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.ranking-data-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ranking-data-section .hint {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+.ranking-data-loaded {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ranking-data-info-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--blue-light);
+  color: var(--blue-dark);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+
+.ranking-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.ranking-modal-content {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  width: 400px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.ranking-modal-content h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.ranking-modal-content .ranking-help {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.ranking-modal-content textarea {
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+.ranking-modal-content textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+}
+.ranking-modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.ranking-modal-actions button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.ranking-modal-actions .ranking-apply {
+  background: #2563eb;
+  color: white;
+  border: none;
+}
+.ranking-modal-actions .ranking-apply:hover {
+  background: #1d4ed8;
+}
+.ranking-modal-actions .ranking-cancel {
+  background: white;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+.ranking-match-result {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+.ranking-match-result.good {
+  background: #dcfce7;
+  color: #166534;
+}
+.ranking-match-result.partial {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+/* ========== Seed modal ========== */
+.seed-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.seed-modal-content {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  width: 520px;
+  max-width: 95vw;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.seed-modal-content h3 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+.seed-tier-config {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.seed-tier-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.seed-tier-row label {
+  min-width: 80px;
+  font-weight: 600;
+}
+.seed-tier-row input {
+  width: 60px;
+  padding: 4px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+.seed-tier-row .tier-hint {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+.seed-preview {
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.seed-preview-group {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.seed-preview-group:last-child {
+  border-bottom: none;
+}
+.seed-preview-group-header {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.seed-preview-group-header .seed-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.seed-badge-s { background: #fef3c7; color: #92400e; }
+.seed-badge-a { background: #dbeafe; color: #1e40af; }
+.seed-badge-b { background: #e5e7eb; color: #374151; }
+.seed-badge-none { background: #f3f4f6; color: #6b7280; }
+.seed-preview-names {
+  color: #4b5563;
+  line-height: 1.4;
+}
+.seed-modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.seed-modal-actions button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.seed-modal-actions .seed-apply {
+  background: #2563eb;
+  color: white;
+  border: none;
+}
+.seed-modal-actions .seed-apply:hover {
+  background: #1d4ed8;
+}
+.seed-modal-actions .seed-cancel {
+  background: white;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+.seed-no-ranking {
+  text-align: center;
+  color: #6b7280;
+  padding: 24px 0;
+  font-size: 0.9rem;
+}
+
+/* ========== Rental badge ========== */
+.rental-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  background: var(--amber-bg);
+  color: var(--amber-text);
+  border: 1px solid var(--amber-border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ========== Buttons ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: white;
+}
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-primary:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+}
+
+.btn-outline {
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+}
+.btn-outline:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.btn-sm {
+  padding: 4px 12px;
+  font-size: 0.8rem;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.generate-section {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.print-hint {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+
+/* ========== Lane header ========== */
+.lane-header {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin: 32px 0 8px;
+  padding: 8px 12px;
+  background: var(--blue-light);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--blue);
+}
+
+.lane-header:first-child {
+  margin-top: 0;
+}
+
+/* ========== Start List Table ========== */
+.startlist-class-header {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 24px 0 8px;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.startlist-class-header:first-child {
+  margin-top: 0;
+}
+
+.startlist-class-count {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--gray-500);
+}
+
+.startlist-class-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.startlist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.startlist-table th {
+  text-align: left;
+  padding: 8px 10px;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+.startlist-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--gray-100);
+  vertical-align: middle;
+}
+
+.startlist-table tr:nth-child(even) td {
+  background: var(--gray-50);
+}
+
+.startlist-table .col-no { text-align: center; width: 60px; }
+.startlist-table .col-time { text-align: center; width: 80px; font-variant-numeric: tabular-nums; }
+.startlist-table .col-card { text-align: center; width: 80px; font-variant-numeric: tabular-nums; }
+.startlist-table .col-lane { text-align: center; width: 60px; }
+.startlist-table .col-drag { width: 30px; text-align: center; cursor: grab; color: var(--gray-400); user-select: none; }
+.startlist-table .col-drag:active { cursor: grabbing; }
+
+/* ========== Row Drag Styles ========== */
+.startlist-table tr.row-dragging {
+  opacity: 0.5;
+  border: 2px solid var(--blue);
+  background: var(--blue-light) !important;
+}
+.startlist-table tr.row-dragging td {
+  background: var(--blue-light) !important;
+}
+.startlist-table tr.row-drag-over td {
+  border-top: 3px solid var(--blue);
+}
+.startlist-table tr.row-drag-over-below td {
+  border-bottom: 3px solid var(--blue);
+}
+
+/* Touch drag placeholder */
+.touch-drag-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.8;
+  background: white;
+  border: 2px solid var(--blue);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+
+.startlist-total {
+  margin-top: 16px;
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--gray-500);
+}
+
+/* ========== Hidden state ========== */
+.hidden { display: none !important; }
+
+/* ========== Print Styles ========== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background: white;
+    font-size: 9pt;
+    color: black;
+    line-height: 1.4;
+  }
+
+  .no-print { display: none !important; }
+  .col-drag { display: none !important; }
+  th.col-drag { display: none !important; }
+
+  .container { max-width: none; padding: 0; margin: 0; }
+  .card { box-shadow: none; padding: 0; margin-bottom: 0; border: none; }
+
+  /* Print header on each page */
+  .print-page-header {
+    display: block !important;
+    font-size: 12pt;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4pt;
+    padding-bottom: 4pt;
+    border-bottom: 1.5pt solid #333;
+  }
+
+  .print-page-header .print-date {
+    font-size: 8pt;
+    font-weight: 400;
+    color: #666;
+    float: right;
+    margin-top: 2pt;
+  }
+
+  .print-event-info {
+    display: block !important;
+    font-size: 8pt;
+    color: #444;
+    margin-bottom: 6pt;
+    text-align: center;
+  }
+
+  .startlist-class-section {
+    page-break-inside: auto;
+  }
+
+  .startlist-class-header {
+    font-size: 11pt;
+    margin: 8pt 0 4pt;
+    padding: 4pt 0;
+    border-bottom: 1.5pt solid #333;
+    page-break-after: avoid;
+  }
+
+  .startlist-class-actions { display: none !important; }
+
+  .startlist-table {
+    page-break-inside: auto;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 9pt;
+  }
+
+  .startlist-table th {
+    background: #e5e7eb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: #333;
+    font-size: 8pt;
+    padding: 4pt 6pt;
+    border: 0.5pt solid #999;
+  }
+
+  .startlist-table td {
+    padding: 3pt 6pt;
+    border: 0.5pt solid #ccc;
+  }
+
+  .startlist-table tr { page-break-inside: avoid; }
+
+  .startlist-table tr:nth-child(even) td {
+    background: #f3f4f6 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .startlist-total {
+    margin-top: 8pt;
+    font-size: 9pt;
+    page-break-before: avoid;
+  }
+
+  .lane-header {
+    font-size: 12pt;
+    margin: 12pt 0 4pt;
+    padding: 4pt 8pt;
+    background: #dbeafe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border-left: 3pt solid #2563eb;
+    page-break-after: avoid;
+  }
+
+  .rental-badge {
+    background: #fff7ed !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border: 0.5pt solid #c2410c;
+  }
+}
+
+/* Column toggle popover */
+.col-toggle-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 12px 16px;
+  z-index: 100;
+  min-width: 180px;
+}
+.col-toggle-popover .column-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.col-toggle-popover .column-toggles label {
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Hide print-only elements on screen */
+.print-page-header, .print-event-info {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header no-print">
+    <h1>Oスタ — スタートリスト生成ツール</h1>
+    <p>JOY (Japan-O-entrY) のエントリーCSVファイルからスタートリストを生成します</p>
+  </div>
+
+  <!-- File Drop Zone -->
+  <div class="card no-print" id="dropzoneCard">
+    <div class="dropzone" id="dropzone">
+      <div class="dropzone-icon">&#128206;</div>
+      <div class="dropzone-text">
+        CSVファイルをここにドラッグ＆ドロップ<br>
+        または<strong>クリックして選択</strong>
+      </div>
+      <div class="dropzone-hint">JOY からダウンロードしたCSVファイル（Shift_JIS / UTF-16 対応）</div>
+    </div>
+    <input type="file" id="fileInput" accept=".csv,.tsv,.txt" class="hidden">
+    <div id="fileInfo" class="file-info hidden">
+      <span class="file-name" id="fileName"></span>
+      <span class="file-meta" id="fileMeta"></span>
+      <button class="file-remove" id="fileRemove" title="ファイルを削除">&times;</button>
+    </div>
+    <div id="parseResult" class="parse-result hidden"></div>
+  </div>
+
+  <!-- Settings -->
+  <div class="card no-print hidden" id="settingsCard">
+    <div class="card-title">設定</div>
+    <div class="settings-grid">
+      <div class="form-group">
+        <label for="startTime">スタート時刻</label>
+        <input type="time" id="startTime" value="10:00" step="1">
+      </div>
+      <div class="form-group">
+        <label for="interval">スタート間隔（秒）</label>
+        <input type="number" id="interval" value="60" min="1" max="600">
+      </div>
+      <div class="form-group">
+        <label for="classGap">クラス間ギャップ（秒）</label>
+        <input type="number" id="classGap" value="120" min="0" max="1800">
+      </div>
+      <div class="form-group">
+        <label for="seed">ランダムシード（空欄 = ランダム）</label>
+        <input type="number" id="seed" placeholder="任意の整数">
+      </div>
+      <div class="form-group">
+        <label for="laneCount">レーン数</label>
+        <input type="number" id="laneCount" value="1" min="1" max="20">
+        <span class="hint">複数レーンで並行スタートする場合は2以上を指定</span>
+      </div>
+      <div class="form-group full-width hidden">
+        <div class="column-toggles" id="columnToggles">
+          <label><input type="checkbox" data-col="no"> No</label>
+          <label><input type="checkbox" data-col="time" checked> スタート時刻</label>
+          <label><input type="checkbox" data-col="name" checked> 氏名</label>
+          <label><input type="checkbox" data-col="furigana"> ふりがな</label>
+          <label><input type="checkbox" data-col="club" checked> 所属</label>
+          <label><input type="checkbox" data-col="card" checked> カード番号</label>
+          <label><input type="checkbox" data-col="iofid"> IOF番号</label>
+          <label><input type="checkbox" data-col="gender"> 性別</label>
+          <label><input type="checkbox" data-col="lane"> レーン</label>
+        </div>
+      </div>
+      <div class="form-group full-width">
+        <label>ランキングデータ（任意）</label>
+        <div class="ranking-data-section" id="rankingDataSection">
+          <div class="ranking-data-empty" id="rankingDataEmpty">
+            <input type="file" id="rankingFileInput" accept=".json" multiple style="display:none">
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <select id="rankingSourceSelect" style="display:none;">
+                <option value="iof" selected>IOF世界</option>
+              </select>
+              <select id="rankingDisciplineSelect" style="padding:4px 8px; border-radius:4px; border:1px solid #555; background:#2d2d2d; color:#e0e0e0; font-size:0.85rem;">
+                <option value="foot">フォレスト</option>
+                <option value="sprint">スプリント</option>
+              </select>
+              <select id="rankingDateSelect" style="display:none;">
+                <option value="latest">最新</option>
+              </select>
+              <input type="date" id="rankingDateInput" style="padding:4px 8px; border-radius:4px; border:1px solid #555; background:#2d2d2d; color:#e0e0e0; font-size:0.85rem;">
+              <button class="btn btn-outline btn-sm" id="rankingFetchCdnBtn">🌐 取得</button>
+            </span>
+            <span class="hint">種目と日付を選んでIOF世界ランキングを取得</span>
+          </div>
+          <div class="ranking-data-loaded hidden" id="rankingDataLoaded">
+            <div id="rankingDataInfo"></div>
+            <button class="btn btn-outline btn-sm" id="rankingClearBtn">クリア</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group full-width">
+        <label>クラス順序（ドラッグで並び替え）</label>
+        <ul class="class-order-list" id="classOrderList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate Button -->
+  <div class="generate-section no-print hidden" id="generateSection">
+    <button class="btn btn-primary" id="generateBtn">スタートリストを生成</button>
+  </div>
+
+  <!-- Results -->
+  <div class="card hidden" id="resultCard">
+    <div class="card-title no-print">スタートリスト</div>
+    <div class="btn-group no-print">
+      <button class="btn btn-outline" id="downloadMulka">Mulka2 CSV ダウンロード</button>
+      <div>
+        <button class="btn btn-outline" id="printBtn">PDF保存 / 印刷</button>
+        <div class="print-hint">ブラウザの印刷ダイアログで「PDFに保存」を選択できます</div>
+      </div>
+      <button class="btn btn-outline" id="resetOrderBtn">全クラス並び順リセット</button>
+      <button class="btn btn-outline" id="wreRankingBtn" style="display:none;">🌐 WRE: ME/WEをランキング順にする</button>
+      <button class="btn btn-outline" id="regenerateBtn">再生成</button>
+      <div style="position:relative; display:inline-block;">
+        <button class="btn btn-outline" id="colToggleBtn">表示列</button>
+        <div id="colTogglePopover" class="col-toggle-popover hidden">
+          <div class="column-toggles" id="columnTogglesResult"></div>
+        </div>
+      </div>
+    </div>
+    <div id="startlistOutput"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ===========================================================================
+// Seeded PRNG (mulberry32) — same deterministic behavior as Python's random
+// ===========================================================================
+function createRng(seed) {
+  // If no seed provided, use a random one
+  if (seed == null) seed = (Math.random() * 0x7fffffff) | 0;
+  let s = seed | 0;
+  return function() {
+    s |= 0; s = s + 0x6D2B79F5 | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = t + Math.imul(t ^ (t >>> 7), 61 | t) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Fisher-Yates shuffle with custom rng
+function shuffle(arr, rng) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ===========================================================================
+// CSV Parsing
+// ===========================================================================
+
+/**
+ * Detect encoding from raw ArrayBuffer and decode to string.
+ * Returns { text, separator }.
+ */
+function decodeFile(buffer) {
+  const bytes = new Uint8Array(buffer);
+
+  // Check for UTF-16 BOM
+  if (bytes.length >= 2) {
+    if (bytes[0] === 0xFF && bytes[1] === 0xFE) {
+      // UTF-16 LE
+      const text = new TextDecoder('utf-16le').decode(buffer);
+      return { text, separator: '\t' };
+    }
+    if (bytes[0] === 0xFE && bytes[1] === 0xFF) {
+      // UTF-16 BE
+      const text = new TextDecoder('utf-16be').decode(buffer);
+      return { text, separator: '\t' };
+    }
+  }
+
+  // Try UTF-16 LE without BOM: check if every other byte is 0x00 (common for ASCII-range in UTF-16)
+  if (bytes.length >= 20) {
+    let nullCount = 0;
+    for (let i = 1; i < Math.min(bytes.length, 100); i += 2) {
+      if (bytes[i] === 0) nullCount++;
+    }
+    if (nullCount > 20) {
+      const text = new TextDecoder('utf-16le').decode(buffer);
+      if (text.includes('\t')) {
+        return { text, separator: '\t' };
+      }
+    }
+  }
+
+  // Try Shift_JIS (cp932)
+  try {
+    const text = new TextDecoder('shift_jis', { fatal: true }).decode(buffer);
+    return { text, separator: ',' };
+  } catch (e) {
+    // Ignore
+  }
+
+  // Fall back to UTF-8
+  const text = new TextDecoder('utf-8').decode(buffer);
+  return { text, separator: ',' };
+}
+
+/**
+ * Parse CSV/TSV text into rows of string arrays.
+ * Handles quoted fields (double-quote escaping).
+ */
+function parseCSVText(text, separator) {
+  // Normalize line endings
+  text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  const rows = [];
+  let i = 0;
+  const len = text.length;
+
+  while (i < len) {
+    const row = [];
+    // Parse one row
+    while (i < len) {
+      if (text[i] === '"') {
+        // Quoted field
+        i++; // skip opening quote
+        let field = '';
+        while (i < len) {
+          if (text[i] === '"') {
+            if (i + 1 < len && text[i + 1] === '"') {
+              // Escaped quote
+              field += '"';
+              i += 2;
+            } else {
+              // End of quoted field
+              i++; // skip closing quote
+              break;
+            }
+          } else {
+            field += text[i];
+            i++;
+          }
+        }
+        row.push(field.trim());
+      } else if (text[i] === separator) {
+        // Empty field at start or consecutive separator
+        row.push('');
+        i++;
+        continue;
+      } else if (text[i] === '\n') {
+        // End of row
+        i++;
+        break;
+      } else {
+        // Unquoted field
+        let field = '';
+        while (i < len && text[i] !== separator && text[i] !== '\n') {
+          field += text[i];
+          i++;
+        }
+        row.push(field.trim());
+      }
+
+      // Check what's after the field
+      if (i < len && text[i] === separator) {
+        i++; // skip separator
+        // If at end of line or end of text after separator, add empty field
+        if (i >= len || text[i] === '\n') {
+          row.push('');
+          if (i < len) i++; // skip newline
+          break;
+        }
+      } else if (i < len && text[i] === '\n') {
+        i++;
+        break;
+      }
+      // else: end of text
+    }
+
+    // Skip completely empty rows
+    if (row.length > 0 && row.some(cell => cell !== '')) {
+      rows.push(row);
+    }
+  }
+
+  return rows;
+}
+
+// ===========================================================================
+// JOY-specific Parsing
+// ===========================================================================
+
+const GROUP_CLASS_PATTERNS = ['グループ', 'ファミリー'];
+
+function isGroupClass(className) {
+  return GROUP_CLASS_PATTERNS.some(p => className.includes(p));
+}
+
+function safeGet(row, idx) {
+  if (idx != null && idx < row.length) {
+    return row[idx].trim();
+  }
+  return '';
+}
+
+function isOnePerRowFormat(categories) {
+  const personRe = /^(\d+)人目$/;
+  let maxSlot = 0;
+  for (const cat of categories) {
+    const m = cat.match(personRe);
+    if (m) maxSlot = Math.max(maxSlot, parseInt(m[1]));
+  }
+  return maxSlot <= 1;
+}
+
+function findPersonSlots(categories, columns) {
+  const personRe = /^(\d+)人目$/;
+  const slotColumns = {}; // slot_number -> [{colIdx, fieldName}]
+
+  for (let i = 0; i < categories.length; i++) {
+    const m = categories[i].match(personRe);
+    if (m) {
+      const slotNum = parseInt(m[1]);
+      if (!slotColumns[slotNum]) slotColumns[slotNum] = [];
+      const fieldName = i < columns.length ? columns[i] : '';
+      slotColumns[slotNum].push({ colIdx: i, fieldName });
+    }
+  }
+
+  const slots = [];
+  const sortedKeys = Object.keys(slotColumns).map(Number).sort((a, b) => a - b);
+  for (const slotNum of sortedKeys) {
+    const fieldMap = {};
+    for (const { colIdx, fieldName } of slotColumns[slotNum]) {
+      fieldMap[fieldName] = colIdx;
+    }
+    slots.push(fieldMap);
+  }
+  return slots;
+}
+
+function findTeamFields(categories, columns) {
+  const teamFields = {};
+  for (let i = 0; i < categories.length; i++) {
+    if (categories[i] === 'チーム(組)') {
+      const col = i < columns.length ? columns[i] : '';
+      if (!(col in teamFields)) {
+        teamFields[col] = i;
+      }
+    }
+  }
+  return teamFields;
+}
+
+/**
+ * Parse JOY CSV from an ArrayBuffer.
+ * Returns array of participant objects.
+ */
+function parseJoyCSV(buffer) {
+  const { text, separator } = decodeFile(buffer);
+  const rows = parseCSVText(text, separator);
+
+  if (rows.length < 3) {
+    throw new Error('ファイルのデータ行が不足しています（最低3行必要）');
+  }
+
+  let categories = rows[0];
+  let columns = rows[1];
+  const dataRows = rows.slice(2);
+
+  // Pad to same length
+  const maxLen = Math.max(categories.length, columns.length);
+  while (categories.length < maxLen) categories.push('');
+  while (columns.length < maxLen) columns.push('');
+
+  const teamFields = findTeamFields(categories, columns);
+  const personSlots = findPersonSlots(categories, columns);
+  const onePerRow = isOnePerRowFormat(categories);
+
+  const classIdx = teamFields['クラス'] ?? null;
+  const clubIdx = teamFields['所属'] ?? null;
+  const teamNameIdx = teamFields['チーム名(氏名)'] ?? null;
+
+  const participants = [];
+
+  for (let row of dataRows) {
+    if (!row || !row.some(cell => cell.trim())) continue;
+
+    // Pad row
+    while (row.length < maxLen) row.push('');
+
+    const className = safeGet(row, classIdx);
+    const club = safeGet(row, clubIdx);
+    const teamName = safeGet(row, teamNameIdx);
+
+    if (!className) continue;
+
+    const group = isGroupClass(className);
+
+    if (group) {
+      let card = '';
+      let iofId = '';
+      if (personSlots.length > 0) {
+        card = safeGet(row, personSlots[0]['カード番号'] ?? null);
+        iofId = safeGet(row, personSlots[0]['IOF-ID'] ?? null);
+      }
+
+      const name = teamName || '';
+      if (name) {
+        participants.push({
+          name,
+          furigana: '',
+          club,
+          className,
+          cardNumber: card,
+          iofId,
+          gender: '',
+          dob: '',
+          teamName,
+          isGroup: true,
+        });
+      }
+    } else {
+      if (onePerRow) {
+        if (personSlots.length > 0) {
+          const slot = personSlots[0];
+          const name = safeGet(row, slot['氏名1'] ?? null);
+          if (!name) continue;
+
+          participants.push({
+            name,
+            furigana: safeGet(row, slot['氏名2'] ?? null),
+            club,
+            className,
+            cardNumber: safeGet(row, slot['カード番号'] ?? null),
+            iofId: safeGet(row, slot['IOF-ID'] ?? null),
+            gender: safeGet(row, slot['性別'] ?? null),
+            dob: safeGet(row, slot['生年月日'] ?? null),
+            teamName,
+            isGroup: false,
+          });
+        }
+      } else {
+        for (const slot of personSlots) {
+          const name = safeGet(row, slot['氏名1'] ?? null);
+          if (!name) continue;
+
+          participants.push({
+            name,
+            furigana: safeGet(row, slot['氏名2'] ?? null),
+            club,
+            className,
+            cardNumber: safeGet(row, slot['カード番号'] ?? null),
+            iofId: safeGet(row, slot['IOF-ID'] ?? null),
+            gender: safeGet(row, slot['性別'] ?? null),
+            dob: safeGet(row, slot['生年月日'] ?? null),
+            teamName,
+            isGroup: false,
+          });
+        }
+      }
+    }
+  }
+
+  return participants;
+}
+
+// ===========================================================================
+// Start List Generation
+// ===========================================================================
+
+const NO_CLUB_VALUES = new Set(['', '-', '(無所属)', '無所属', 'なし']);
+
+function effectiveClub(club) {
+  const c = (club || '').trim();
+  return NO_CLUB_VALUES.has(c) ? '' : c;
+}
+
+function separateSameClub(entries, rng, maxIterations = 100) {
+  if (entries.length <= 2) return [...entries];
+  const arr = [...entries];
+
+  for (let iter = 0; iter < maxIterations; iter++) {
+    let foundConflict = false;
+    for (let i = 0; i < arr.length - 1; i++) {
+      const clubA = effectiveClub(arr[i].club);
+      const clubB = effectiveClub(arr[i + 1].club);
+      if (clubA && clubB && clubA === clubB) {
+        foundConflict = true;
+        const targetClub = clubB;
+        const candidates = [];
+        for (let j = 0; j < arr.length; j++) {
+          if (j === i || j === i + 1) continue;
+          const prevClub = j === 0 ? '' : effectiveClub(arr[j - 1].club);
+          const nextClub = j === arr.length - 1 ? '' : effectiveClub(arr[j + 1].club);
+          if (prevClub !== targetClub && nextClub !== targetClub) {
+            candidates.push(j);
+          }
+        }
+        if (candidates.length > 0) {
+          const j = candidates[Math.floor(rng() * candidates.length)];
+          [arr[i + 1], arr[j]] = [arr[j], arr[i + 1]];
+        }
+      }
+    }
+    if (!foundConflict) break;
+  }
+
+  return arr;
+}
+
+function displayName(p) {
+  if (p.isGroup && p.teamName) return p.teamName;
+  return p.name;
+}
+
+function formatTime(totalSeconds) {
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+/**
+ * Get lane count from UI.
+ */
+function getLaneCount() {
+  const val = parseInt(document.getElementById('laneCount').value);
+  return (val && val >= 1) ? val : 1;
+}
+
+/**
+ * Get class-to-lane assignments from UI.
+ * Returns a Map: className -> laneNumber (1-based).
+ */
+function getClassLaneAssignments() {
+  const map = new Map();
+  const items = document.querySelectorAll('#classOrderList .class-order-item');
+  for (const item of items) {
+    const cls = item.dataset.class;
+    const select = item.querySelector('.lane-select');
+    const lane = select ? parseInt(select.value) : 1;
+    map.set(cls, lane);
+  }
+  return map;
+}
+
+/**
+ * Generate start list from participants.
+ * Supports multiple lanes: each lane has independent time tracking.
+ * Start numbers are globally sequential, assigned by lane order then class order within lane.
+ */
+function generateStartList(participants, options = {}) {
+  const {
+    startTime = '10:00:00',
+    interval = 60,
+    classGap = 120,
+    seed = null,
+    classOrder = null,
+    laneCount = 1,
+    laneAssignments = null,
+  } = options;
+
+  const rng = createRng(seed);
+
+  // Group by class
+  const classes = {};
+  for (const p of participants) {
+    if (!classes[p.className]) classes[p.className] = [];
+    classes[p.className].push(p);
+  }
+
+  // Determine class order
+  let ordered;
+  if (classOrder && classOrder.length > 0) {
+    ordered = [...classOrder];
+    const remaining = Object.keys(classes)
+      .filter(c => !ordered.includes(c))
+      .sort();
+    ordered.push(...remaining);
+  } else {
+    ordered = Object.keys(classes).sort();
+  }
+
+  // Parse start time
+  const timeParts = startTime.split(':').map(Number);
+  const startSeconds = (timeParts[0] || 0) * 3600 + (timeParts[1] || 0) * 60 + (timeParts[2] || 0);
+
+  // Shuffle all classes first (so shuffling is deterministic regardless of lane assignment)
+  const shuffledClasses = {};
+  for (const className of ordered) {
+    if (!classes[className]) continue;
+    let classParticipants = shuffle(classes[className], rng);
+    classParticipants = separateSameClub(classParticipants, rng);
+    shuffledClasses[className] = classParticipants;
+  }
+
+  if (laneCount <= 1) {
+    // Single lane: original behavior
+    let currentSeconds = startSeconds;
+    const entries = [];
+    let startNumber = 101;
+
+    for (const className of ordered) {
+      if (!shuffledClasses[className]) continue;
+      const classParticipants = shuffledClasses[className];
+
+      for (const p of classParticipants) {
+        entries.push({
+          className,
+          startNumber,
+          name: displayName(p),
+          club: p.club,
+          startTime: formatTime(currentSeconds),
+          cardNumber: p.cardNumber,
+          iofId: p.iofId || '',
+          furigana: p.isGroup ? '' : p.furigana,
+          gender: p.isGroup ? '' : p.gender,
+          lane: 1,
+        });
+        startNumber++;
+        currentSeconds += interval;
+      }
+
+      // Gap before next class
+      currentSeconds += classGap - interval;
+    }
+
+    return entries;
+  }
+
+  // Multiple lanes
+  // Group classes by lane
+  const laneClasses = {}; // laneNum -> [className, ...]
+  for (const className of ordered) {
+    if (!shuffledClasses[className]) continue;
+    const lane = (laneAssignments && laneAssignments.has(className))
+      ? laneAssignments.get(className)
+      : 1;
+    if (!laneClasses[lane]) laneClasses[lane] = [];
+    laneClasses[lane].push(className);
+  }
+
+  // For each lane, compute entries with independent time tracking
+  // Then assign global start numbers by lane order
+  const allLaneEntries = []; // [ { lane, entries: [...] }, ... ]
+  const laneNumbers = Object.keys(laneClasses).map(Number).sort((a, b) => a - b);
+
+  for (const laneNum of laneNumbers) {
+    let currentSeconds = startSeconds;
+    const laneEntries = [];
+    const classNames = laneClasses[laneNum];
+
+    for (const className of classNames) {
+      const classParticipants = shuffledClasses[className];
+
+      for (const p of classParticipants) {
+        laneEntries.push({
+          className,
+          startNumber: 0, // assigned later
+          name: displayName(p),
+          club: p.club,
+          startTime: formatTime(currentSeconds),
+          cardNumber: p.cardNumber,
+          iofId: p.iofId || '',
+          furigana: p.isGroup ? '' : p.furigana,
+          gender: p.isGroup ? '' : p.gender,
+          lane: laneNum,
+        });
+        currentSeconds += interval;
+      }
+
+      // Gap before next class in this lane
+      currentSeconds += classGap - interval;
+    }
+
+    allLaneEntries.push({ lane: laneNum, entries: laneEntries });
+  }
+
+  // Assign global start numbers sequentially: lane 1 first, then lane 2, etc.
+  const entries = [];
+  let startNumber = 101;
+  for (const { entries: laneEntries } of allLaneEntries) {
+    for (const e of laneEntries) {
+      e.startNumber = startNumber;
+      startNumber++;
+      entries.push(e);
+    }
+  }
+
+  return entries;
+}
+
+// ===========================================================================
+// Recalculate times/numbers after reorder
+// ===========================================================================
+
+function recalculateEntries(entries) {
+  const startTimeVal = $('startTime').value || '10:00';
+  const startTimeFull = startTimeVal.includes(':') && startTimeVal.split(':').length === 2
+    ? startTimeVal + ':00'
+    : startTimeVal;
+  const interval = parseInt($('interval').value) || 60;
+  const classGap = parseInt($('classGap').value) || 120;
+  const laneCount = getLaneCount();
+
+  const timeParts = startTimeFull.split(':').map(Number);
+  const startSeconds = (timeParts[0] || 0) * 3600 + (timeParts[1] || 0) * 60 + (timeParts[2] || 0);
+
+  if (laneCount <= 1) {
+    // Single lane: straightforward sequential
+    let currentSeconds = startSeconds;
+    let startNumber = 101;
+    let prevClass = null;
+
+    for (const e of entries) {
+      if (prevClass !== null && e.className !== prevClass) {
+        currentSeconds += classGap - interval;
+      }
+      e.startNumber = startNumber;
+      e.startTime = formatTime(currentSeconds);
+      e.lane = 1;
+      startNumber++;
+      currentSeconds += interval;
+      prevClass = e.className;
+    }
+  } else {
+    // Multiple lanes: group by lane, each lane has independent time
+    // Entries are stored grouped by lane (lane 1 entries, then lane 2, etc.)
+    // We need to recalculate time per lane independently
+
+    // Group entries by lane, preserving order
+    const laneGroups = {};
+    const laneOrder = [];
+    for (const e of entries) {
+      const lane = e.lane || 1;
+      if (!laneGroups[lane]) {
+        laneGroups[lane] = [];
+        laneOrder.push(lane);
+      }
+      laneGroups[lane].push(e);
+    }
+
+    // Recalculate time for each lane independently
+    for (const lane of laneOrder) {
+      let currentSeconds = startSeconds;
+      let prevClass = null;
+      for (const e of laneGroups[lane]) {
+        if (prevClass !== null && e.className !== prevClass) {
+          currentSeconds += classGap - interval;
+        }
+        e.startTime = formatTime(currentSeconds);
+        currentSeconds += interval;
+        prevClass = e.className;
+      }
+    }
+
+    // Assign global start numbers sequentially
+    let startNumber = 101;
+    for (const e of entries) {
+      e.startNumber = startNumber;
+      startNumber++;
+    }
+  }
+}
+
+// ===========================================================================
+// Output Formatters
+// ===========================================================================
+
+function generateMulka2CSV(entries) {
+  const BOM = '\uFEFF';
+  let csv = BOM + 'Class,StartNumber,Name,Club,StartTime,CardNumber\r\n';
+  for (const e of entries) {
+    // Simple CSV escape: if field contains comma, quote, or newline, wrap in quotes
+    const fields = [e.className, e.startNumber, e.name, e.club, e.startTime, e.cardNumber];
+    const escaped = fields.map(f => {
+      const s = String(f);
+      if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+        return '"' + s.replace(/"/g, '""') + '"';
+      }
+      return s;
+    });
+    csv += escaped.join(',') + '\r\n';
+  }
+  return csv;
+}
+
+function generatePrintableText(entries) {
+  const BOM = '\uFEFF';
+  const lines = [];
+  const SEP = '=' .repeat(80);
+  const DASH = '-'.repeat(76);
+  const laneCount = getLaneCount();
+
+  lines.push(SEP);
+  lines.push('  START LIST');
+  lines.push(SEP);
+  lines.push('');
+
+  if (laneCount > 1) {
+    // Group by lane, then by class within each lane
+    const laneGroups = {};
+    const laneOrder = [];
+    for (const e of entries) {
+      const lane = e.lane || 1;
+      if (!laneGroups[lane]) {
+        laneGroups[lane] = [];
+        laneOrder.push(lane);
+      }
+      laneGroups[lane].push(e);
+    }
+
+    for (const lane of laneOrder) {
+      lines.push(`=== レーン ${lane} ===`);
+      lines.push('');
+
+      // Group by class within this lane
+      const classEntries = {};
+      const classOrderSeen = [];
+      for (const e of laneGroups[lane]) {
+        if (!classEntries[e.className]) {
+          classEntries[e.className] = [];
+          classOrderSeen.push(e.className);
+        }
+        classEntries[e.className].push(e);
+      }
+
+      for (const className of classOrderSeen) {
+        const ce = classEntries[className];
+        lines.push(`--- ${className} (${ce.length} entries) ---`);
+        lines.push(
+          padRight('No', 5) + '  ' +
+          padRight('Time', 8) + '  ' +
+          padRight('Name', 20) + '  ' +
+          padRight('Club', 20) + '  ' +
+          padLeft('Card', 10)
+        );
+        lines.push(DASH);
+        for (const e of ce) {
+          const cardDisplay = e.cardNumber || 'レンタル';
+          lines.push(
+            padLeft(String(e.startNumber), 5) + '  ' +
+            padLeft(e.startTime, 8) + '  ' +
+            padRight(e.name, 20) + '  ' +
+            padRight(e.club, 20) + '  ' +
+            padLeft(cardDisplay, 10)
+          );
+        }
+        lines.push('');
+      }
+    }
+  } else {
+    // Single lane: original format
+    const classEntries = {};
+    const classOrderSeen = [];
+    for (const e of entries) {
+      if (!classEntries[e.className]) {
+        classEntries[e.className] = [];
+        classOrderSeen.push(e.className);
+      }
+      classEntries[e.className].push(e);
+    }
+
+    for (const className of classOrderSeen) {
+      const ce = classEntries[className];
+      lines.push(`--- ${className} (${ce.length} entries) ---`);
+      lines.push(
+        padRight('No', 5) + '  ' +
+        padRight('Time', 8) + '  ' +
+        padRight('Name', 20) + '  ' +
+        padRight('Club', 20) + '  ' +
+        padLeft('Card', 10)
+      );
+      lines.push(DASH);
+      for (const e of ce) {
+        const cardDisplay = e.cardNumber || 'レンタル';
+        lines.push(
+          padLeft(String(e.startNumber), 5) + '  ' +
+          padLeft(e.startTime, 8) + '  ' +
+          padRight(e.name, 20) + '  ' +
+          padRight(e.club, 20) + '  ' +
+          padLeft(cardDisplay, 10)
+        );
+      }
+      lines.push('');
+    }
+  }
+
+  lines.push(SEP);
+  lines.push(`  Total: ${entries.length} entries`);
+  lines.push(SEP);
+
+  return BOM + lines.join('\n');
+}
+
+function padRight(s, len) {
+  // For CJK characters, they take 2 columns. Approximate.
+  let displayLen = 0;
+  for (const ch of s) {
+    displayLen += ch.charCodeAt(0) > 0x7F ? 2 : 1;
+  }
+  const padding = Math.max(0, len - displayLen);
+  return s + ' '.repeat(padding);
+}
+
+function padLeft(s, len) {
+  let displayLen = 0;
+  for (const ch of s) {
+    displayLen += ch.charCodeAt(0) > 0x7F ? 2 : 1;
+  }
+  const padding = Math.max(0, len - displayLen);
+  return ' '.repeat(padding) + s;
+}
+
+// ===========================================================================
+// UI
+// ===========================================================================
+
+let currentParticipants = null;
+let splitState = {}; // { originalClassName: { count: N, subClasses: ["ME-1", "ME-2", ...] } }
+let loadedRankings = []; // Array of loaded ranking JSON objects
+let currentEntries = null;
+let originalEntries = null; // for reset
+let generationDate = null;
+
+const $ = id => document.getElementById(id);
+
+// --- File drop zone ---
+const dropzone = $('dropzone');
+const fileInput = $('fileInput');
+const fileInfoEl = $('fileInfo');
+const fileNameEl = $('fileName');
+const fileMetaEl = $('fileMeta');
+const fileRemoveEl = $('fileRemove');
+const parseResultEl = $('parseResult');
+const settingsCard = $('settingsCard');
+const generateSection = $('generateSection');
+const generateBtn = $('generateBtn');
+const resultCard = $('resultCard');
+const classOrderList = $('classOrderList');
+
+dropzone.addEventListener('click', () => fileInput.click());
+
+dropzone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropzone.classList.add('dragover');
+});
+
+dropzone.addEventListener('dragleave', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+});
+
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  if (e.dataTransfer.files.length > 0) {
+    handleFile(e.dataTransfer.files[0]);
+  }
+});
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length > 0) {
+    handleFile(fileInput.files[0]);
+  }
+});
+
+fileRemoveEl.addEventListener('click', () => {
+  resetUI();
+});
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function handleFile(file) {
+  fileNameEl.textContent = file.name;
+  fileMetaEl.textContent = formatFileSize(file.size);
+  fileInfoEl.classList.remove('hidden');
+  dropzone.classList.add('hidden');
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      currentParticipants = parseJoyCSV(reader.result);
+
+      if (currentParticipants.length === 0) {
+        showParseError('参加者データが見つかりませんでした。JOY のエントリーCSVか確認してください。');
+        return;
+      }
+
+      // Count by class
+      const classCounts = {};
+      for (const p of currentParticipants) {
+        classCounts[p.className] = (classCounts[p.className] || 0) + 1;
+      }
+
+      showParseSuccess(currentParticipants.length, classCounts);
+      buildClassOrderUI(classCounts);
+      settingsCard.classList.remove('hidden');
+      generateSection.classList.remove('hidden');
+      resultCard.classList.add('hidden');
+    } catch (err) {
+      showParseError('ファイルの解析に失敗しました: ' + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function showParseSuccess(total, classCounts) {
+  parseResultEl.className = 'parse-result success';
+  parseResultEl.classList.remove('hidden');
+
+  let html = `<strong>${total}名</strong>の参加者を読み取りました`;
+  html += '<div class="class-summary">';
+  for (const [cls, count] of Object.entries(classCounts).sort((a, b) => a[0].localeCompare(b[0]))) {
+    html += `<span class="class-badge"><span class="class-label">${escapeHtml(cls)}</span> <span class="count">${count}</span></span>`;
+  }
+  html += '</div>';
+  parseResultEl.innerHTML = html;
+}
+
+function showParseError(msg) {
+  parseResultEl.className = 'parse-result error';
+  parseResultEl.classList.remove('hidden');
+  parseResultEl.textContent = msg;
+}
+
+function resetUI() {
+  fileInput.value = '';
+  fileInfoEl.classList.add('hidden');
+  dropzone.classList.remove('hidden');
+  parseResultEl.classList.add('hidden');
+  settingsCard.classList.add('hidden');
+  generateSection.classList.add('hidden');
+  resultCard.classList.add('hidden');
+  currentParticipants = null;
+  splitState = {};
+  currentEntries = null;
+  originalEntries = null;
+  loadedRankings = [];
+}
+
+function escapeHtml(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+// --- Lane count change handler ---
+$('laneCount').addEventListener('change', updateLaneSelectors);
+$('laneCount').addEventListener('input', updateLaneSelectors);
+
+function updateLaneSelectors() {
+  const laneCount = getLaneCount();
+  const items = classOrderList.querySelectorAll('.class-order-item');
+  for (const item of items) {
+    let select = item.querySelector('.lane-select');
+    if (laneCount > 1) {
+      if (!select) {
+        select = document.createElement('select');
+        select.className = 'lane-select';
+        select.title = 'レーン割り当て';
+        // Insert before the count span
+        const countSpan = item.querySelector('.class-count');
+        item.insertBefore(select, countSpan);
+      }
+      // Update options
+      const currentVal = parseInt(select.value) || 1;
+      select.innerHTML = '';
+      for (let i = 1; i <= laneCount; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `L${i}`;
+        if (i === currentVal && currentVal <= laneCount) opt.selected = true;
+        select.appendChild(opt);
+      }
+      // If current value exceeds lane count, reset to 1
+      if (currentVal > laneCount) {
+        select.value = 1;
+      }
+      select.classList.remove('hidden');
+    } else {
+      if (select) {
+        select.classList.add('hidden');
+      }
+    }
+  }
+  // Also show/hide lane column toggle
+  updateLaneColumnToggle();
+}
+
+function updateLaneColumnToggle() {
+  const laneCount = getLaneCount();
+  const laneCb = document.querySelector('#columnToggles input[data-col="lane"]');
+  if (laneCb) {
+    if (laneCount > 1) {
+      laneCb.checked = true;
+    } else {
+      laneCb.checked = false;
+    }
+  }
+}
+
+// --- Class Order drag & drop ---
+function splitClass(originalClassName, splitCount) {
+  if (!currentParticipants) return;
+  
+  // Get participants of this class
+  const classPs = currentParticipants.filter(p => p.className === originalClassName);
+  if (classPs.length < splitCount) return; // Can't split into more groups than people
+  
+  // Shuffle participants for random split
+  const rng = createRng((Date.now() & 0x7fffffff) | 0);
+  const shuffled = shuffle([...classPs], rng);
+  
+  // Distribute evenly
+  const subClasses = [];
+  for (let i = 0; i < splitCount; i++) {
+    subClasses.push(`${originalClassName}-${i + 1}`);
+  }
+  
+  // Distribute in contiguous blocks (e.g., 11 into 2 → 6, 5)
+  const baseSize = Math.floor(shuffled.length / splitCount);
+  const remainder = shuffled.length % splitCount;
+  let idx = 0;
+  for (let g = 0; g < splitCount; g++) {
+    const groupSize = baseSize + (g < remainder ? 1 : 0);
+    for (let j = 0; j < groupSize; j++) {
+      shuffled[idx].className = subClasses[g];
+      idx++;
+    }
+  }
+  
+  // Record split state
+  splitState[originalClassName] = { count: splitCount, subClasses };
+  
+  // Rebuild class counts and UI
+  rebuildClassOrderAfterSplit();
+}
+
+function mergeClass(originalClassName) {
+  if (!currentParticipants || !splitState[originalClassName]) return;
+  
+  const { subClasses } = splitState[originalClassName];
+  
+  // Restore original class name for all sub-class participants
+  for (const p of currentParticipants) {
+    if (subClasses.includes(p.className)) {
+      p.className = originalClassName;
+    }
+  }
+  
+  // Remove from split state
+  delete splitState[originalClassName];
+  
+  // Rebuild class counts and UI
+  rebuildClassOrderAfterSplit();
+}
+
+function rebuildClassOrderAfterSplit() {
+  const classCounts = {};
+  for (const p of currentParticipants) {
+    classCounts[p.className] = (classCounts[p.className] || 0) + 1;
+  }
+  showParseSuccess(currentParticipants.length, classCounts);
+  buildClassOrderUI(classCounts);
+  // Hide result if showing (need to regenerate)
+  resultCard.classList.add('hidden');
+}
+
+function showSplitModal(className, currentCount) {
+  const modal = document.createElement('div');
+  modal.className = 'split-modal';
+
+  // Determine max split (can't have less than 1 person per group)
+  const maxSplit = Math.min(currentCount, 4);
+
+  let optionsHtml = '';
+  for (let i = 2; i <= maxSplit; i++) {
+    const perGroup = Math.floor(currentCount / i);
+    const remainder = currentCount % i;
+    const desc = remainder === 0
+      ? `${perGroup}名ずつ`
+      : `${perGroup}〜${perGroup + 1}名`;
+    optionsHtml += `<div class="split-option" data-split="${i}">${i}分割<br><small>${desc}</small></div>`;
+  }
+
+  modal.innerHTML = `<div class="split-modal-content">
+    <h3>「${escapeHtml(className)}」を分割</h3>
+    <div class="split-options">${optionsHtml}</div>
+    <span class="split-cancel">キャンセル</span>
+  </div>`;
+
+  document.body.appendChild(modal);
+
+  // Handle clicks — show method selection after count
+  modal.querySelectorAll('.split-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const count = parseInt(opt.dataset.split);
+      showSplitMethodModal(modal, className, count, currentCount);
+    });
+  });
+
+  modal.querySelector('.split-cancel').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+
+  // Close on backdrop click
+  modal.addEventListener('click', e => {
+    if (e.target === modal) document.body.removeChild(modal);
+  });
+}
+
+function showSplitMethodModal(modal, className, splitCount, currentCount) {
+  // Replace modal content with method selection
+  const content = modal.querySelector('.split-modal-content');
+  const perGroup = Math.floor(currentCount / splitCount);
+  const remainder = currentCount % splitCount;
+  const desc = remainder === 0 ? `${perGroup}名ずつ` : `${perGroup}〜${perGroup + 1}名`;
+
+  content.innerHTML = `
+    <h3>「${escapeHtml(className)}」${splitCount}分割（${desc}）</h3>
+    <div class="split-options">
+      <div class="split-option" data-method="random">🎲 ランダム<br><small>完全ランダムに分配</small></div>
+      <div class="split-option" data-method="balanced">⚖ 実力均等<br><small>ランキングで均等分配</small></div>
+    </div>
+    <span class="split-cancel">キャンセル</span>
+  `;
+
+  content.querySelector('[data-method="random"]').addEventListener('click', () => {
+    document.body.removeChild(modal);
+    splitClass(className, splitCount);
+  });
+
+  content.querySelector('[data-method="balanced"]').addEventListener('click', () => {
+    showBalancedSplitModal(modal, className, splitCount);
+  });
+
+  content.querySelector('.split-cancel').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+}
+
+function showBalancedSplitModal(modal, className, splitCount) {
+  // Replace modal content with a textarea for ranking input
+  const content = modal.querySelector('.split-modal-content');
+
+  // Get current participant names for this class
+  const classPs = currentParticipants.filter(p => p.className === className);
+
+  content.innerHTML = `
+    <h3>「${escapeHtml(className)}」実力均等${splitCount}分割</h3>
+    <div class="ranking-help">
+      ランキング上位から順に選手名を入力（1行1名）。<br>
+      スネークドラフト方式で均等に分配します。<br>
+      リストにない選手はランダムに分配されます。
+    </div>
+    <textarea class="ranking-textarea" placeholder="1位の選手名&#10;2位の選手名&#10;3位の選手名&#10;..."></textarea>
+    <div class="ranking-match-preview"></div>
+    <div class="ranking-modal-actions">
+      <button class="ranking-cancel">キャンセル</button>
+      <button class="ranking-apply">分割実行</button>
+    </div>
+  `;
+
+  const textarea = content.querySelector('.ranking-textarea');
+  const preview = content.querySelector('.ranking-match-preview');
+
+  // Live matching preview
+  textarea.addEventListener('input', () => {
+    const lines = textarea.value.split('\n').map(l => l.trim()).filter(l => l);
+    if (lines.length === 0) { preview.innerHTML = ''; return; }
+
+    let matched = 0;
+    const names = classPs.map(p => p.isGroup ? p.teamName : (p.lastName + p.firstName));
+    for (const line of lines) {
+      if (findParticipantByName(classPs, line) !== -1) matched++;
+    }
+
+    preview.className = 'ranking-match-result ' + (matched === lines.length ? 'good' : 'partial');
+    preview.textContent = `${matched}/${lines.length}名がマッチ（クラス内${classPs.length}名）`;
+  });
+
+  content.querySelector('.ranking-apply').addEventListener('click', () => {
+    const lines = textarea.value.split('\n').map(l => l.trim()).filter(l => l);
+    document.body.removeChild(modal);
+    splitClassBalanced(className, splitCount, lines);
+  });
+
+  content.querySelector('.ranking-cancel').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+
+
+  // Auto-fill from loaded ranking data if available
+  if (loadedRankings.length > 0) {
+    const dummyEntries = classPs.map(p => ({
+      name: p.isGroup ? p.teamName : (p.lastName + p.firstName),
+      club: p.club,
+    }));
+    const autoMatched = autoMatchRanking(dummyEntries);
+    if (autoMatched.length > 0) {
+      textarea.value = autoMatched.join('\n');
+      textarea.dispatchEvent(new Event('input'));
+    }
+  }
+
+  setTimeout(() => textarea.focus(), 100);
+}
+
+/**
+ * Find a participant index by fuzzy name matching.
+ */
+function findParticipantByName(participants, searchName) {
+  const normalize = s => s.replace(/[\s　]/g, '').toLowerCase();
+  const search = normalize(searchName);
+
+  for (let i = 0; i < participants.length; i++) {
+    const p = participants[i];
+    const fullName = normalize(p.isGroup ? p.teamName : (p.lastName + p.firstName));
+    if (fullName === search) return i;
+  }
+  // Partial match
+  for (let i = 0; i < participants.length; i++) {
+    const p = participants[i];
+    const fullName = normalize(p.isGroup ? p.teamName : (p.lastName + p.firstName));
+    if (fullName.includes(search) || search.includes(fullName)) return i;
+  }
+  return -1;
+}
+
+/**
+ * Split a class using snake draft for balanced skill distribution.
+ * rankedNames: names from strongest to weakest.
+ * Snake draft: round 1 → groups 1,2,...,N; round 2 → groups N,...,2,1; repeat.
+ */
+function splitClassBalanced(originalClassName, splitCount, rankedNames) {
+  if (!currentParticipants) return;
+
+  const classPs = currentParticipants.filter(p => p.className === originalClassName);
+  if (classPs.length < splitCount) return;
+
+  // Separate ranked and unranked participants
+  const ranked = [];
+  const remaining = [...classPs];
+
+  for (const name of rankedNames) {
+    const idx = findParticipantByName(remaining, name);
+    if (idx !== -1) {
+      ranked.push(remaining[idx]);
+      remaining.splice(idx, 1);
+    }
+  }
+
+  // Shuffle unranked
+  const rng = createRng((Date.now() & 0x7fffffff) | 0);
+  const shuffledRemaining = shuffle(remaining, rng);
+
+  // Combine: ranked first (by ranking), then unranked
+  const allOrdered = [...ranked, ...shuffledRemaining];
+
+  // Snake draft distribution
+  const subClasses = [];
+  for (let i = 0; i < splitCount; i++) {
+    subClasses.push(`${originalClassName}-${i + 1}`);
+  }
+
+  for (let i = 0; i < allOrdered.length; i++) {
+    const round = Math.floor(i / splitCount);
+    const posInRound = i % splitCount;
+    // Even rounds: 0,1,2,...,N-1; Odd rounds: N-1,...,1,0
+    const groupIdx = (round % 2 === 0) ? posInRound : (splitCount - 1 - posInRound);
+    allOrdered[i].className = subClasses[groupIdx];
+  }
+
+  // Record split state
+  splitState[originalClassName] = { count: splitCount, subClasses };
+
+  rebuildClassOrderAfterSplit();
+}
+
+
+function buildClassOrderUI(classCounts) {
+  classOrderList.innerHTML = '';
+  const sorted = Object.keys(classCounts).sort();
+  const laneCount = getLaneCount();
+
+  for (const cls of sorted) {
+    const li = document.createElement('li');
+    li.className = 'class-order-item';
+    li.draggable = true;
+    li.dataset.class = cls;
+
+    let laneSelectHtml = '';
+    if (laneCount > 1) {
+      laneSelectHtml = '<select class="lane-select" title="レーン割り当て">';
+      for (let i = 1; i <= laneCount; i++) {
+        laneSelectHtml += `<option value="${i}">L${i}</option>`;
+      }
+      laneSelectHtml += '</select>';
+    } else {
+      laneSelectHtml = '<select class="lane-select hidden" title="レーン割り当て"><option value="1">L1</option></select>';
+    }
+
+    // Check if this class is a sub-class from a split
+    const isSplitChild = Object.values(splitState).some(s => s.subClasses.includes(cls));
+    // Check if this class can be split (not already split, and not a sub-class)
+    const isAlreadySplit = !!splitState[cls];
+    const canSplit = !isSplitChild && !isAlreadySplit && classCounts[cls] >= 2;
+    
+    // Find the original class name if this is a split child
+    let mergeOriginal = null;
+    for (const [orig, info] of Object.entries(splitState)) {
+      if (info.subClasses[info.subClasses.length - 1] === cls) {
+        // Show merge button only on the last sub-class
+        mergeOriginal = orig;
+      }
+    }
+    
+    let actionHtml = '';
+    if (canSplit) {
+      actionHtml = `<button class="split-btn" data-split-class="${escapeHtml(cls)}" title="クラスを分割">✂ 分割</button>`;
+    }
+    if (mergeOriginal) {
+      actionHtml = `<button class="split-btn" data-merge-class="${escapeHtml(mergeOriginal)}" title="分割を元に戻す">↩ 統合</button>`;
+    }
+    if (isSplitChild && !mergeOriginal) {
+      // Show a subtle indicator that this is a split sub-class
+      actionHtml = `<span class="split-badge">分割</span>`;
+    }
+    
+    li.innerHTML = `<span class="drag-handle">&#8942;&#8942;</span>` +
+      `<span class="class-label">${escapeHtml(cls)}</span>` +
+      laneSelectHtml +
+      `<span class="class-count">${classCounts[cls]}名</span>` +
+      actionHtml;
+
+    classOrderList.appendChild(li);
+  }
+
+  // Drag and drop handlers
+  let draggedItem = null;
+
+  classOrderList.addEventListener('dragstart', e => {
+    draggedItem = e.target.closest('.class-order-item');
+    if (draggedItem) {
+      draggedItem.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+  });
+
+  classOrderList.addEventListener('dragend', () => {
+    if (draggedItem) {
+      draggedItem.classList.remove('dragging');
+      draggedItem = null;
+    }
+    classOrderList.querySelectorAll('.class-order-item').forEach(el => {
+      el.classList.remove('drag-over');
+    });
+  });
+
+  classOrderList.addEventListener('dragover', e => {
+    e.preventDefault();
+    const target = e.target.closest('.class-order-item');
+    if (target && target !== draggedItem) {
+      classOrderList.querySelectorAll('.class-order-item').forEach(el => {
+        el.classList.remove('drag-over');
+      });
+      target.classList.add('drag-over');
+    }
+  });
+
+  classOrderList.addEventListener('drop', e => {
+    e.preventDefault();
+    const target = e.target.closest('.class-order-item');
+    if (target && draggedItem && target !== draggedItem) {
+      const items = [...classOrderList.querySelectorAll('.class-order-item')];
+      const dragIdx = items.indexOf(draggedItem);
+      const dropIdx = items.indexOf(target);
+      if (dragIdx < dropIdx) {
+        target.after(draggedItem);
+      } else {
+        target.before(draggedItem);
+      }
+    }
+    classOrderList.querySelectorAll('.class-order-item').forEach(el => {
+      el.classList.remove('drag-over');
+    });
+  });
+  // Split/merge handlers
+  classOrderList.querySelectorAll('[data-split-class]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const cls = btn.dataset.splitClass;
+      showSplitModal(cls, classCounts[cls]);
+    });
+  });
+  classOrderList.querySelectorAll('[data-merge-class]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      mergeClass(btn.dataset.mergeClass);
+    });
+  });
+
+}
+
+function getClassOrder() {
+  const items = classOrderList.querySelectorAll('.class-order-item');
+  return [...items].map(el => el.dataset.class);
+}
+
+// --- Generate ---
+generateBtn.addEventListener('click', generate);
+$('regenerateBtn').addEventListener('click', generate);
+
+// Column toggle -> re-render (no regeneration needed)
+// Sync both column toggle areas (settings panel + result panel)
+function syncColumnToggles(sourceId) {
+  const source = $(sourceId);
+  const targetId = sourceId === 'columnToggles' ? 'columnTogglesResult' : 'columnToggles';
+  const target = $(targetId);
+  if (!target) return;
+  source.querySelectorAll('input[data-col]').forEach(cb => {
+    const mirror = target.querySelector(`input[data-col="${cb.dataset.col}"]`);
+    if (mirror) mirror.checked = cb.checked;
+  });
+  if (currentEntries) renderStartList(currentEntries);
+}
+
+$('columnToggles').addEventListener('change', () => syncColumnToggles('columnToggles'));
+
+// Result panel column toggle popover
+$('colToggleBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  const pop = $('colTogglePopover');
+  const togglesResult = $('columnTogglesResult');
+  // Populate if empty
+  if (!togglesResult.innerHTML.trim()) {
+    const cols = [
+      { key: 'no', label: 'No' },
+      { key: 'time', label: 'スタート時刻' },
+      { key: 'name', label: '氏名' },
+      { key: 'furigana', label: 'ふりがな' },
+      { key: 'club', label: '所属' },
+      { key: 'card', label: 'カード番号' },
+      { key: 'iofid', label: 'IOF番号' },
+      { key: 'gender', label: '性別' },
+      { key: 'lane', label: 'レーン' },
+    ];
+    togglesResult.innerHTML = cols.map(c => {
+      const orig = document.querySelector(`#columnToggles input[data-col="${c.key}"]`);
+      const checked = orig ? orig.checked : false;
+      return `<label><input type="checkbox" data-col="${c.key}" ${checked ? 'checked' : ''}> ${c.label}</label>`;
+    }).join('');
+  }
+  pop.classList.toggle('hidden');
+});
+
+$('columnTogglesResult').addEventListener('change', () => syncColumnToggles('columnTogglesResult'));
+
+// Close popover on outside click
+document.addEventListener('click', (e) => {
+  const pop = $('colTogglePopover');
+  if (!pop.classList.contains('hidden') && !e.target.closest('#colTogglePopover') && !e.target.closest('#colToggleBtn')) {
+    pop.classList.add('hidden');
+  }
+});
+
+function generate() {
+  try {
+  if (!currentParticipants || currentParticipants.length === 0) { console.error('No participants'); return; }
+
+  const startTimeVal = $('startTime').value || '10:00';
+  const startTime = startTimeVal.includes(':') && startTimeVal.split(':').length === 2
+    ? startTimeVal + ':00'
+    : startTimeVal;
+
+  const interval = parseInt($('interval').value) || 60;
+  const classGap = parseInt($('classGap').value) || 120;
+  const seedVal = $('seed').value.trim();
+  const seed = seedVal !== '' ? parseInt(seedVal) : null;
+  const classOrder = getClassOrder();
+  const laneCount = getLaneCount();
+  const laneAssignments = getClassLaneAssignments();
+
+  currentEntries = generateStartList(currentParticipants, {
+    startTime,
+    interval,
+    classGap,
+    seed,
+    classOrder,
+    laneCount,
+    laneAssignments,
+  });
+
+  // Store a deep copy as the original for reset
+  originalEntries = JSON.parse(JSON.stringify(currentEntries));
+
+  generationDate = new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+  renderStartList(currentEntries);
+  resultCard.classList.remove('hidden');
+
+  // Show/hide WRE button based on detected ME/WE classes
+  const wreBtn = $('wreRankingBtn');
+  const wreClasses = detectWreClasses();
+  wreBtn.style.display = wreClasses.length > 0 ? '' : 'none';
+
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (err) { alert('生成エラー: ' + err.message); console.error(err); }
+}
+
+// ===========================================================================
+// Per-class reshuffle
+// ===========================================================================
+
+function reshuffleClass(className) {
+  if (!currentParticipants || !currentEntries) return;
+
+  // Get entries for this class
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+
+  // Get the original participants for this class
+  const classParticipants = currentParticipants.filter(p => p.className === className);
+  if (classParticipants.length === 0) return;
+
+  // Create a new RNG based on current time for randomness
+  const rng = createRng((Date.now() & 0x7fffffff) | 0);
+
+  // Shuffle and separate same-club
+  let shuffled = shuffle(classParticipants, rng);
+  shuffled = separateSameClub(shuffled, rng);
+
+  // Get the lane from the first entry in this class section
+  const lane = currentEntries[start].lane || 1;
+
+  // Build new entries for this class (preserving structural fields, updating data)
+  const newClassEntries = shuffled.map(p => ({
+    className,
+    startNumber: 0, // will be recalculated
+    name: displayName(p),
+    club: p.club,
+    startTime: '', // will be recalculated
+    cardNumber: p.cardNumber,
+    iofId: p.iofId || '',
+    furigana: p.isGroup ? '' : p.furigana,
+    gender: p.isGroup ? '' : p.gender,
+    lane: lane,
+  }));
+
+  // Replace the class section in currentEntries
+  currentEntries.splice(start, end - start + 1, ...newClassEntries);
+
+  // Recalculate all times and numbers
+  recalculateEntries(currentEntries);
+
+  // Re-render
+  renderStartList(currentEntries);
+}
+
+// ===========================================================================
+// Row Drag & Drop (within class)
+// ===========================================================================
+
+let rowDragState = {
+  dragging: false,
+  dragRow: null,
+  dragClassName: null,
+  // Touch state
+  touchActive: false,
+  touchGhost: null,
+  touchStartY: 0,
+  touchCurrentRow: null,
+};
+
+function getClassEntriesRange(className) {
+  let start = -1, end = -1;
+  for (let i = 0; i < currentEntries.length; i++) {
+    if (currentEntries[i].className === className) {
+      if (start === -1) start = i;
+      end = i;
+    }
+  }
+  return { start, end };
+}
+
+function getEntryIndex(row) {
+  return parseInt(row.dataset.entryIndex, 10);
+}
+
+function setupRowDragDesktop(tbody, className) {
+  let draggedRow = null;
+  let mousedownOnHandle = false;
+
+  // Track whether mousedown started on the handle
+  tbody.addEventListener('mousedown', e => {
+    const handle = e.target.closest('.col-drag');
+    mousedownOnHandle = !!handle;
+    // Enable/disable draggable on the row
+    const tr = e.target.closest('tr');
+    if (tr) tr.draggable = mousedownOnHandle;
+  });
+
+  tbody.addEventListener('dragstart', e => {
+    if (!mousedownOnHandle) {
+      e.preventDefault();
+      return;
+    }
+    const tr = e.target.closest('tr');
+    if (!tr) return;
+    draggedRow = tr;
+    tr.classList.add('row-dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', '');
+  });
+
+  tbody.addEventListener('dragend', () => {
+    if (draggedRow) {
+      draggedRow.classList.remove('row-dragging');
+      draggedRow = null;
+    }
+    tbody.querySelectorAll('tr').forEach(r => {
+      r.classList.remove('row-drag-over');
+      r.classList.remove('row-drag-over-below');
+    });
+  });
+
+  tbody.addEventListener('dragover', e => {
+    e.preventDefault();
+    const tr = e.target.closest('tr');
+    if (!tr || tr === draggedRow || !draggedRow) return;
+    e.dataTransfer.dropEffect = 'move';
+
+    tbody.querySelectorAll('tr').forEach(r => {
+      r.classList.remove('row-drag-over');
+      r.classList.remove('row-drag-over-below');
+    });
+
+    // Determine if dropping above or below
+    const rect = tr.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    if (e.clientY < midY) {
+      tr.classList.add('row-drag-over');
+    } else {
+      tr.classList.add('row-drag-over-below');
+    }
+  });
+
+  tbody.addEventListener('dragleave', e => {
+    const tr = e.target.closest('tr');
+    if (tr) {
+      tr.classList.remove('row-drag-over');
+      tr.classList.remove('row-drag-over-below');
+    }
+  });
+
+  tbody.addEventListener('drop', e => {
+    e.preventDefault();
+    const tr = e.target.closest('tr');
+    if (!tr || !draggedRow || tr === draggedRow) return;
+
+    const fromIdx = getEntryIndex(draggedRow);
+    const toIdx = getEntryIndex(tr);
+
+    // Determine if dropping above or below
+    const rect = tr.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    const dropBelow = e.clientY >= midY;
+
+    moveEntryWithinClass(className, fromIdx, toIdx, dropBelow);
+
+    tbody.querySelectorAll('tr').forEach(r => {
+      r.classList.remove('row-drag-over');
+      r.classList.remove('row-drag-over-below');
+    });
+  });
+}
+
+function setupRowDragTouch(tbody, className) {
+  let touchRow = null;
+  let ghost = null;
+  let lastOverRow = null;
+  let scrollInterval = null;
+
+  function createGhost(row) {
+    const g = document.createElement('div');
+    g.className = 'touch-drag-ghost';
+    const nameCell = row.querySelector('td:nth-child(4)'); // name column
+    g.textContent = nameCell ? nameCell.textContent : '';
+    document.body.appendChild(g);
+    return g;
+  }
+
+  function cleanupTouch() {
+    if (ghost) {
+      ghost.remove();
+      ghost = null;
+    }
+    if (touchRow) {
+      touchRow.classList.remove('row-dragging');
+    }
+    if (lastOverRow) {
+      lastOverRow.classList.remove('row-drag-over');
+      lastOverRow.classList.remove('row-drag-over-below');
+    }
+    if (scrollInterval) {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+    }
+    touchRow = null;
+    lastOverRow = null;
+  }
+
+  tbody.addEventListener('touchstart', e => {
+    const handle = e.target.closest('.col-drag');
+    if (!handle) return;
+    const tr = handle.closest('tr');
+    if (!tr) return;
+
+    e.preventDefault();
+    touchRow = tr;
+    touchRow.classList.add('row-dragging');
+    ghost = createGhost(tr);
+
+    const touch = e.touches[0];
+    ghost.style.left = (touch.clientX + 10) + 'px';
+    ghost.style.top = (touch.clientY - 15) + 'px';
+  }, { passive: false });
+
+  tbody.addEventListener('touchmove', e => {
+    if (!touchRow || !ghost) return;
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    ghost.style.left = (touch.clientX + 10) + 'px';
+    ghost.style.top = (touch.clientY - 15) + 'px';
+
+    // Auto-scroll near edges
+    const scrollThreshold = 50;
+    const scrollSpeed = 5;
+    if (scrollInterval) {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+    }
+    if (touch.clientY < scrollThreshold) {
+      scrollInterval = setInterval(() => window.scrollBy(0, -scrollSpeed), 16);
+    } else if (touch.clientY > window.innerHeight - scrollThreshold) {
+      scrollInterval = setInterval(() => window.scrollBy(0, scrollSpeed), 16);
+    }
+
+    // Find row under touch
+    if (lastOverRow) {
+      lastOverRow.classList.remove('row-drag-over');
+      lastOverRow.classList.remove('row-drag-over-below');
+      lastOverRow = null;
+    }
+
+    // Temporarily hide ghost so elementFromPoint works
+    ghost.style.display = 'none';
+    const elemUnder = document.elementFromPoint(touch.clientX, touch.clientY);
+    ghost.style.display = '';
+
+    if (elemUnder) {
+      const tr = elemUnder.closest('tr');
+      if (tr && tr !== touchRow && tbody.contains(tr)) {
+        const rect = tr.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        if (touch.clientY < midY) {
+          tr.classList.add('row-drag-over');
+        } else {
+          tr.classList.add('row-drag-over-below');
+        }
+        lastOverRow = tr;
+      }
+    }
+  }, { passive: false });
+
+  tbody.addEventListener('touchend', e => {
+    if (!touchRow) return;
+    e.preventDefault();
+
+    if (lastOverRow && lastOverRow !== touchRow) {
+      const fromIdx = getEntryIndex(touchRow);
+      const toIdx = getEntryIndex(lastOverRow);
+      const dropBelow = lastOverRow.classList.contains('row-drag-over-below');
+      moveEntryWithinClass(className, fromIdx, toIdx, dropBelow);
+    }
+
+    cleanupTouch();
+  }, { passive: false });
+
+  tbody.addEventListener('touchcancel', () => {
+    cleanupTouch();
+  });
+}
+
+function moveEntryWithinClass(className, fromGlobalIdx, toGlobalIdx, dropBelow) {
+  if (fromGlobalIdx === toGlobalIdx) return;
+
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+
+  // Validate both indices are within the class
+  if (fromGlobalIdx < start || fromGlobalIdx > end) return;
+  if (toGlobalIdx < start || toGlobalIdx > end) return;
+
+  // Extract the entry
+  const entry = currentEntries.splice(fromGlobalIdx, 1)[0];
+
+  // Recalculate toGlobalIdx after removal
+  let insertIdx = toGlobalIdx;
+  if (fromGlobalIdx < toGlobalIdx) {
+    insertIdx = toGlobalIdx - 1;
+  }
+  if (dropBelow) {
+    insertIdx++;
+  }
+
+  // Clamp to class bounds
+  const newRange = getClassEntriesRange(className);
+  const newStart = newRange.start === -1 ? start : newRange.start;
+  // Find the new end: after removing one element, the class range shifted
+  let newEnd = newStart;
+  for (let i = newStart; i < currentEntries.length; i++) {
+    if (currentEntries[i].className === className) {
+      newEnd = i;
+    } else if (i > newStart) {
+      break;
+    }
+  }
+  insertIdx = Math.max(newStart, Math.min(insertIdx, newEnd + 1));
+
+  currentEntries.splice(insertIdx, 0, entry);
+
+  // Recalculate all times and numbers
+  recalculateEntries(currentEntries);
+
+  // Re-render
+  renderStartList(currentEntries);
+}
+
+function resetClassOrder(className) {
+  if (!originalEntries) return;
+
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+
+  // Find the original entries for this class
+  const origClassEntries = originalEntries.filter(e => e.className === className);
+  if (origClassEntries.length === 0) return;
+
+  // Replace the class section with original order (by matching names)
+  const currentClassEntries = currentEntries.slice(start, end + 1);
+
+  // Build a map from name+club to original entries to find original order
+  const origOrder = origClassEntries.map(e => e.name + '|' + e.club + '|' + e.cardNumber);
+  const currentMap = {};
+  for (const e of currentClassEntries) {
+    currentMap[e.name + '|' + e.club + '|' + e.cardNumber] = e;
+  }
+
+  const reordered = [];
+  for (const key of origOrder) {
+    if (currentMap[key]) {
+      reordered.push(currentMap[key]);
+    }
+  }
+  // Add any that weren't in the original (shouldn't happen, but safety)
+  for (const e of currentClassEntries) {
+    const key = e.name + '|' + e.club + '|' + e.cardNumber;
+    if (!origOrder.includes(key)) {
+      reordered.push(e);
+    }
+  }
+
+  // Replace in currentEntries
+  currentEntries.splice(start, end - start + 1, ...reordered);
+
+  recalculateEntries(currentEntries);
+  renderStartList(currentEntries);
+}
+
+function resetAllOrder() {
+  if (!originalEntries) return;
+  currentEntries = JSON.parse(JSON.stringify(originalEntries));
+  renderStartList(currentEntries);
+}
+
+// ===========================================================================
+// Render Start List
+// ===========================================================================
+
+function getVisibleColumns() {
+  const cols = {};
+  document.querySelectorAll('#columnToggles input[data-col]').forEach(cb => {
+    cols[cb.dataset.col] = cb.checked;
+  });
+  return cols;
+}
+
+/**
+ * Auto-match class entries against loaded ranking data.
+ * Returns an array of matched names in ranking order (highest first).
+ * Matching priority:
+ * 1. IOF-ID exact match (most reliable)
+ * 2. Japanese name match (JOA data)
+ * 3. Romanized name match (IOF data, for foreign athletes)
+ */
+function autoMatchRanking(classEntries) {
+  if (loadedRankings.length === 0) return [];
+
+  const normalize = s => s.replace(/[\s\u3000]/g, '').toLowerCase();
+
+  // Collect all ranking athletes across all loaded files
+  const allRanked = [];
+  for (const ranking of loadedRankings) {
+    for (const athlete of ranking.athletes) {
+      allRanked.push({
+        ...athlete,
+        source: ranking.source,
+      });
+    }
+  }
+
+  // Build IOF-ID lookup for fast matching
+  const iofIdMap = new Map(); // iofId -> athlete (lowest rank wins)
+  for (const athlete of allRanked) {
+    if (athlete.iofId) {
+      const id = String(athlete.iofId);
+      if (!iofIdMap.has(id) || athlete.rank < iofIdMap.get(id).rank) {
+        iofIdMap.set(id, athlete);
+      }
+    }
+  }
+
+  // For each class entry, try to find a match in ranking data
+  const matched = []; // { entry, rank, matchedAthlete }
+
+  for (const entry of classEntries) {
+    const entryNameNorm = normalize(entry.name);
+    const entryIofId = entry.iofId ? String(entry.iofId).trim() : '';
+
+    let bestMatch = null;
+    let bestRank = Infinity;
+
+    // Strategy 0: IOF-ID exact match (highest priority)
+    if (entryIofId && iofIdMap.has(entryIofId)) {
+      bestMatch = iofIdMap.get(entryIofId);
+      bestRank = bestMatch.rank;
+    }
+
+    // Only try name matching if IOF-ID didn't match
+    if (!bestMatch) {
+      for (const athlete of allRanked) {
+        // Strategy 1: Match by Japanese name (JOA)
+        if (athlete.nameJa) {
+          const nameJaNorm = normalize(athlete.nameJa);
+          if (nameJaNorm === entryNameNorm || nameJaNorm.includes(entryNameNorm) || entryNameNorm.includes(nameJaNorm)) {
+            if (athlete.rank < bestRank) {
+              bestMatch = athlete;
+              bestRank = athlete.rank;
+            }
+            continue;
+          }
+        }
+
+        // Strategy 2: Match by romanized name (IOF) - for foreign athletes
+        if (athlete.name) {
+          const nameNorm = normalize(athlete.name);
+          if (nameNorm === entryNameNorm || nameNorm.includes(entryNameNorm) || entryNameNorm.includes(nameNorm)) {
+            if (athlete.rank < bestRank) {
+              bestMatch = athlete;
+              bestRank = athlete.rank;
+            }
+          }
+        }
+      }
+    }
+
+    if (bestMatch) {
+      matched.push({ entryName: entry.name, rank: bestRank, athlete: bestMatch });
+    }
+  }
+  
+  // Sort by rank (highest ranked = rank 1 first)
+  matched.sort((a, b) => a.rank - b.rank);
+  
+  // Return names in ranking order
+  return matched.map(m => m.entryName);
+}
+
+// ===========================================================================
+// Seed-based reorder (tiered seeding)
+// ===========================================================================
+
+function showSeedModal(className) {
+  if (!currentEntries) return;
+  
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+  
+  const classEntries = currentEntries.slice(start, end + 1);
+  
+  // Auto-match ranking data
+  const matchedRanked = []; // { entryName, rank, athlete }
+  if (loadedRankings.length > 0) {
+    const normalize = s => s.replace(/[\s　]/g, '').toLowerCase();
+    const allRanked = [];
+    for (const ranking of loadedRankings) {
+      for (const athlete of ranking.athletes) {
+        allRanked.push({ ...athlete, source: ranking.source });
+      }
+    }
+    const iofIdMap = new Map();
+    for (const athlete of allRanked) {
+      if (athlete.iofId) {
+        const id = String(athlete.iofId);
+        if (!iofIdMap.has(id) || athlete.rank < iofIdMap.get(id).rank) {
+          iofIdMap.set(id, athlete);
+        }
+      }
+    }
+    for (const entry of classEntries) {
+      const entryNameNorm = normalize(entry.name);
+      const entryIofId = entry.iofId ? String(entry.iofId).trim() : '';
+      let bestMatch = null;
+      let bestRank = Infinity;
+      if (entryIofId && iofIdMap.has(entryIofId)) {
+        bestMatch = iofIdMap.get(entryIofId);
+        bestRank = bestMatch.rank;
+      }
+      if (!bestMatch) {
+        for (const athlete of allRanked) {
+          if (athlete.nameJa) {
+            const nameJaNorm = normalize(athlete.nameJa);
+            if (nameJaNorm === entryNameNorm || nameJaNorm.includes(entryNameNorm) || entryNameNorm.includes(nameJaNorm)) {
+              if (athlete.rank < bestRank) {
+                bestMatch = athlete;
+                bestRank = athlete.rank;
+              }
+              continue;
+            }
+          }
+          if (athlete.name) {
+            const nameNorm = normalize(athlete.name);
+            if (nameNorm === entryNameNorm || nameNorm.includes(entryNameNorm) || entryNameNorm.includes(nameNorm)) {
+              if (athlete.rank < bestRank) {
+                bestMatch = athlete;
+                bestRank = athlete.rank;
+              }
+            }
+          }
+        }
+      }
+      if (bestMatch) {
+        matchedRanked.push({ entryName: entry.name, rank: bestRank, athlete: bestMatch });
+      }
+    }
+    matchedRanked.sort((a, b) => a.rank - b.rank);
+  }
+  
+  const modal = document.createElement('div');
+  modal.className = 'seed-modal';
+  
+  if (loadedRankings.length === 0) {
+    modal.innerHTML = `<div class="seed-modal-content">
+      <h3>🏅「${escapeHtml(className)}」シード設定</h3>
+      <div class="seed-no-ranking">
+        ランキングデータを読み込んでからシード設定してください。<br>
+        設定画面で「🌐 取得」またはJSONファイルを読み込んでください。
+      </div>
+      <div class="seed-modal-actions">
+        <button class="seed-cancel">閉じる</button>
+      </div>
+    </div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('.seed-cancel').addEventListener('click', () => document.body.removeChild(modal));
+    modal.addEventListener('click', e => { if (e.target === modal) document.body.removeChild(modal); });
+    return;
+  }
+  
+  const totalClass = classEntries.length;
+  const totalMatched = matchedRanked.length;
+  
+  modal.innerHTML = `<div class="seed-modal-content">
+    <h3>🏅「${escapeHtml(className)}」シード設定</h3>
+    <div style="font-size:0.8rem; color:#6b7280; margin-bottom:12px;">
+      クラス ${totalClass}名中 ${totalMatched}名がランキングにマッチ。<br>
+      シードグループを設定してスタート順に反映します。<br>
+      非シード（ランダム）→ シード の順にスタートします。
+    </div>
+    <div style="margin-bottom:12px;">
+      <label style="font-size:0.85rem; font-weight:600;">シード段階数:</label>
+      <select id="seedTierCount" style="padding:4px 8px; border-radius:4px; border:1px solid #d1d5db; font-size:0.85rem; margin-left:8px;">
+        <option value="1">1段階（シード）</option>
+        <option value="2">2段階（A・Bシード）</option>
+        <option value="3">3段階（S・A・Bシード）</option>
+      </select>
+    </div>
+    <div id="seedTierConfig" class="seed-tier-config"></div>
+    <div id="seedPreview" class="seed-preview"></div>
+    <div class="seed-modal-actions">
+      <button class="seed-cancel">キャンセル</button>
+      <button class="seed-apply">適用</button>
+    </div>
+  </div>`;
+  
+  document.body.appendChild(modal);
+  
+  const tierCountSelect = modal.querySelector('#seedTierCount');
+  const tierConfigDiv = modal.querySelector('#seedTierConfig');
+  const previewDiv = modal.querySelector('#seedPreview');
+  
+  function getTierNames(count) {
+    if (count === 1) return ['シード'];
+    if (count === 2) return ['Aシード', 'Bシード'];
+    return ['Sシード', 'Aシード', 'Bシード'];
+  }
+  
+  function getTierBadgeClass(count, tierIndex) {
+    if (count === 1) return 'seed-badge-a';
+    if (count === 2) return tierIndex === 0 ? 'seed-badge-a' : 'seed-badge-b';
+    return ['seed-badge-s', 'seed-badge-a', 'seed-badge-b'][tierIndex];
+  }
+  
+  function getDefaultCounts(tierCount) {
+    const m = totalMatched;
+    if (tierCount === 1) return [Math.min(m, Math.max(3, Math.round(m * 0.3)))];
+    if (tierCount === 2) return [Math.min(m, Math.max(3, Math.round(m * 0.15))), Math.min(m, Math.max(5, Math.round(m * 0.3)))];
+    return [Math.min(m, 3), Math.min(m, Math.max(5, Math.round(m * 0.15))), Math.min(m, Math.max(10, Math.round(m * 0.3)))];
+  }
+  
+  function renderConfig() {
+    const tierCount = parseInt(tierCountSelect.value);
+    const tierNames = getTierNames(tierCount);
+    const defaults = getDefaultCounts(tierCount);
+    
+    tierConfigDiv.innerHTML = tierNames.map((name, i) => {
+      const hint = i === 0 
+        ? '（最も遅いスタート）' 
+        : (i === tierCount - 1 ? '（非シードの直後）' : '');
+      return `<div class="seed-tier-row">
+        <label>${escapeHtml(name)}</label>
+        <span>上位</span>
+        <input type="number" class="seed-tier-input" data-tier="${i}" value="${defaults[i]}" min="0" max="${totalMatched}">
+        <span>名</span>
+        <span class="tier-hint">${hint}</span>
+      </div>`;
+    }).join('');
+    
+    tierConfigDiv.querySelectorAll('.seed-tier-input').forEach(input => {
+      input.addEventListener('input', renderPreview);
+    });
+    
+    renderPreview();
+  }
+  
+  function renderPreview() {
+    const tierCount = parseInt(tierCountSelect.value);
+    const tierNames = getTierNames(tierCount);
+    const inputs = tierConfigDiv.querySelectorAll('.seed-tier-input');
+    
+    const tierSizes = [];
+    for (const input of inputs) {
+      tierSizes.push(Math.max(0, parseInt(input.value) || 0));
+    }
+    
+    let offset = 0;
+    const tiers = [];
+    for (let i = 0; i < tierSizes.length; i++) {
+      const size = Math.min(tierSizes[i], totalMatched - offset);
+      tiers.push(matchedRanked.slice(offset, offset + size));
+      offset += size;
+    }
+    
+    const seededNames = new Set();
+    for (const tier of tiers) {
+      for (const m of tier) seededNames.add(m.entryName);
+    }
+    const unseeded = classEntries.filter(e => !seededNames.has(e.name));
+    
+    let html = '';
+    
+    html += `<div class="seed-preview-group">
+      <div class="seed-preview-group-header">
+        <span class="seed-badge seed-badge-none">非シード</span>
+        <span>${unseeded.length}名（ランダム・最初にスタート）</span>
+      </div>`;
+    if (unseeded.length > 0 && unseeded.length <= 15) {
+      html += `<div class="seed-preview-names">${unseeded.map(e => escapeHtml(e.name)).join('、')}</div>`;
+    }
+    html += `</div>`;
+    
+    for (let i = tiers.length - 1; i >= 0; i--) {
+      const tier = tiers[i];
+      const badgeClass = getTierBadgeClass(tierCount, i);
+      const startLabel = i === 0 ? '最後にスタート' : '';
+      html += `<div class="seed-preview-group">
+        <div class="seed-preview-group-header">
+          <span class="seed-badge ${badgeClass}">${escapeHtml(tierNames[i])}</span>
+          <span>${tier.length}名（ランダム${startLabel ? '・' + startLabel : ''}）</span>
+        </div>`;
+      if (tier.length > 0) {
+        html += `<div class="seed-preview-names">${tier.map(m => {
+          const rankStr = m.rank ? `#${m.rank}` : '';
+          return escapeHtml(m.entryName) + (rankStr ? ` <span style="color:#9ca3af">${rankStr}</span>` : '');
+        }).join('、')}</div>`;
+      }
+      html += `</div>`;
+    }
+    
+    previewDiv.innerHTML = html;
+  }
+  
+  tierCountSelect.addEventListener('change', renderConfig);
+  renderConfig();
+  
+  // Apply
+  modal.querySelector('.seed-apply').addEventListener('click', () => {
+    const tierCount = parseInt(tierCountSelect.value);
+    const inputs = tierConfigDiv.querySelectorAll('.seed-tier-input');
+    const tierSizes = [];
+    for (const input of inputs) {
+      tierSizes.push(Math.max(0, parseInt(input.value) || 0));
+    }
+    
+    let offset = 0;
+    const tierNames_arr = [];
+    for (let i = 0; i < tierSizes.length; i++) {
+      const size = Math.min(tierSizes[i], totalMatched - offset);
+      tierNames_arr.push(matchedRanked.slice(offset, offset + size).map(m => m.entryName));
+      offset += size;
+    }
+    
+    document.body.removeChild(modal);
+    applySeedOrder(className, tierNames_arr);
+  });
+  
+  // Cancel
+  modal.querySelector('.seed-cancel').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+  
+  // Close on backdrop
+  modal.addEventListener('click', e => {
+    if (e.target === modal) document.body.removeChild(modal);
+  });
+}
+
+/**
+ * Apply tiered seed order to a class.
+ * seedTiers: array of arrays of names, from highest tier to lowest.
+ *   seedTiers[0] = highest tier (S or A or seed) = latest start
+ *   seedTiers[1] = second tier (A or B) = earlier than [0]
+ *   seedTiers[2] = third tier (B) = earliest among seeds
+ * Start order: unseeded (random) -> seedTiers[last] (random) -> ... -> seedTiers[0] (random, latest)
+ */
+function applySeedOrder(className, seedTiers) {
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+  
+  const classEntries = currentEntries.slice(start, end + 1);
+  const rng = createRng((Date.now() & 0x7fffffff) | 0);
+  
+  const allSeededNames = new Set();
+  for (const tier of seedTiers) {
+    for (const name of tier) allSeededNames.add(name);
+  }
+  
+  const unseeded = classEntries.filter(e => !allSeededNames.has(e.name));
+  
+  const tierEntries = seedTiers.map(names => {
+    const entries = [];
+    for (const name of names) {
+      const idx = classEntries.findIndex(e => e.name === name);
+      if (idx !== -1) entries.push(classEntries[idx]);
+    }
+    return entries;
+  });
+  
+  const newOrder = shuffle(unseeded, rng);
+  for (let i = tierEntries.length - 1; i >= 0; i--) {
+    newOrder.push(...shuffle(tierEntries[i], rng));
+  }
+  
+  currentEntries.splice(start, end - start + 1, ...newOrder);
+  
+  recalculateEntries(currentEntries);
+  
+  renderStartList(currentEntries);
+}
+
+// ===========================================================================
+// Ranking-based reorder
+// ===========================================================================
+
+function showRankingModal(className) {
+  if (!currentEntries) return;
+  
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+  
+  const classEntries = currentEntries.slice(start, end + 1);
+  
+  const modal = document.createElement('div');
+  modal.className = 'ranking-modal';
+  
+  modal.innerHTML = `<div class="ranking-modal-content">
+    <h3>「${escapeHtml(className)}」ランキング順スタート</h3>
+    <div class="ranking-help">
+      ランキング上位から順に選手名を入力（1行1名）。<br>
+      ランキング上位の選手が後ろ（遅いスタート）に配置されます。<br>
+      リストにない選手はランダム順で前方に配置されます。
+    </div>
+    <textarea class="ranking-textarea" placeholder="1位の選手名&#10;2位の選手名&#10;3位の選手名&#10;..."></textarea>
+    <div class="ranking-match-preview"></div>
+    <div class="ranking-modal-actions">
+      <button class="ranking-cancel">キャンセル</button>
+      <button class="ranking-apply">適用</button>
+    </div>
+  </div>`;
+  
+  document.body.appendChild(modal);
+  
+  const textarea = modal.querySelector('.ranking-textarea');
+  const preview = modal.querySelector('.ranking-match-preview');
+  
+  // Live matching preview
+  textarea.addEventListener('input', () => {
+    const lines = textarea.value.split('\n').map(l => l.trim()).filter(l => l);
+    if (lines.length === 0) {
+      preview.innerHTML = '';
+      return;
+    }
+    
+    let matched = 0;
+    for (const line of lines) {
+      if (findEntryByName(classEntries, line) !== -1) {
+        matched++;
+      }
+    }
+    
+    const total = classEntries.length;
+    preview.className = 'ranking-match-result ' + (matched === lines.length ? 'good' : 'partial');
+    preview.textContent = `${matched}/${lines.length}名がマッチ（クラス内${total}名）`;
+  });
+  
+  // Apply button
+  modal.querySelector('.ranking-apply').addEventListener('click', () => {
+    const lines = textarea.value.split('\n').map(l => l.trim()).filter(l => l);
+    document.body.removeChild(modal);
+    if (lines.length > 0) {
+      applyRankingOrder(className, lines);
+    }
+  });
+  
+  // Cancel
+  modal.querySelector('.ranking-cancel').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+  
+  // Close on backdrop
+  modal.addEventListener('click', e => {
+    if (e.target === modal) document.body.removeChild(modal);
+  });
+  
+
+  // Auto-fill from loaded ranking data if available
+  if (loadedRankings.length > 0) {
+    const autoMatched = autoMatchRanking(classEntries);
+    if (autoMatched.length > 0) {
+      textarea.value = autoMatched.join('\n');
+      // Trigger the input event to update preview
+      textarea.dispatchEvent(new Event('input'));
+    }
+  }
+
+  // Focus textarea
+  setTimeout(() => textarea.focus(), 100);
+}
+
+/**
+ * Find an entry index within a subset by fuzzy name matching.
+ * Tries exact match first, then partial match (contains).
+ */
+function findEntryByName(entries, searchName) {
+  // Normalize: remove spaces, convert to lowercase
+  const normalize = s => s.replace(/[\s\u3000]/g, '').toLowerCase();
+  const search = normalize(searchName);
+  
+  // Exact match
+  for (let i = 0; i < entries.length; i++) {
+    if (normalize(entries[i].name) === search) return i;
+  }
+  
+  // Partial match (search string contained in entry name, or vice versa)
+  for (let i = 0; i < entries.length; i++) {
+    const name = normalize(entries[i].name);
+    if (name.includes(search) || search.includes(name)) return i;
+  }
+  
+  return -1;
+}
+
+/**
+ * Apply ranking-based order to a class.
+ * rankedNames: array of names from highest-ranked to lowest.
+ * Highest-ranked athletes go to the END of the class (latest start = reverse order).
+ * Unranked athletes go to the beginning in random order.
+ */
+function applyRankingOrder(className, rankedNames) {
+  const { start, end } = getClassEntriesRange(className);
+  if (start === -1) return;
+  
+  const classEntries = currentEntries.slice(start, end + 1);
+  
+  // Separate into ranked and unranked
+  const ranked = []; // will be ordered by ranking (highest first)
+  const unranked = [...classEntries];
+  
+  for (const name of rankedNames) {
+    const idx = findEntryByName(unranked, name);
+    if (idx !== -1) {
+      ranked.push(unranked[idx]);
+      unranked.splice(idx, 1);
+    }
+  }
+  
+  // Shuffle unranked
+  const rng = createRng((Date.now() & 0x7fffffff) | 0);
+  const shuffledUnranked = shuffle(unranked, rng);
+  
+  // Build new order: unranked first (random), then ranked in REVERSE order
+  // (highest-ranked = last start)
+  const newOrder = [...shuffledUnranked, ...ranked.reverse()];
+  
+  // Replace in currentEntries
+  currentEntries.splice(start, end - start + 1, ...newOrder);
+  
+  // Recalculate times and numbers
+  recalculateEntries(currentEntries);
+
+  // Re-render
+  renderStartList(currentEntries);
+}
+
+// ===========================================================================
+// WRE class detection & bulk ranking apply
+// ===========================================================================
+
+/**
+ * Check if a class name matches WRE elite class patterns (ME/WE).
+ * Matches: ME, WE, M21E, W21E, ME(21), WE(21), etc.
+ */
+function isWreClass(className) {
+  return /^[MW](21)?E(\(.*\))?$/i.test(className.trim());
+}
+
+/**
+ * Detect WRE classes in current entries and return their names.
+ */
+function detectWreClasses() {
+  if (!currentEntries || currentEntries.length === 0) return [];
+  const seen = new Set();
+  const result = [];
+  for (const e of currentEntries) {
+    if (!seen.has(e.className) && isWreClass(e.className)) {
+      seen.add(e.className);
+      result.push(e.className);
+    }
+  }
+  return result;
+}
+
+/**
+ * Apply ranking order to all detected WRE (ME/WE) classes at once.
+ * Uses autoMatchRanking + applyRankingOrder without showing modals.
+ */
+function applyWreRankingAll() {
+  if (loadedRankings.length === 0) {
+    alert('先にランキングデータを読み込んでください。\n設定画面で「🌐 取得」またはJSONファイルを読み込んでください。');
+    return;
+  }
+
+  const wreClasses = detectWreClasses();
+  if (wreClasses.length === 0) {
+    alert('ME/WEクラスが見つかりませんでした。');
+    return;
+  }
+
+  let appliedCount = 0;
+  for (const className of wreClasses) {
+    const { start, end } = getClassEntriesRange(className);
+    if (start === -1) continue;
+    const classEntries = currentEntries.slice(start, end + 1);
+    const rankedNames = autoMatchRanking(classEntries);
+    if (rankedNames.length > 0) {
+      applyRankingOrder(className, rankedNames);
+      appliedCount++;
+    }
+  }
+
+  if (appliedCount > 0) {
+    alert(`${wreClasses.join(', ')} にランキング順を適用しました（${appliedCount}クラス）。`);
+  } else {
+    alert('ランキングデータとマッチする選手が見つかりませんでした。');
+  }
+}
+
+function renderStartList(entries) {
+  const output = $('startlistOutput');
+  output.innerHTML = '';
+  const cols = getVisibleColumns();
+  const laneCount = getLaneCount();
+  const multiLane = laneCount > 1;
+
+  // Column definitions: key, header label, cell renderer
+  const colDefs = [
+    { key: 'no', label: 'No', cls: 'col-no', cell: e => e.startNumber },
+    { key: 'lane', label: 'レーン', cls: 'col-lane', cell: e => e.lane || 1 },
+    { key: 'time', label: 'スタート', cls: 'col-time', cell: e => escapeHtml(e.startTime) },
+    { key: 'name', label: '氏名', cls: '', cell: e => escapeHtml(e.name) },
+    { key: 'furigana', label: 'ふりがな', cls: '', cell: e => escapeHtml(e.furigana) },
+    { key: 'club', label: '所属', cls: '', cell: e => escapeHtml(e.club) },
+    { key: 'card', label: 'カード', cls: 'col-card', cell: e => {
+      if (!e.cardNumber) {
+        return '<span class="rental-badge">レンタル</span>';
+      }
+      return escapeHtml(e.cardNumber);
+    }},
+    { key: 'iofid', label: 'IOF番号', cls: '', cell: e => escapeHtml(e.iofId || '') },
+    { key: 'gender', label: '性別', cls: '', cell: e => escapeHtml(e.gender || '') },
+  ];
+  const activeCols = colDefs.filter(c => cols[c.key]);
+
+  if (multiLane) {
+    // Group entries by lane, then by class within each lane
+    const laneGroups = {};
+    const laneOrder = [];
+    for (const e of entries) {
+      const lane = e.lane || 1;
+      if (!laneGroups[lane]) {
+        laneGroups[lane] = [];
+        laneOrder.push(lane);
+      }
+      laneGroups[lane].push(e);
+    }
+
+    for (const laneNum of laneOrder) {
+      const laneEntries = laneGroups[laneNum];
+
+      // Lane header
+      const laneHeader = document.createElement('div');
+      laneHeader.className = 'lane-header';
+      laneHeader.textContent = `レーン ${laneNum}`;
+      output.appendChild(laneHeader);
+
+      // Group by class within lane
+      const classEntries = {};
+      const classOrderSeen = [];
+      for (const e of laneEntries) {
+        if (!classEntries[e.className]) {
+          classEntries[e.className] = [];
+          classOrderSeen.push(e.className);
+        }
+        classEntries[e.className].push(e);
+      }
+
+      for (const className of classOrderSeen) {
+        const ce = classEntries[className];
+        renderClassSection(output, entries, ce, className, activeCols, colDefs);
+      }
+    }
+  } else {
+    // Single lane: group by class, preserving order
+    const classEntries = {};
+    const classOrderSeen = [];
+    for (const e of entries) {
+      if (!classEntries[e.className]) {
+        classEntries[e.className] = [];
+        classOrderSeen.push(e.className);
+      }
+      classEntries[e.className].push(e);
+    }
+
+    for (const className of classOrderSeen) {
+      const ce = classEntries[className];
+      renderClassSection(output, entries, ce, className, activeCols, colDefs);
+    }
+  }
+
+  const total = document.createElement('div');
+  total.className = 'startlist-total';
+  total.textContent = `合計: ${entries.length}名`;
+  output.appendChild(total);
+
+  // Wire up per-class reset and reshuffle buttons
+  output.querySelectorAll('[data-reset-class]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      resetClassOrder(btn.dataset.resetClass);
+    });
+  });
+  output.querySelectorAll('[data-reshuffle-class]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      reshuffleClass(btn.dataset.reshuffleClass);
+    });
+  });
+  output.querySelectorAll('[data-seed-class]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showSeedModal(btn.dataset.seedClass);
+    });
+  });
+  output.querySelectorAll('[data-ranking-class]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showRankingModal(btn.dataset.rankingClass);
+    });
+  });
+}
+
+function renderClassSection(output, allEntries, classEntries, className, activeCols, colDefs) {
+  const section = document.createElement('div');
+  section.className = 'startlist-class-section';
+
+  // Print header (visible only in print, shown once at top)
+  const printHeader = document.createElement('div');
+  printHeader.className = 'print-page-header';
+  printHeader.innerHTML = `START LIST<span class="print-date">${generationDate || ''}</span>`;
+  section.appendChild(printHeader);
+
+  const header = document.createElement('div');
+  header.className = 'startlist-class-header';
+  header.innerHTML = `<span>${escapeHtml(className)}</span>` +
+    `<span class="startlist-class-actions">` +
+      `<span class="startlist-class-count">${classEntries.length}名</span>` +
+      `<button class="btn btn-outline btn-sm no-print" data-seed-class="${escapeHtml(className)}" title="シード設定（ランキングベース）">🏅 シード</button>` +
+      `<button class="btn btn-outline btn-sm no-print" data-ranking-class="${escapeHtml(className)}" title="ランキング逆順に並び替え">📊 ランキング順</button>` +
+      `<button class="btn btn-outline btn-sm no-print" data-reshuffle-class="${escapeHtml(className)}" title="このクラスを再シャッフル">&#128256; 再シャッフル</button>` +
+      `<button class="btn btn-outline btn-sm no-print" data-reset-class="${escapeHtml(className)}">リセット</button>` +
+    `</span>`;
+  section.appendChild(header);
+
+  const table = document.createElement('table');
+  table.className = 'startlist-table';
+  const thRow = '<th class="col-drag no-print"></th>' +
+    activeCols.map(c => `<th class="${c.cls}">${c.label}</th>`).join('');
+  table.innerHTML = `<thead><tr>${thRow}</tr></thead>`;
+  const tbody = document.createElement('tbody');
+
+  for (const e of classEntries) {
+    const globalIdx = allEntries.indexOf(e);
+    const tr = document.createElement('tr');
+    tr.dataset.entryIndex = globalIdx;
+    const tdDrag = '<td class="col-drag no-print" title="ドラッグで並び替え">&#11783;</td>';
+    const tdCells = activeCols.map(c =>
+      `<td class="${c.cls}">${c.cell(e)}</td>`
+    ).join('');
+    tr.innerHTML = tdDrag + tdCells;
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  section.appendChild(table);
+
+  output.appendChild(section);
+
+  // Setup drag handlers for this tbody
+  setupRowDragDesktop(tbody, className);
+  setupRowDragTouch(tbody, className);
+}
+
+// --- Ranking data load ---
+$('rankingLoadBtn').addEventListener('click', () => {
+  $('rankingFileInput').click();
+});
+
+$('rankingFileInput').addEventListener('change', e => {
+  const files = e.target.files;
+  if (!files.length) return;
+  
+  const promises = [];
+  for (const file of files) {
+    promises.push(new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          if (data.athletes && Array.isArray(data.athletes)) {
+            resolve(data);
+          } else {
+            reject(new Error(`${file.name}: athletes配列が見つかりません`));
+          }
+        } catch (err) {
+          reject(new Error(`${file.name}: JSONの解析に失敗しました`));
+        }
+      };
+      reader.onerror = () => reject(new Error(`${file.name}: 読み込みエラー`));
+      reader.readAsText(file);
+    }));
+  }
+  
+  Promise.all(promises).then(results => {
+    loadedRankings.push(...results);
+    updateRankingDataUI();
+  }).catch(err => {
+    alert(err.message);
+  });
+  
+  // Reset file input so the same file can be re-selected
+  e.target.value = '';
+});
+
+$('rankingClearBtn').addEventListener('click', () => {
+  loadedRankings = [];
+  updateRankingDataUI();
+});
+
+// --- Ranking data fetch from GitHub CDN ---
+const CDN_BASE = 'https://raw.githubusercontent.com/nao-autonomous/orienteering-ranking-data/main/data';
+let cdnIndex = null;
+
+// Proxy base URL for IOF API (dashboard server)
+const IOF_PROXY_BASE = 'http://100.121.127.58:8080/api/iof-ranking';
+
+// Populate date selector on page load (for JOA)
+(async function loadCdnIndex() {
+  try {
+    const resp = await fetch(CDN_BASE + '/index.json');
+    if (!resp.ok) return;
+    cdnIndex = await resp.json();
+    const dateSelect = $('rankingDateSelect');
+    dateSelect.innerHTML = '';
+    const dates = Object.keys(cdnIndex.dates).sort().reverse();
+    dates.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d;
+      opt.textContent = d + (d === cdnIndex.latestDate ? ' (最新)' : '');
+      dateSelect.appendChild(opt);
+    });
+  } catch(e) { /* silent */ }
+})();
+
+// Toggle UI based on source: IOF=date input, JOA=date selector
+function updateDateUI() {
+  const source = $('rankingSourceSelect').value;
+  const dateSelect = $('rankingDateSelect');
+  const dateInput = $('rankingDateInput');
+  if (source === 'iof') {
+    dateSelect.style.display = 'none';
+    dateInput.style.display = '';
+    if (!dateInput.value) {
+      dateInput.value = new Date().toISOString().split('T')[0];
+    }
+  } else {
+    dateSelect.style.display = '';
+    dateInput.style.display = 'none';
+  }
+}
+// Initial state (IOF is default)
+updateDateUI();
+$('rankingSourceSelect').addEventListener('change', updateDateUI);
+
+$('rankingFetchCdnBtn').addEventListener('click', async function() {
+  const btn = this;
+  const originalText = btn.textContent;
+  btn.disabled = true;
+
+  const source = $('rankingSourceSelect').value; // "iof" or "joa"
+  const discipline = $('rankingDisciplineSelect').value; // "foot" or "sprint"
+  const selectedDate = $('rankingDateSelect').value;
+  const customDate = $('rankingDateInput').value;
+
+  try {
+    // IOF: always fetch from IOF API via proxy
+    if (source === 'iof') {
+      const iofDate = customDate || new Date().toISOString().split('T')[0];
+      btn.textContent = 'IOFランキング取得中... (20-30秒)';
+      const discParam = discipline === 'foot' ? 'F' : 'S';
+      const rankings = [];
+      for (const group of ['MEN', 'WOMEN']) {
+        btn.textContent = group === 'MEN' ? 'Men取得中... (1/2)' : 'Women取得中... (2/2)';
+        const url = `${IOF_PROXY_BASE}?discipline=${discParam}&group=${group}&date=${iofDate}&limit=10000`;
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`IOF API error (${resp.status})`);
+        const data = await resp.json();
+        // Convert IOF API format to our internal format
+        const gender = group === 'MEN' ? 'M' : 'W';
+        const discName = discipline === 'foot' ? 'FootO' : 'SprintO';
+        const athletes = (data.items || []).map(item => ({
+          rank: item.rank,
+          iofId: item.iofid,
+          name: `${item.firstName} ${item.lastName}`,
+          country: item.country,
+          points: item.points,
+        }));
+        rankings.push({
+          source: 'iof',
+          discipline: discName,
+          gender: gender,
+          date: iofDate,
+          athletes: athletes,
+        });
+      }
+
+      // Clear existing rankings of the same discipline
+      loadedRankings = loadedRankings.filter(r => {
+        const rDisc = r.discipline === 'FootO' ? 'foot' : 'sprint';
+        return rDisc !== discipline;
+      });
+      rankings.forEach(r => loadedRankings.push(r));
+      updateRankingDataUI();
+      return;
+    }
+
+    // JOA: fetch from CDN
+    btn.textContent = '取得中...';
+    if (!cdnIndex) {
+      const resp = await fetch(CDN_BASE + '/index.json');
+      if (!resp.ok) throw new Error('index.json not found');
+      cdnIndex = await resp.json();
+    }
+
+    const dateData = cdnIndex.dates[selectedDate];
+    if (!dateData) throw new Error('選択した日付のデータがありません');
+
+    // Build file list based on source + discipline selection
+    const fileKeys = [];
+    if (source === 'iof' || source === 'both') {
+      fileKeys.push(`iof_${discipline}_m`, `iof_${discipline}_w`);
+    }
+    if (source === 'joa' || source === 'both') {
+      fileKeys.push(`joa_${discipline}_m`, `joa_${discipline}_w`);
+    }
+    // backward compat: old format without source prefix
+    if (source === 'iof' || source === 'both') {
+      fileKeys.push(`${discipline}_m`, `${discipline}_w`);
+    }
+    // Deduplicate by filename
+    const seen = new Set();
+    const filesToFetch = [];
+    for (const k of fileKeys) {
+      if (!dateData[k]) continue;
+      const file = dateData[k].file;
+      if (seen.has(file)) continue;
+      seen.add(file);
+      filesToFetch.push(file);
+    }
+
+    if (filesToFetch.length === 0) throw new Error('該当するランキングデータがありません');
+
+    const fetchPromises = filesToFetch.map(async (filename) => {
+      const resp = await fetch(CDN_BASE + '/' + filename);
+      if (!resp.ok) throw new Error(`Failed to fetch ${filename}`);
+      return resp.json();
+    });
+
+    const rankings = await Promise.all(fetchPromises);
+
+    // Clear existing rankings of the same discipline to avoid stale data
+    loadedRankings = loadedRankings.filter(r => {
+      const rDisc = r.discipline === 'FootO' ? 'foot' : 'sprint';
+      return rDisc !== discipline;
+    });
+
+    // Add fetched rankings
+    rankings.forEach(data => {
+      if (!data.athletes || !Array.isArray(data.athletes)) return;
+      loadedRankings.push(data);
+    });
+
+    updateRankingDataUI();
+
+  } catch (err) {
+    alert('ランキングデータの取得に失敗しました: ' + err.message);
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+});
+
+function updateRankingDataUI() {
+  const empty = $('rankingDataEmpty');
+  const loaded = $('rankingDataLoaded');
+  const info = $('rankingDataInfo');
+  
+  if (loadedRankings.length === 0) {
+    empty.classList.remove('hidden');
+    loaded.classList.add('hidden');
+    return;
+  }
+  
+  empty.classList.add('hidden');
+  loaded.classList.remove('hidden');
+  
+  info.innerHTML = loadedRankings.map(r => {
+    const srcLabel = r.source === 'IOF' ? 'IOF世界' : 'JOA日本';
+    const discLabel = r.discipline === 'Sprint' ? 'スプリント' : 'フォレスト';
+    const genderLabel = r.gender === 'M' ? '男子' : '女子';
+    return `<span class="ranking-data-info-item">${srcLabel} ${discLabel} ${genderLabel} (${r.date}) ${r.athletes.length}名</span>`;
+  }).join('');
+}
+
+
+// --- Global reset ---
+$('resetOrderBtn').addEventListener('click', () => {
+  resetAllOrder();
+});
+
+$('wreRankingBtn').addEventListener('click', () => {
+  applyWreRankingAll();
+});
+
+// --- Downloads ---
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+$('downloadMulka').addEventListener('click', () => {
+  if (!currentEntries) return;
+  const csv = generateMulka2CSV(currentEntries);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  downloadBlob(blob, 'startlist_mulka2.csv');
+});
+
+$('printBtn').addEventListener('click', () => {
+  window.print();
+});
+</script>
+</body>
+</html>
