@@ -1,0 +1,236 @@
+{
+  "event": {
+    "name": "2025年度 日本学生オリエンテーリング選手権大会 ミドル・ディスタンス競技部門",
+    "date": "2026-03-14",
+    "venue": "神村学園高等部 伊賀校 グラウンド",
+    "venue_address": "〒518-0204 三重県伊賀市北山1373",
+    "organizer": "日本学生オリエンテーリング連盟",
+    "days": 1
+  },
+  "timeline": [
+    {
+      "time": "07:30",
+      "label": "会場・乗降場オープン",
+      "category": "access",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "08:00",
+      "label": "選手権待機所入場開始",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "09:00",
+      "label": "一般の部スタート開始",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "一般の部"
+    },
+    {
+      "time": "09:00",
+      "label": "選手権待機所入場締切",
+      "category": "other",
+      "details": "以降の入場不可。通信機器使用禁止",
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "10:30",
+      "label": "一般の部スタート終了",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "一般の部"
+    },
+    {
+      "time": "11:30",
+      "label": "選手権の部スタート開始",
+      "category": "start",
+      "details": "2分間隔、MEとWE交互スタート。5フレームスタートレーン（5分前SIクリア/チェック、4分前GPS、3分前地図交換、2分前コントロール位置説明、1分前地図+スタート）",
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "12:00",
+      "label": "一般の部フィニッシュ閉鎖",
+      "category": "finish",
+      "details": null,
+      "day": 1,
+      "applies_to": "一般の部"
+    },
+    {
+      "time": "12:15",
+      "label": "一般の部抗議期限",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "一般の部"
+    },
+    {
+      "time": "13:35",
+      "label": "選手権の部スタート終了",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "14:30",
+      "label": "選手権の部抗議期限",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "14:50",
+      "label": "表彰式",
+      "category": "ceremony",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:00",
+      "label": "選手権の部フィニッシュ閉鎖",
+      "category": "finish",
+      "details": null,
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "15:30",
+      "label": "GPSベスト返却期限",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "ME/WE"
+    },
+    {
+      "time": "16:00",
+      "label": "リレー走順登録期限",
+      "category": "other",
+      "details": "リレー走順提出サイト経由",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "16:30",
+      "label": "会場閉鎖",
+      "category": "access",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    }
+  ],
+  "info": {
+    "access": "【電車】近鉄大阪線 伊賀上津駅（〒518-0205 三重県伊賀市伊勢路192）下車、徒歩約25分。急行・特急は通過駅のため注意。【車】京都方面: 新名神高速道路 甲南IC→約45分。大阪方面: 名阪国道 上野東IC→約25分。名古屋方面: 名阪国道 下柘植IC→約25分。【乗降場】第1乗降場（神村学園グラウンド北東）: 学生のみ 7:30-9:30/15:00-16:30。第2乗降場（上津地区市民センター）: 全参加者 終日。※会場へは北側からのみアクセス可。南側からの車両・徒歩での進入禁止。【駐車場】伊賀市伊勢路 工業団地エリア（〒518-0205 三重県伊賀市伊勢路758周辺）。第1〜第3駐車場。会場まで徒歩約35分（2.3km）。送迎バスなし。駐車場にトイレなし",
+    "reception": null,
+    "start_procedure": "【一般の部】1分間隔。4フレームスタートレーン。【選手権の部】2分間隔（MEとWE交互）。5フレームスタートレーン: 5分前SIクリア/チェック→4分前GPSベスト→3分前地図交換→2分前コントロール位置説明→1分前地図受取+スタート。全クラスパンチングフィニッシュ",
+    "courses": [
+      {
+        "class": "ME",
+        "distance": "4.4km",
+        "climb": "315m",
+        "controls": null,
+        "first_start": "11:30"
+      },
+      {
+        "class": "WE",
+        "distance": "3.3km",
+        "climb": "215m",
+        "controls": null,
+        "first_start": "11:30"
+      },
+      {
+        "class": "MUA1",
+        "distance": "2.6km",
+        "climb": "105m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "MUA2",
+        "distance": "2.6km",
+        "climb": "120m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "MUA3",
+        "distance": "2.6km",
+        "climb": "125m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "MUA4",
+        "distance": "2.5km",
+        "climb": "115m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "MUB",
+        "distance": "2.0km",
+        "climb": "55m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "MUF1",
+        "distance": "2.4km",
+        "climb": "95m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "MUF2",
+        "distance": "2.4km",
+        "climb": "80m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "WUA1",
+        "distance": "2.1km",
+        "climb": "80m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "WUA2",
+        "distance": "2.1km",
+        "climb": "70m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "WUB",
+        "distance": "1.4km",
+        "climb": "25m",
+        "controls": null,
+        "first_start": "09:00"
+      },
+      {
+        "class": "WUF",
+        "distance": "1.7km",
+        "climb": "50m",
+        "controls": null,
+        "first_start": "09:00"
+      }
+    ],
+    "equipment": "身体の露出を控えた服装。パンチングシステム: SPORTident SIカード（差し込み式、タッチフリー非対応）。バックアップ: ピンパンチ（地図に穴あけ）。ナンバーカード用安全ピン持参。給水所なし（選手権の想定優勝タイム35分のため）。携帯電話は競技中使用禁止",
+    "emergency": "当日連絡先: TEL 070-5307-8659。メール: icmr2025info@gmail.com。イベント保険加入済み（死亡・後遺障害: 最大200万円、入院: 3,000円/日、通院: 2,000円/日）。健康保険証・身分証持参推奨",
+    "facilities": null,
+    "food_and_bath": null
+  },
+  "start_walk_minutes": null,
+  "notes": "地形: 青山高原西側、標高約200〜450m。複雑な尾根谷地形で急斜面が多い。尾根上と谷底は比較的緩やか。谷部は間伐により走行性低下、尾根部は比較的走行性高い。多くの道・小道あり。テレイン内に養鶏場あり、絶対に立ち入らないこと。テレイン内の道路は車両通行あり注意。地図: 1:10,000、等高線間隔5m、走行性4段階表示、A4、防水紙（ビニール袋なし）、ISOM2017-2。ドーピング検査対象大会（JADA）。ME/WE出場者はドーピング防止e-learning受講必須。中止判断: 競技日当日6:00までに公式サイト・JOYで公表。参加費返却なし"
+}

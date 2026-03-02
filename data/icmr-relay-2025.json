@@ -1,0 +1,224 @@
+{
+  "event": {
+    "name": "2025年度 日本学生オリエンテーリング選手権大会 リレー競技部門",
+    "date": "2026-03-15",
+    "venue": "神村学園高等部 伊賀校 グラウンド",
+    "venue_address": "〒518-0204 三重県伊賀市北山1373",
+    "organizer": "日本学生オリエンテーリング連盟",
+    "days": 1
+  },
+  "timeline": [
+    {
+      "time": "07:30",
+      "label": "会場・乗降場オープン",
+      "category": "access",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "08:30",
+      "label": "選手権待機所入場開始",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "MER/WER"
+    },
+    {
+      "time": "09:00",
+      "label": "選手権待機所入場締切",
+      "category": "other",
+      "details": "以降の入場不可。通信機器使用禁止",
+      "day": 1,
+      "applies_to": "MER/WER"
+    },
+    {
+      "time": "09:20",
+      "label": "デモンストレーション開始",
+      "category": "ceremony",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "09:50",
+      "label": "MER スタート",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "MER"
+    },
+    {
+      "time": "10:00",
+      "label": "WER スタート",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "WER"
+    },
+    {
+      "time": "10:10",
+      "label": "MAR スタート",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "MAR"
+    },
+    {
+      "time": "10:20",
+      "label": "WAR/XAR/MAS/WAS/BR/BS スタート",
+      "category": "start",
+      "details": null,
+      "day": 1,
+      "applies_to": "WAR/XAR/MAS/WAS/BR/BS"
+    },
+    {
+      "time": "13:00",
+      "label": "MER/WER リスタート",
+      "category": "start",
+      "details": "中継できなかった未出走者の一斉スタート",
+      "day": 1,
+      "applies_to": "MER/WER"
+    },
+    {
+      "time": "13:20",
+      "label": "一般クラス リスタート",
+      "category": "start",
+      "details": "中継できなかった未出走者の一斉スタート",
+      "day": 1,
+      "applies_to": "一般の部"
+    },
+    {
+      "time": "13:30",
+      "label": "公式レース開始",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "13:50",
+      "label": "抗議期限",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "14:50",
+      "label": "表彰式",
+      "category": "ceremony",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:00",
+      "label": "全クラスフィニッシュ閉鎖",
+      "category": "finish",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:10",
+      "label": "閉会式",
+      "category": "ceremony",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:30",
+      "label": "GPSベスト返却期限",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "MER/WER"
+    },
+    {
+      "time": "16:00",
+      "label": "会場閉鎖",
+      "category": "access",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    }
+  ],
+  "info": {
+    "access": "【電車】近鉄大阪線 伊賀上津駅下車、徒歩約25分。急行・特急は通過駅。【車】京都方面: 新名神 甲南IC→約45分。大阪方面: 名阪国道 上野東IC→約25分。名古屋方面: 名阪国道 下柘植IC→約25分。【乗降場】第1乗降場（神村学園グラウンド北東）: 学生のみ 7:30-9:00/15:00-16:00。第2乗降場（上津地区市民センター）: 全参加者 終日。※北側からのみアクセス可。【駐車場】伊賀市伊勢路 工業団地エリア。会場まで徒歩約35分（2.3km）。送迎バスなし",
+    "reception": null,
+    "start_procedure": "3人リレー。一斉スタート（クラス別、ピストル合図）。中継: 前走者とのタッチで成立。中継ゾーン以降の追い越し禁止。リスタート: 選手権13:00、一般13:20（中継できなかったチームの一斉スタート）。フィニッシュ: 3走者のフィニッシュ通過で順位確定。個人クラス（MAS/WAS/BS）は3周回",
+    "courses": [
+      {
+        "class": "MER（リレー3人）",
+        "distance": "6.0-6.1km/leg",
+        "climb": "365-375m/leg",
+        "controls": null,
+        "first_start": "09:50"
+      },
+      {
+        "class": "WER（リレー3人）",
+        "distance": "3.7-3.8km/leg",
+        "climb": "210-220m/leg",
+        "controls": null,
+        "first_start": "10:00"
+      },
+      {
+        "class": "MAR（リレー3人）",
+        "distance": "3.2km/leg",
+        "climb": "205-210m/leg",
+        "controls": null,
+        "first_start": "10:10"
+      },
+      {
+        "class": "WAR（リレー3人）",
+        "distance": "2.4-2.5km/leg",
+        "climb": "140-150m/leg",
+        "controls": null,
+        "first_start": "10:20"
+      },
+      {
+        "class": "XAR（リレー3人）",
+        "distance": "2.4-2.5km/leg",
+        "climb": "140-150m/leg",
+        "controls": null,
+        "first_start": "10:20"
+      },
+      {
+        "class": "BR（リレー3人）",
+        "distance": "2.0-2.1km/leg",
+        "climb": "105-115m/leg",
+        "controls": null,
+        "first_start": "10:20"
+      },
+      {
+        "class": "MAS（個人3周回）",
+        "distance": "3.2km",
+        "climb": "210m",
+        "controls": null,
+        "first_start": "10:20"
+      },
+      {
+        "class": "WAS（個人3周回）",
+        "distance": "2.5km",
+        "climb": "145m",
+        "controls": null,
+        "first_start": "10:20"
+      },
+      {
+        "class": "BS（個人3周回）",
+        "distance": "2.1km",
+        "climb": "115m",
+        "controls": null,
+        "first_start": "10:20"
+      }
+    ],
+    "equipment": "身体の露出を控えた服装。パンチングシステム: SPORTident SIカード（差し込み式、タッチフリー非対応）。バックアップ: ピンパンチ（地図に穴あけ）。ナンバーカード用安全ピン持参。携帯電話は競技中使用禁止",
+    "emergency": "当日連絡先: TEL 070-5307-8659。メール: icmr2025info@gmail.com。イベント保険加入済み（死亡・後遺障害: 最大200万円、入院: 3,000円/日、通院: 2,000円/日）。健康保険証・身分証持参推奨",
+    "facilities": null,
+    "food_and_bath": null
+  },
+  "start_walk_minutes": null,
+  "notes": "リレー走順: 3/13(金)走順提出サイトオープン、3/14(土)16:00締切。走順提出サイトは公式サイトからリンク。テレイン・地図・注意事項はミドルと共通（青山高原西側、1:10,000、養鶏場立入禁止等）。中止判断: 競技日当日6:00までに公式サイト・JOYで公表"
+}

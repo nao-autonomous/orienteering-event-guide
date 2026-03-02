@@ -40,11 +40,25 @@
       "source": "要項"
     },
     {
+      "id": "icmr-middle-2025",
+      "name": "インカレミドル2025（青山高原）",
+      "date": "2026-03-14",
+      "file": "icmr-middle-2025.json",
+      "source": "要項3+スタートリスト"
+    },
+    {
       "id": "takasaki-2026",
       "name": "第34回オリエンテーリング高崎大会【観音山丘陵】",
       "date": "2026-03-15",
       "file": "takasaki-2026.json",
       "source": "要項"
+    },
+    {
+      "id": "icmr-relay-2025",
+      "name": "インカレリレー2025（青山高原）",
+      "date": "2026-03-15",
+      "file": "icmr-relay-2025.json",
+      "source": "要項3+エントリーリスト"
     },
     {
       "id": "waseda-oc-2026",
