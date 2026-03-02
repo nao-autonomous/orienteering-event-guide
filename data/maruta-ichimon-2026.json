@@ -1,0 +1,168 @@
+{
+  "event": {
+    "name": "第7回丸田一門練（北大春合宿）",
+    "date": "2026-03-11/2026-03-12",
+    "venue": "切畑自治会館（day1）/ 石山市民運動広場（day2）",
+    "venue_address": "大阪府豊能町（day1）/ 滋賀県大津市（day2）",
+    "organizer": "北海道大学オリエンテーリング部・丸田一門",
+    "days": 2
+  },
+  "timeline": [
+    {
+      "time": "09:00",
+      "label": "開場・設置開始",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "10:30",
+      "label": "練習開始",
+      "category": "start",
+      "details": "各自スタート",
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "13:15",
+      "label": "Forsta参加者集合",
+      "category": "start",
+      "details": "Forstaコースの参加者集合時間",
+      "day": 1,
+      "applies_to": "Forsta"
+    },
+    {
+      "time": "14:15",
+      "label": "フィニッシュ閉鎖・撤収開始",
+      "category": "finish",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:00",
+      "label": "会場閉鎖",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:30",
+      "label": "完全撤収",
+      "category": "other",
+      "details": null,
+      "day": 1,
+      "applies_to": "all"
+    },
+    {
+      "time": "09:00",
+      "label": "設置開始",
+      "category": "other",
+      "details": null,
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "10:30",
+      "label": "駐車場開場・練習開始",
+      "category": "start",
+      "details": "10:30までは他団体が会場を利用しているため駐車不可",
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "14:00",
+      "label": "フィニッシュ閉鎖・撤収開始",
+      "category": "finish",
+      "details": null,
+      "day": 2,
+      "applies_to": "all"
+    },
+    {
+      "time": "15:30",
+      "label": "完全撤収",
+      "category": "other",
+      "details": null,
+      "day": 2,
+      "applies_to": "all"
+    }
+  ],
+  "info": {
+    "access": "【day1 豊能切畑】車: 新名神「茨木千提寺」IC→10km約16分、「箕面とどろみ」IC→10km約15分。駐車場は会場から徒歩35分の「とよのコスモスの里」。公共交通: 阪急池田駅→阪急バス26系統「余野（東能勢中）」下車徒歩35分（680円）。北急箕面萱野駅→阪急バス1系統→中止々呂美乗換→26系統。【day2 大平山】車: 京滋バイパス「石山」IC→2km約8分、名神「瀬田東」IC→5km約15分。公共交通: JR石山駅→江若交通1系統「石山団地口」下車徒歩16分（250円）、京阪石山寺駅→江若交通1系統（8分250円）",
+    "reception": null,
+    "start_procedure": "練習会形式。各自でスタート",
+    "courses": [
+      {
+        "class": "E1 / E1_guide",
+        "distance": "4.0 km",
+        "climb": "275 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "A1 / A1_guide",
+        "distance": "3.4 km",
+        "climb": "240 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "F1",
+        "distance": "2.8 km",
+        "climb": "185 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "Forsta",
+        "distance": "1.9-2.0 km",
+        "climb": null,
+        "controls": null,
+        "first_start": "13:15"
+      },
+      {
+        "class": "大阪OLC大会 M21A（day2再走）",
+        "distance": "4.3 km",
+        "climb": "260 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "大阪OLC大会 W21A（day2再走）",
+        "distance": "3.6 km",
+        "climb": "215 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "E2（北大向け）/ E3（一般向け）",
+        "distance": "4.4 km / 4.2 km",
+        "climb": "270 m / 260 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "A2",
+        "distance": "3.8 km",
+        "climb": "255 m",
+        "controls": null,
+        "first_start": null
+      },
+      {
+        "class": "F2",
+        "distance": "2.6 km",
+        "climb": "165 m",
+        "controls": null,
+        "first_start": null
+      }
+    ],
+    "equipment": null,
+    "emergency": "運営責任者 地田朋祐（北大OLC）、コースプランナー 丸田祐大（丸田一門・大阪OLC）。メール: chida.tomohiro.p3@elms.hokudai.ac.jp / knights.of.maruta@gmail.com",
+    "facilities": "【day1】駐車場は「とよのコスモスの里」（会場から徒歩35分）。申込人数によっては会場駐車場を案内。【day2】仮設トイレ男女各1台。10:30まで他団体利用中で駐車不可。会場へ続く道の門の幅が狭いので注意",
+    "food_and_bath": null
+  },
+  "start_walk_minutes": 5,
+  "notes": "guideコースはE1/A1のラインO版（新人やサムリが苦手な旧人向け）。エクストラメニューあり。day2は大阪OLC50周年記念大会の一部コース再走可能。地図: day1「豊能切畑」1/10000 ISOM2017-2準拠（2020年阪神奈OLC作成、2024年修正）、day2「大平山」1/10000 ISOM2017-2準拠（2025年大阪OLC作成）。参加費: 一般3200円（単日）/4700円（両日）、学生2200円/3700円、高校生以下1000円/1500円。Eカード貸出+500円/日"
+}

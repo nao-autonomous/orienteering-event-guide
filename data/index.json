@@ -33,10 +33,24 @@
       "source": "プログラム"
     },
     {
+      "id": "maruta-ichimon-2026",
+      "name": "第7回丸田一門練（北大春合宿）",
+      "date": "2026-03-11/2026-03-12",
+      "file": "maruta-ichimon-2026.json",
+      "source": "要項"
+    },
+    {
       "id": "takasaki-2026",
       "name": "第34回オリエンテーリング高崎大会【観音山丘陵】",
       "date": "2026-03-15",
       "file": "takasaki-2026.json",
+      "source": "要項"
+    },
+    {
+      "id": "waseda-oc-2026",
+      "name": "第45回早稲田大学オリエンテーリングクラブ大会",
+      "date": "2026-05-31",
+      "file": "waseda-oc-2026.json",
       "source": "要項"
     }
   ]
