@@ -44,6 +44,7 @@
       "name": "インカレミドル2025（青山高原）",
       "date": "2026-03-14",
       "file": "icmr-middle-2025.json",
+      "startlist": "icmr-middle-2025-startlist.json",
       "source": "要項3+スタートリスト"
     },
     {
@@ -58,6 +59,7 @@
       "name": "インカレリレー2025（青山高原）",
       "date": "2026-03-15",
       "file": "icmr-relay-2025.json",
+      "startlist": "icmr-relay-2025-startlist.json",
       "source": "要項3+エントリーリスト"
     },
     {
